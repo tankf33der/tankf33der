@@ -3,7 +3,7 @@
 (de randsym NIL
    (pack
       (make
-         (do 6
+         (do (rand 5 8)
             (link
                (char
                   (if (rand T) (rand 97 122) (rand 48 57)) ) ) ) ) ) )

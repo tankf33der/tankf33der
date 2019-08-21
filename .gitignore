@@ -1,0 +1,4 @@
+*.o
+*.use
+obj/*
+bigint

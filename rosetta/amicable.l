@@ -3,6 +3,11 @@
       (con @ (inc (cdr @)))
       (push Var (cons Key 1)) )
    Key )
+(de **sum (L)
+   (let S 1
+      (for I (cdr L)
+         (inc 'S (** (car L) I)) )
+      S ) )
 (de factor-sum (N)
    (if (=1 N)
       0
@@ -20,23 +25,8 @@
                (inc 'D (pop 'L)) ) )
          (accud 'R N1)
          (for I R
-            (println 'I I)
-            (one D)
-            (one M)
-            (for J (cdr I)
-               (println 'J J)
-               (setq M (* M (car I)))
-               (inc 'D M) 
-               (println 'D D 'M M)
-            )
-            (println 'finD D)
-            (setq S (* S D)) )
-         (println 'S S 'N N)
+            (setq S (* S (**sum I))) )
          (- S N) ) ) )
-(println (factor-sum 220))
-#(println (factor-sum 221))
-
-#{
 (bench
    (for I 20000
       (let X (factor-sum I)
@@ -44,5 +34,4 @@
             (< I X)
             (= I (factor-sum X))
             (println I X) ) ) ) )
-}#
 (bye)

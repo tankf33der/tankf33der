@@ -20,13 +20,23 @@
                (inc 'D (pop 'L)) ) )
          (accud 'R N1)
          (for I R
+            (println 'I I)
             (one D)
             (one M)
             (for J (cdr I)
+               (println 'J J)
                (setq M (* M (car I)))
-               (inc 'D M) )
-               (setq S (* S D)) )
+               (inc 'D M) 
+               (println 'D D 'M M)
+            )
+            (println 'finD D)
+            (setq S (* S D)) )
+         (println 'S S 'N N)
          (- S N) ) ) )
+(println (factor-sum 220))
+#(println (factor-sum 221))
+
+#{
 (bench
    (for I 20000
       (let X (factor-sum I)
@@ -34,4 +44,5 @@
             (< I X)
             (= I (factor-sum X))
             (println I X) ) ) ) )
+}#
 (bye)

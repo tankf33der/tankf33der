@@ -1,0 +1,56 @@
+15:22 <tankf33der> remember i asked today
+15:22 <tankf33der> 12:57 <tankf33der> '(R1 (8 . N) (0 . 8)))
+15:22 <tankf33der> 12:57 <tankf33der> why 8 . N ?
+15:22 <tankf33der> you answered
+15:22 <tankf33der> Regenaxer> (8 . N) is an 8-byte number
+15:22 <tankf33der> =========
+15:23 <tankf33der> i thought (8 . N) is 8 8-byte numbers
+15:23 <Regenaxer>     □ structures, passed as lists with
+15:23 <Regenaxer>        ☆ a variable in the CAR (to receive the returned structure data, ignored
+15:23 <Regenaxer>          when the CAR is NIL)
+15:23 <Regenaxer>        ☆ a cons pair for the size and result specification in the CADR (see
+15:23 <Regenaxer>          above), and
+15:23 <Regenaxer>        ☆ an optional sequence of initialization items in the CDDR, where each
+15:23 <Regenaxer>          may be
+15:23 <Regenaxer>           ○ a positive number, stored as an unsigned byte value
+15:23 <Regenaxer>           ○ a negative number, whose absolute value is stored as an unsigned
+15:23 <Regenaxer>             integer
+15:23 <Regenaxer>           ○ a pair (num . cnt) where 'num' is stored in a field of 'cnt' bytes
+15:23 <Regenaxer> So (8 . N) is a cons pair for the size and result specificatio
+15:24 <Regenaxer> n
+15:24 <Regenaxer> result is N
+15:24 <tankf33der> 8 8-byte numbers is (64 . N) then ?
+15:24 <Regenaxer> No, the size of *this* struct is 8 bytes
+15:24 <Regenaxer> it is a pointer to the struct
+15:25 <Regenaxer> (0 . 8)) is not needed, right? Or must this pointer be initialized?
+15:25 <cess11_> So it is the pointer numbers and an offset telling where that memory structure ends? 
+15:26 <Regenaxer> if not, '(R1 (8 . N)) is enough
+15:26 <tankf33der> does this will work too: '(R1 (1 . N) (0 . 8)))
+15:26 <tankf33der> ?
+15:26 <Regenaxer> cess11_, no
+15:26 <Regenaxer> tankf33der, no
+15:26 <Regenaxer> 1 byte is too small
+15:26 <cess11_> It is the length of the pointer, then? 
+15:27 <Regenaxer> we must pass the address of a pointer
+15:27 <Regenaxer> cess11_, yes, 8 bytes
+15:27 <tankf33der> output seems correct, not tested with struct calls
+15:27 <cess11_> Good, thanks, then I understand. 
+15:27 <Regenaxer> 1 *may* work, as malloc allocates more (aligned)
+15:28 <Regenaxer> but it is wrong
+15:28 <tankf33der> ok
+15:29 <Regenaxer> you could also do '(R1 (8 B . 8))
+15:29 <Regenaxer> allocate 8 bytes instead of 1 N
+15:29 <Regenaxer> Same as '(R1 (8 (B . 8)))
+15:29 <Regenaxer> Same as '(R1 (8 . (B . 8)))
+15:30 <Regenaxer> '(R1 (8 . N)) is also '(R1 (8 . (N . 1)))
+15:30 <Regenaxer> which is '(R1 (8 N . 1))
+15:30 <tankf33der> tears.
+15:31 <Regenaxer> or just '(R1 (8 . N))
+15:31 <Regenaxer> :)
+15:31 <Regenaxer> One N is 8 B :)
+15:32 <Regenaxer> (N . 4)        # long[4]
+15:33 <Regenaxer> So (N . 1) is the same as N, right?
+15:33 <tankf33der> right
+15:33 <Regenaxer> I also have to look it up each time
+15:33 <Regenaxer> forget it immediately again :)
+

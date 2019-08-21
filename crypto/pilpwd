@@ -1,0 +1,14 @@
+#!/bin/env pil 
+
+(load "../rosetta/base64.l")
+(load "../rosetta/sha256.l")
+(load "scrypt.l")
+(prinl
+   (base64
+      (pbkdf2
+         'sha256
+         (mapcar char (chop (opt)))
+         (mapcar char (chop (opt)))
+         4096
+         20 ) ) )
+(bye)

@@ -1,0 +1,22 @@
+inspired by
+https://github.com/pierre-lecocq/pml
+
+# Goal: Counts traffic in date range by IP
+# Manual parsing, demo
+# add more features is trivial job 
+#
+: (parse "access_log" (2004 3 7) (2004 3 7))
+64.242.88.10                            2317356
+h24-70-56-49.ca.shawcable.net           27054
+h24-71-249-14.ca.shawcable.net          26904
+calcite.rhyolite.com                    18753
+d207-6-9-183.bchsia.telus.net           10281
+lj1090.inktomisearch.com                3860
+lordgun.org                             2869
+bh02i525f01.au.ibm.com                  2300
+lj1125.inktomisearch.com                209
+lj1088.inktomisearch.com                209
+lj1036.inktomisearch.com                136
+mmscrm07-2.sac.overture.com             68
+206-15-133-181.dialup.ziplink.net       0
+

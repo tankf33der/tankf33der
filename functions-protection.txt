@@ -1,0 +1,29 @@
+#{
+   User of hash function call (tiger) function with a list, it returns 
+   a list of internal state as result of hash:
+      (tiger (mapcar char (chop "abc")))
+   Internal states:
+   o) A  - changed in (combine)
+   o) Y0 - changed in (dump) via (combine) calls
+
+   Questions:
+   o) if user knows names of variables, can he overwrite them, after 
+      load my library as (load "tiger.l") ?
+   o) if user already have variables A and Y0 somewhere in code will I
+      overwrite them after (combines) and (dump) calls
+}#
+
+
+# Pseudo code as tiges.l
+#
+(de dump NIL
+   (setq Y0 (+ Y0 64)) )
+(de combine ("A" X)
+   (set "A" (x| (val "A") X))
+   (dump) )
+(de tiger (Lst)
+   (let (A 0  Y0 77)
+      (for N Lst
+         (combine 'A N) )
+      (list A Y0) ) )
+

@@ -1,0 +1,18 @@
+...
+...
+...
+	"tabmovement": false,
+    "tabsize": 4,
+    "tabstospaces": false,
+    "termtitle": false,
+    "useprimary": true,
+
+	"*.l": {
+		"autoclose": false,
+		"filetype": "picolisp",
+		"matchbrace": true,
+		"matchbrace": true,
+		"tabsize": 3,
+		"tabstospaces": true
+	}
+}

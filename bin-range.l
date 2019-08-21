@@ -1,0 +1,10 @@
+(setq Lst (need 4 0))
+(for X (1 2 4 8 16 32 64 128)
+   (map
+      '((L)
+         (set L X)
+         (println (pack (mapcar '((L) (pad 8 (bin L))) Lst)))
+         (set L 0) )
+      Lst ) )
+(msg 'ok)
+(bye)

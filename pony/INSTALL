@@ -1,0 +1,21 @@
+Installation of latest PonyLang to CentOS 7 (minimal, out of box):
+
+o) yum
+yum install -y wget git gcc gcc-c++ ncurses-* zlib-*
+o) LLVM
+wget http://llvm.org/releases/3.8.0/clang+llvm-3.8.0-linux-x86_64-centos6.tar.xz
+tar -xJf clang+llvm-3.8.0-linux-x86_64-centos6.tar.xz
+mv clang+llvm-3.8.0-linux-x86_64-centos6 llvm
+# add to .bash_profile
+PATH=$PATH:$HOME/llvm/bin
+# check after relogin
+llvm-config --version
+llvm-config --prefix
+o) PonyLang
+git clone https://github.com/ponylang/ponyc.git
+cd ponyc
+make config=release
+make config=release install
+o) Have fun
+/usr/local/lib/pony/0.2.1-890-g8acbed8/bin/ponyc -v
+

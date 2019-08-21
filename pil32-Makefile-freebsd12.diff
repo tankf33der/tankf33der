@@ -1,0 +1,16 @@
+--- Makefile    2017-10-04 09:22:44.000000000 +0300
++++ Makefile.mod        2019-01-30 11:46:33.698060000 +0200
+@@ -42,10 +42,10 @@
+        OS = FreeBSD
+        CC = gcc
+        CCLD = clang
+-       CFLAGS += ${M32}
++       CFLAGS += ${M32} -fPIC
+        PICOLISP-FLAGS = ${M32} -rdynamic
+        LIB-FLAGS = -lm
+-       DYNAMIC-LIB-FLAGS = ${M32} -shared -export-dynamic
++       DYNAMIC-LIB-FLAGS = ${M32} -shared
+        LCRYPT = -lcrypt
+        STRIP = strip
+ else
+

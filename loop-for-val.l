@@ -1,0 +1,11 @@
+(setq
+   L1 (range 1 5)
+   L2 (range 1 10)
+   L3 (range 1 20) )
+(println 'L2 L2)
+(for Lst '(L1 L2 L3)
+   (for (L (val Lst) L)
+      (inc L)
+      (pop 'L) ) )
+(println 'L2 L2) 
+(bye)

@@ -1,0 +1,6 @@
+lw PLUS lv -> lx
+lx -> a
+lc MINUS 2 -> lw
+122 -> lv
+1 PLUS b -> lc
+1 PLUS 2 -> b

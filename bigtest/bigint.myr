@@ -1,0 +1,71 @@
+//mbld -b bigint bigint.myr
+
+use std
+use bio
+const main = {
+   var fd = std.try(bio.open("/dev/stdin", bio.Rd))
+   var a
+   var b
+   while true
+      match bio.readln(fd)
+      | `std.Err _: break
+      | `std.Ok d:
+         var line = std.strsplit(d, " ")
+         a = std.get(std.bigparse(line[0]))
+         if (line.len == 1)
+            std.put("{}\n", a)
+            std.bigfree(a)
+            std.slfree(d)
+            std.slfree(line)
+            continue 
+         ;;
+         b = std.get(std.bigparse(line[2]))
+         match line[1]
+         | "+":
+            std.bigadd(a, b)
+            std.put("{}\n", a)
+         | "-":
+            std.bigsub(a, b)
+            std.put("{}\n", a)
+         | "*":
+            std.bigmul(a, b)
+            std.put("{}\n", a)
+         | "/":
+            std.bigdiv(a, b)
+            std.put("{}\n", a)
+         | "%":
+            std.bigmod(a, b)
+            std.put("{}\n", a)
+         | "&":
+            std.bigand(a, b)
+            std.put("{}\n", a)
+         | "|":
+            std.bigor(a, b)
+            std.put("{}\n", a)
+         | ">>":
+            std.bigshr(a, b)
+            std.put("{}\n", a)
+         | "<<":
+            std.bigshl(a, b)
+            std.put("{}\n", a)
+         | ">":
+            std.put("{}\n", std.biggt(a, b))
+         | ">=":
+            std.put("{}\n", std.bigge(a, b))
+         | "<":
+            std.put("{}\n", std.biglt(a, b))
+         | "<=":
+            std.put("{}\n", std.bigle(a, b))
+         | "!":
+            std.put("{}\n", std.bigbitcount(a))
+         | _: std.fatal("never\n")
+         ;;
+         std.slfree(d)
+         std.slfree(line)
+         std.bigfree(a)
+         std.bigfree(b)
+      | _: std.fatal("never\n");
+      ;;
+   ;;
+   bio.close(fd)
+}

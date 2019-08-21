@@ -1,0 +1,33 @@
+
+Run the tests
+-------------
+
+Compare with Blake2b:
+
+    $ make clean
+    $ make
+
+Compare with SHA512 (full ed25519 compliance):
+
+    $ make clean
+    $ make "USER_FLAGS=-DED25519_SHA512"
+
+
+Modified libraries
+------------------
+
+`tweetnacl.c` has been tweaked at the very end to add Blake2b support.
+It relies on the ED25519_SHA512 macro just like Monocypher.  It is
+otherwise untouched.
+
+`ed25519-donna/ed25519-hash-custom.h` has been updated to support both
+Blake2b and SHA-512.  This is the standard mechanism for custom hash
+support in ed25519-donna.
+
+
+Dependencies
+------------
+
+Libsodium provides the hash functions to the donna implementation (to
+avoid relying on Monocypher, which we are testing here). It needs to be
+installed on your system, and be reachable with pkgconfig.

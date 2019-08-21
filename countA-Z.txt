@@ -1,0 +1,18 @@
+(off R)
+(for 
+   File
+   '("txt/Hamlet.txt" "txt/alls-well-that-ends-well.txt"
+      "txt/the-essays.txt" "txt/the-new-atlantis.txt" )
+   (in File
+      (until (eof)
+         (mapc
+            '((C)
+               (or
+                 (<= (char 'a) (char C) (char 'z))
+                 (<= (char 'A) (char C) (char 'Z))
+                 (push1 'R C) ) )
+            (line) ) ) ) )
+(println 'R R)
+(msg 'ok)
+(bye)
+

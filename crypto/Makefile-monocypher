@@ -1,0 +1,46 @@
+all:
+	gcc -fPIC -c -Wall -std=c99 monocypher.c
+	gcc -fPIC -c -Wall -std=c99 optional/sha512.c
+   
+	gcc -shared -Wl,-soname,libmono.so.0 -o libmono.so.0 monocypher.o sha512.o -lc
+	cp -uf libmono.so.0 /usr/local/lib
+# -fcf-protection=full -fsanitize=leak -fstack-check -fstack-protector-all -fsanitize=shift -fsanitize=shift-exponent -fsanitize=shift-base -fsanitize=integer-divide-by-zero -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=null -fsanitize=return -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=bounds-strict -fsanitize=alignment -fsanitize=object-size -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=nonnull-attribute -fsanitize=returns-nonnull-attribute -fsanitize=bool -fsanitize=enum -fsanitize=vptr -fsanitize=pointer-overflow -fsanitize=builtin -fstack-check -fstack-protector-all
+# undef
+# -fsanitize=undefined -fsanitize=shift -fsanitize=shift-exponent -fsanitize=shift-base -fsanitize=integer-divide-by-zero -fsanitize=unreachable -fsanitize=vla-bound -fsanitize=null -fsanitize=return -fsanitize=signed-integer-overflow -fsanitize=bounds -fsanitize=bounds-strict -fsanitize=alignment -fsanitize=object-size -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fsanitize=nonnull-attribute -fsanitize=returns-nonnull-attribute -fsanitize=bool -fsanitize=enum -fsanitize=vptr -fsanitize=pointer-overflow -fsanitize=builtin 
+# or
+# or 
+# -fsanitize=undefined 
+# -fsanitize=address 	
+# test.c can be disabled, but keep full coverage (sep, 2018)
+# o) TEST: hchacha20, xchacha20, key_exchange
+# o) test_x25519
+# o) property (enable only): p_eddsa_roundtrip, p_aead
+# o) set FOR to 0:1 in p_eddsa_roundtrip
+#
+# ed25519-donna to library
+# cd ed25519-donna
+# gcc -fPIC -c -Wall -DED25519_REFHASH  -DED25519_FORCE_32BIT -DED25519_TEST -DED25519_NO_INLINE_ASM ed25519.c
+# gcc -shared -Wl,-soname,libdonna.so.0 -o libdonna.so.0 ed25519.o -lc
+# cp libdonna.so.0 /usr/local/lib/
+# Note: add -DED25519_CUSTOMHASH -lsodium for Blake2b support
+
+# clang -fPIC -fsanitize=address,undefined -c -Wall -DED25519_REFHASH  -DED25519_FORCE_32BIT -DED25519_TEST -DED25519_NO_INLINE_ASM ed25519.c
+# clang -shared -Wl,-soname,libdonna.so.0 -o libdonna.so.0 ed25519.o -lasan -lubsan -lc
+# cp libdonna.so.0 /usr/local/lib/
+
+#
+# compile shared library with sanitizers
+# 1. CC=clang (makefile)
+# 2. CFLAGS= -fsanitize=address,undefined -pedantic ... (makefile)
+# 3. $(CC) $(CFLAGS) -lasan -lubsan -shared -o $@ $^
+# 4. make clean && make install
+# 5. cd tankfeeder/wycheproof
+# 6. LD_PRELOAD=/usr/lib64/libasan.so:/usr/lib64/libubsan.so pil test-x25519.l
+
+# DED25519 -> wycheproof (test-x25519.l), monocypher-ed25519.l
+# 12byte nonce -> wycheproof (test-eddsa.l), monocypher-lock-boring.l
+
+
+# janet, CFLAGS=-fsanitize=address,undefined -static-libsan -std=c99
+
+

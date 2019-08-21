@@ -1,0 +1,3 @@
+# guards 
+-fstack-protector-strong -fstack-shuffle -fstack-protector-all -Wbounded \
+

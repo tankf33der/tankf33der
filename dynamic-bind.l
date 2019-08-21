@@ -1,0 +1,11 @@
+(de mike ("D" N)
+   (set "D" N) )
+(de mike2 ("D")
+   (set "D" (inc (val "D")) ) )
+
+(let (X 1 Y 0 D 8)
+   (mike 'X Y)
+   (println 'X X 'Y Y 'D D)
+)
+(msg 'ok)
+(bye)

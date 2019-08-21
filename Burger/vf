@@ -1,0 +1,42 @@
+#!/usr/bin/pil
+# 10apr18abu
+
+#{
+vf +Bag .l
+vf +Bag er.l
+vf c@r .l
+
+use .pil/grep file to exclude files from search:
+@-
+db/@
+@/db/@
+@.eps
+@.pdf
+@.png
+@.gif
+@.ogv
+}#
+ 
+(setq
+   *Pat (chop (opt))
+   *GPat (replace *Pat "@" ".*")
+   *Tail (chop (opt))
+   *Grep (make (in (pil "grep") (while (line) (link @)))) )
+
+(if
+   (let D NIL
+      (make
+         (recur (D)
+            (for F (dir D T)
+               (unless (member F '("." ".."))
+                  (setq F (append D (chop F)))
+                  (unless (find '((P) (match P F)) *Grep)
+                     (when (car (info F T))
+                        (if (=T @)
+                           (recurse (append F '("/")))
+                           (and
+                              (or (not *Tail) (tail *Tail F))
+                              (in (list "grep" "-lw" *GPat F) (line T))
+                              (link @) ) ) ) ) ) ) ) ) )
+   (apply exec @ "vip" (pack "+" *Pat))
+   (bye) )

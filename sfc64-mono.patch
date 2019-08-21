@@ -1,0 +1,49 @@
+diff --git a/tests/test.c b/tests/test.c
+index ac3014b..51fe66a 100644
+--- a/tests/test.c
++++ b/tests/test.c
+@@ -860,6 +860,7 @@ int main(int argc, char *argv[])
+     if (argc > 1) {
+         sscanf(argv[1], "%" PRIu64 "", &random_state);
+     }
++    seed(random_state);
+     printf("\nRandom seed: %" PRIu64 "\n", random_state);
+ 
+     int status = 0;
+diff --git a/tests/utils.h b/tests/utils.h
+index e4b6256..d1f7a2e 100644
+--- a/tests/utils.h
++++ b/tests/utils.h
+@@ -47,9 +47,31 @@ u64 load64_le(const u8 s[8])
+ // Must be seeded with a nonzero value.
+ // Accessible from the outside so we can modify it
+ static u64 random_state = 12345;
++static u64 a;
++static u64 b;
++static u64 c;
++static u64 counter = 1;
+ 
+-// Pseudo-random 64 bit number, based on xorshift*
+ u64 rand64()
++{
++   u64 tmp = a + b + counter++;
++   a = b ^ (b >> 11);
++   b = c + (c << 3);
++   c = ((c << 24) | (c >> 40)) + tmp;
++   return tmp;
++} 
++
++void seed(const u64 s)
++{
++   a = b = c = s;
++   FOR (i, 0, 12) {
++      rand64();
++   }
++}
++
++
++// Pseudo-random 64 bit number, based on xorshift*
++u64 _rand64()
+ {
+     random_state ^= random_state >> 12;
+     random_state ^= random_state << 25;

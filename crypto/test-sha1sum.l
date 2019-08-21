@@ -1,0 +1,7 @@
+(seed (in "/dev/urandom" (rd 8)))
+(load "sha1sum.l")
+(for (I 0 (>= 1024 I) (inc I))
+   (let F (tmp I)
+      (out F (do I (wr (rand 0 255))))
+      (test (in (list 'sha1sum F) (uppc (till " " T))) (sha1sumhex F)) ) ) 
+(msg 'OK-sha1sum)

@@ -1,0 +1,25 @@
+(seed (in "/dev/urandom" (rd 8)))
+(load "@lib/frac.l")
+
+(de oddp (N)
+   (bit? 1 N) )
+(de evenp (N)
+   (not (bit? 1 N)) )
+
+(load "1.l")
+(load "2.l")
+(load "3.l")
+(load "4.l")
+(load "5.l")
+(load "6.l")
+(load "7.l")
+(load "8.l")
+(load "9.l")
+(load "10.l")
+(load "11.l")
+(load "12.l")
+(load "13.l")
+(load "14.l")
+
+(msg 'OK-Touretzky)
+

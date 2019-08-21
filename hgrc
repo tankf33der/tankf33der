@@ -1,0 +1,28 @@
+# replace in repo/.hg/hgrc
+# default = ssh://hg@bitbucket.org/mihailp/tankfeeder
+
+[ui]
+username = Mike <tankf33der@disroot.org>
+editor = mi
+ssh = ssh -C
+
+[web]
+cacerts = /etc/ssl/cert.pem
+
+[extensions]
+mq =
+graphlog =
+hgext.fetch =
+color =
+progress =
+rebase =
+fsmonitor =
+purge = 
+# CHG!
+
+[alias]
+br = branch
+pu = push
+
+[hooks]
+commit.autopush = hg push -q

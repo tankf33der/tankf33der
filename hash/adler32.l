@@ -1,0 +1,11 @@
+(de mod32 (N)
+   (& N `(hex "FFFFFFFF")) )
+(de mod32+ (A B)
+   (mod32 (+ A B)) )
+(de adler32 (Lst)
+   (let (S1 1  S2 0)
+      (while (cut 5552 'Lst)
+         (for N @
+            (setq S1 (mod32+ S1 N)  S2 (mod32+ S1 S2)) )
+         (setq S1 (% S1 65521)  S2 (% S2 65521)) )
+      (hex (| (>> -16 S2) S1)) ) )

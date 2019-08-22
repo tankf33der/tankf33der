@@ -32,18 +32,21 @@
       (and
          (=0 (% C 20))
          (prinl) ) ) )
+(prinl)
 (zero C)
 (for (I 1 (> 40 C) (inc 'I 2))
    (when (zum? I)
-      (prin (align 7 I) " ")
+      (prin (align 9 I) " ")
       (inc 'C)
       (and
          (=0 (% C 8))
          (prinl) ) ) )
+(prinl)
 (zero C)
+# cheater
 (for (I 81079 (> 40 C) (inc 'I 2))
    (when (and (<> 5 (% I 10)) (zum? I))
-      (prin (align 7 I) " ")
+      (prin (align 9 I) " ")
       (inc 'C)
       (and
          (=0 (% C 8))

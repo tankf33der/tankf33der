@@ -34,9 +34,15 @@
             (when (> (setq @@ (factor-sum N)) N)
                (link (cons N @@))
                (inc 'C) )
-)
-
-(println (factor-list))
-
+            (inc 'N 2)
+            (T (= C 1000)) ) ) ) )
+(let L (factor-list)
+   (for N 25
+      (println N (++ L)) ) 
+   (println 1000 (last L))
+   (println 
+      '****
+      1000000575
+      (factor-sum 1000000575) ) )
 (msg 'ok)
 (bye)

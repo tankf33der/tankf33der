@@ -27,7 +27,6 @@
          (for I R
             (setq S (* S (**sum I))) )
          (- S N) ) ) )
-(pp 'factor-sum)
 (bench
    (let
       (A 0

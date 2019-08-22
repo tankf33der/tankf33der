@@ -48,11 +48,11 @@
 (de bits (N1)
    (let (N (read)  X (length (bin N1)))
       (unless (= N X)
-         (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
+         (prinl "^J" N ": bits (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
 (pipe
    (out '("./bigint")
-      (do 1000
+      (do 1000000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (setq N3 (rand 0 1024))
@@ -73,13 +73,13 @@
          (prinl N1 " < " N1)
          (prinl N1 " <= " N2)
          (prinl N1 " <= " N1)
-         (prinl (abs N1) " ! " 0)
+         (prinl (abs N2) " ! " 0)
          (prinl N1 " / " N2)
          (prinl (abs N1) " << " N3)
          (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) ) 
-   (do 10
-      (do 100
+   (do 100
+      (do 10000
          (setq
             N1 (read)
             N2 (read)
@@ -98,7 +98,7 @@
          (cmp2 '< N1 N1)
          (cmp2 '<= N1 N2)
          (cmp2 '<= N1 N1)
-         (bits (abs N1))
+         (bits (abs N2))
          (test2 '/ N1 N2)
          (test2 '>> (- N3) (abs N1))
          (test2 '>> N3 (abs N1))

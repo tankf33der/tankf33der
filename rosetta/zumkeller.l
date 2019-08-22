@@ -1,3 +1,7 @@
+(de propdiv (N)
+   (make
+      (for I N
+         (and (=0 (% N I)) (link I)) ) ) )
 (de sum? (G L)
    (cond
       ((=0 G) T)
@@ -9,14 +13,26 @@
                (sum? (- G (car L)) (cdr L))
                (sum? G (cdr L)) ) ) )
       (T) ) )   
-(let
-   (L1 (1 2 3 6)
-      L2 (1 2 3 4 6 12) )
-   (trace 'sum?)
-   #(println (sum? 5 (cdr L1)))
-   
-   (println (sum? 27 (cdr L2)))
-)
+(de zum? (N)
+   (let (L (propdiv N)  S (sum prog L))
+      (println 'L L 'S S)
+      (or
+         (bit? 1 S)
+         (sum?
+            (- (/ S 2) (car L))
+            (cdr L) ) ) ) )
+#{
+(zero C)
+(for (I 2 (> 40 C) (inc I))
+   (when (zum? I)
+      (printsp I)
+      (inc 'C)
+      (and
+         (=0 (% C 20))
+         (prinl) ) ) )
+}#
+
+(println (zum? 2))
 
 (msg 'ok)
 (bye)

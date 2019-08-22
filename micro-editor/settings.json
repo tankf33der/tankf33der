@@ -11,7 +11,7 @@
 		"autoclose": false,
 		"filetype": "picolisp",
 		"matchbrace": true,
-		"matchbrace": true,
+		"matchbraceleft": true,
 		"tabsize": 3,
 		"tabstospaces": true
 	}

@@ -27,16 +27,16 @@
          (for I R
             (setq S (* S (**sum I))) )
          (- S N) ) ) )
-(bench
-   (let
-      (A 0
-         D 0
-         P 0 )
-      (for I 20000
-         (setq @@ (factor-sum I))
-         (cond
-            ((< @@ I) (inc 'D))
-            ((= @@ I) (inc 'P))
-            ((> @@ I) (inc 'A)) ) )
-      (println D P A) ) )
+(de factor-list NIL
+   (let (N 1  C 0)
+      (make
+         (loop
+            (when (> (setq @@ (factor-sum N)) N)
+               (link (cons N @@))
+               (inc 'C) )
+)
+
+(println (factor-list))
+
+(msg 'ok)
 (bye)

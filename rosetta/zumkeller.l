@@ -17,9 +17,13 @@
    (let (L (propdiv N)  S (sum prog L))
       (and
          (not (bit? 1 S))
-         (sum?
-            (- (/ S 2) (car L))
-            (cdr L) ) ) ) )
+         (if (bit? 1 N)
+            (let A (- S (* 2 N))
+               (and (gt0 A) (not (bit? 1 A)))
+            )
+            (sum?
+               (- (/ S 2) (car L))
+               (cdr L) ) ) ) ) )
 (zero C)
 (for (I 2 (> 220 C) (inc I))
    (when (zum? I)
@@ -36,7 +40,13 @@
       (and
          (=0 (% C 8))
          (prinl) ) ) )
-
-
+(zero C)
+(for (I 81079 (> 40 C) (inc 'I 2))
+   (when (and (<> 5 (% I 10)) (zum? I))
+      (prin (align 7 I) " ")
+      (inc 'C)
+      (and
+         (=0 (% C 8))
+         (prinl) ) ) )
 (msg 'ok)
 (bye)

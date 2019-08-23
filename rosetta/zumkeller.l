@@ -11,8 +11,7 @@
             (sum? G (cdr L))
             (or
                (sum? (- G (car L)) (cdr L))
-               (sum? G (cdr L)) ) ) )
-      (T) ) )   
+               (sum? G (cdr L)) ) ) ) ) )
 (de zum? (N)
    (let (L (propdiv N)  S (sum prog L))
       (and

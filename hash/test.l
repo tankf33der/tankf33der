@@ -238,6 +238,9 @@
 (test
    939490257
    (djb (mapcar char (chop "1234567"))) )
+(test
+   885799134
+   (djb (mapcar char (chop "The quick brown fox jumps over the lazy dog"))) )
 
 # cityhash
 (test

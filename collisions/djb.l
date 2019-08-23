@@ -10,6 +10,7 @@
    (line)
    (while (line)
       (let (L (mapcar char @)  H (djb L))
+      #(let (L (mapcar char @)  H (xxhash32 L))
          (ifn (lup R H)
             (idx 'R (list H 1 (cons L)) T)
             (inc (cdr @))

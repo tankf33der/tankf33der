@@ -1,9 +1,9 @@
-### Lets check djb's hash collisions
+### Lets check djb's hash collisions:
 * take english dictionary (~370K words)
 * build collisions map for [djb](http://www.cse.yorku.ca/~oz/hash.html) and [xxhash](https://cyan4973.github.io/xxHash/)
 * have fun.
 
-#### djb
+#### djb:
 ```
  121541278: synaphea, joyful
  153103337: kilohm, broadened
@@ -20,7 +20,7 @@
 4149284734: intracapsular, cunjah
 ```
 
-#### xxhash
+#### xxhash:
 ```
  218679696: macrosporic, comparting
  257976272: estocada, bruits

@@ -1,3 +1,4 @@
+(load "../hash/xxhash.l")
 (gc 128)
 (de djb (L)
    (let H 5381

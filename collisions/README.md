@@ -1,6 +1,6 @@
 ### Lets check djb's hash collisions:
 * take english dictionary (~370K words)
-* build collisions map for [djb](http://www.cse.yorku.ca/~oz/hash.html) and [xxhash](https://cyan4973.github.io/xxHash/)
+* build collisions map for [djb2](http://www.cse.yorku.ca/~oz/hash.html) and [xxhash32](https://cyan4973.github.io/xxHash/)
 * have fun.
 
 #### djb:

@@ -1,28 +1,26 @@
-(load "../hash/xxhash.l")
 (gc 100)
 (de djb (L)
    (let H 5381
       (for N L
-         (setq H (+ N (* 200 H))) )
+         (setq H (+ N (* X H))) )
       (& H `(hex "FFFFFFFF")) ) )
-(off R)
-(in "words_alpha.txt"
-   (line)
-   (while (line)
-      (let (L (mapcar char @)  H (djb L))
-      #(let (L (mapcar char @)  H (xxhash32 L))
-         (ifn (lup R H)
-            (idx 'R (list H 1 (cons L)) T)
-            (inc (cdr @))
-            (push (cddr @) L) ) ) ) )
-(for L (idx 'R)
-   (when (> (cadr L) 1)
-      (prin (align 10 (car L)) ": ")
-      (map
-         '((L)
-            (prin (mapcar char (car L)))
-            (and (cdr L) (prin ", ")) )
-         (caddr L) )
-      (prinl) ) )
+(setq Lst
+   (make
+      (in "words_alpha.txt"
+         (line)
+         (while (line)
+            (link (mapcar char @)) ) ) ) )
+(for X 255
+   (let R NIL
+      (for L Lst
+         (let H (djb L)
+            (if (lup R H)
+               (inc (cdr @))
+               (idx 'R (list H 1) T) ) ) )
+      (println
+         X
+         (cnt
+            '((L) (> (cadr L) 1))
+            (idx 'R) ) ) ) )
 (msg 'ok)
 (bye)

@@ -52,7 +52,7 @@ hash(unsigned char *str)
     return hash;
 }
 ```
-File [collisions.dat](https://git.envs.net/mpech/tankf33der/raw/branch/master/collisions/colliions.dat)
+File [collisions.dat](https://git.envs.net/mpech/tankf33der/raw/branch/master/collisions/collisions.dat)
 contains number of collisions for for number in range 1:255 against 33.
 
 

@@ -38,8 +38,9 @@
 4162098487: spadelike, hiccuped
 ```
 
-#### Links
+#### Links:
 Right after publish I've found this good links, I put them here for science:
 [stackexchange](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed)
 ,
 [smhasher](https://github.com/rurban/smhasher/blob/master/doc/bernstein)
+.

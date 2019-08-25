@@ -37,6 +37,24 @@
 4074852481: unability, hochheimer
 4162098487: spadelike, hiccuped
 ```
+#### 33 korovi:
+djb2 algorithm is simple:
+```
+unsigned long
+hash(unsigned char *str)
+{
+	unsigned long hash = 5381;
+    int c;
+
+	while (c = *str++)
+    	hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+ 
+    return hash;
+}
+```
+File [collisions.dat](https://git.envs.net/mpech/tankf33der/raw/branch/master/collisions/colliions.dat)
+contains number of collisions for for number in range 1:255 against 33.
+
 
 #### Links:
 Right after publish I've found this good links, I put them here for science:

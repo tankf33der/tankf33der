@@ -43,7 +43,7 @@ djb2 algorithm is simple:
 unsigned long
 hash(unsigned char *str)
 {
-	unsigned long hash = 5381;
+    unsigned long hash = 5381;
     int c;
 
 	while (c = *str++)

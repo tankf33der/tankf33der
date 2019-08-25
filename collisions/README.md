@@ -37,3 +37,6 @@
 4074852481: unability, hochheimer
 4162098487: spadelike, hiccuped
 ```
+
+#### Links
+Right after publish I've found this good links, I put them here for science:

@@ -53,7 +53,7 @@ hash(unsigned char *str)
 }
 ```
 File [collisions.dat](https://git.envs.net/mpech/tankf33der/raw/branch/master/collisions/collisions.dat)
-contains number of collisions for for number in range 1:255 against 33.
+contains number of collisions for number in range 1:255 against 33.
 
 Minimal number of collisions for 83, maximum for 3. 
 ```

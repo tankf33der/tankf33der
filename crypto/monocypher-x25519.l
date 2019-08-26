@@ -35,6 +35,14 @@
          '(P (32 B . 32))
          (cons NIL (32) S))
       P ) )
+(let P (conc (range 15 0) (range 0 15))
+   (do 241
+      (test (crypto_x25519_public_key P) (crypto_scalarmult_base_soda P))
+      (map inc P) ) )
+(let P (conc (range 0 15) (range 15 0))
+   (do 241
+      (test (crypto_x25519_public_key P) (crypto_scalarmult_base_soda P))
+      (map inc P) ) )
 (let P (randL 32)
    (do 10000
       (at (0 . 1000) (prin ".") (flush))

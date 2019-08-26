@@ -146,7 +146,44 @@
          (hex2L (line T)) ) ) )
 (native "@" "free" NIL S)
 (native "@" "free" NIL M)
-  
+
+(let D (conc (range 15 0) (range 0 15))
+   (do 241
+      (test (mono_poly D D) (sodium_poly D D))
+      (map inc D) ) )
+(let D (conc (range 15 0) (range 0 15))
+   (do 241
+      (let M (randL 16)
+         (test (mono_poly M D) (sodium_poly M D))
+         (map inc D) ) ) )
+(let D (conc (range 15 0) (range 0 15))
+   (do 241
+      (for M (range 0 255)
+         (test (mono_poly (cons M) D) (sodium_poly (cons M) D)) )
+      (map inc D) ) )
+(let D (conc (range 15 0) (range 0 15))
+   (do 241
+      (test (mono_poly NIL D) (sodium_poly NIL D))
+      (map inc D) ) )  
+(let D (conc (range 0 15) (range 15 0))
+   (do 241
+      (test (mono_poly D D) (sodium_poly D D))
+      (map inc D) ) )
+(let D (conc (range 0 15) (range 15 0))
+   (do 241
+      (let M (randL 16)
+         (test (mono_poly M D) (sodium_poly M D))
+         (map inc D) ) ) )
+(let D (conc (range 0 15) (range 15 0))
+   (do 241
+      (for M (range 0 255)
+         (test (mono_poly (cons M) D) (sodium_poly (cons M) D)) )
+      (map inc D) ) )
+(let D (conc (range 0 15) (range 15 0))
+   (do 241
+      (test (mono_poly NIL D) (sodium_poly NIL D))
+      (map inc D) ) )  
+
 (msg 'ok-poly1305)
 (bye)
 

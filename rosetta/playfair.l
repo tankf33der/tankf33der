@@ -1,7 +1,10 @@
-(de 5x5 (L)
-   (make
-      (while (cut 5 'L)
-         (link @) ) ) )
+(de 5x5 (L I?)
+   (default I? 'I)
+   (let L (conc (chop L) (chop "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+      (setq L (uniq (replace L "J" I?)))
+      (make
+         (while (cut 5 'L)
+            (link @) ) ) ) )
 (zero Z)
 (for A 5
    (for B 5
@@ -27,7 +30,7 @@
 )
 (println 'Z Z)
 
-(let Lst (5x5 (range 1 25))
+(let Lst (5x5 "PLAYFAIREXAMPLE")
    (println Lst)
    (println (apply mapcar Lst list))
    

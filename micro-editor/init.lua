@@ -4,6 +4,9 @@ function runme()
     if buf:FileType() == "picolisp" then
     	HandleShellCommand("pil " .. buf.Path .. " +", true, true)
     end
+    if buf:FileType() == "verifpal" then
+		HandleShellCommand("verifpal verify .. " buf.Path, true, true)
+    end
 end
 function ixio()
 	local buf = CurView().Buf

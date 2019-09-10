@@ -15,4 +15,7 @@
 		"tabsize": 3,
 		"tabstospaces": true
 	}
+	"*.vp" {
+		"filetype": "verifpal"
+	}
 }

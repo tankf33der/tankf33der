@@ -7,10 +7,11 @@ attacker [active]
 // Pre init
 principal I[
 	knows public PID, ZERO, ONE
+	generates PAYLOAD
 	knows private I
+	IS = G^I
 	generates E
 	IE = G^E
-	IS = G^I
 ]
 principal R[
 	knows public PID, ZERO, ONE
@@ -22,7 +23,6 @@ R -> I: RS
 
 // 
 principal I[
-	generates PAYLOAD
 	// H0
 	H1  = HASH(PID, RS)
 	H2  = HASH(H1)
@@ -45,16 +45,35 @@ principal I[
 // msg1
 I -> R: [IE], S1, T1, S2, T2
 
+
 principal R[
-	RH1 = HASH(PID, RS)
-	RH2 = HASH(RH1)
-	RH3 = HASH(RH2, IE)
-	RH4 = HASH(RH3, IE^R)
-	RH5 = HASH(RH4, ZERO)
-	RH6 = HASH(RH5, ONE)
-	IPB = DEC(K)
+	// _H0
+	_H1  = HASH(PID, RS)
+	_H2  = HASH(_H1)
+	_H3  = HASH(_H2, IE)
+	_H4  = HASH(_H3, IE^R)
+	_H5  = HASH(_H4, ZERO)
+	_K1  = HASH(_H4, ONE)
+	_IS  = DEC(_K1, S1)
+	_H6  = HASH(_H5, S1)
+	_H7  = HASH(_H6, ZERO)
+	_T1  = HASH(_H6, ONE)
+	_    = ASSERT(_T1, T1)?
+	_H8  = HASH(_H7, _IS^R)
+	_H9  = HASH(_H8, ZERO)
+	_K2  = HASH(_H8, ONE)
+	// _S2
+	_H10 = HASH(_H9, S2)
+	_H11 = HASH(_H10, ZERO)
+	_T2  = HASH(_H10, ONE)
+	_    = ASSERT(_T2, T2)?
 ] 
+// Done.
 
-
-
+// The session keys are the two halves of H11
+// Lets check it
+R -> I: _H11
+principal I[
+	_ = ASSERT(H11, _H11)?
+]
 queries[]

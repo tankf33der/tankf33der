@@ -6,17 +6,54 @@ attacker [active]
 
 // Pre init
 principal I[
-	knows public pid, zero, one
+	knows public PID, ZERO, ONE
+	knows private I
+	generates E
+	IE = G^E
+	IS = G^I
 ]
 principal R[
-	knows public pid, zero, one
+	knows public PID, ZERO, ONE
+	knows private R
+	RS = G^R
 ]
+// <- s
+R -> I: RS
 
 // 
 principal I[
-	
-] 
+	generates PAYLOAD
+	// H0
+	H1  = HASH(PID, RS)
+	H2  = HASH(H1)
+	H3  = HASH(H2, IE)
+	H4  = HASH(H3, RS^E)
+	H5  = HASH(H4, ZERO)
+	K1  = HASH(H4, ONE)
+	S1  = ENC(K1, IS)
+	H6  = HASH(H5, S1)
+	H7  = HASH(H6, ZERO)
+	T1  = HASH(H6, ONE)
+	H8  = HASH(H7, RS^I)
+	H9  = HASH(H8, ZERO)
+	K2  = HASH(H8, ONE)
+	S2  = ENC(K2, PAYLOAD)
+	H10 = HASH(H9, S2)
+	H11 = HASH(H10, ZERO)
+	T2  = HASH(H10, ONE)
+]
+// msg1
+I -> R: [IE], S1, T1, S2, T2
 
+principal R[
+	RH1 = HASH(PID, RS)
+	RH2 = HASH(RH1)
+	RH3 = HASH(RH2, IE)
+	RH4 = HASH(RH3, IE^R)
+	RH5 = HASH(RH4, ZERO)
+	RH6 = HASH(RH5, ONE)
+	IPB = DEC(K)
+] 
 
 
 

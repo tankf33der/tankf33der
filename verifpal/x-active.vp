@@ -1,4 +1,23 @@
 // Monokex X
+// sep.2019
+// https://github.com/LoupVaillant/Monokex
+// 
 attacker [active]
+
+// Pre init
+principal I[
+	knows public pid, zero, one
+]
+principal R[
+	knows public pid, zero, one
+]
+
+// 
+principal I[
+	
+] 
+
+
+
 
 queries[]

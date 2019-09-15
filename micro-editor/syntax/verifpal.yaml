@@ -1,0 +1,14 @@
+filetype: verifpal
+
+detect:
+    filename: "\\.vp$"
+    
+rules:
+    - special: "(->|active|passive|knows|generates)"
+    - symbol.brackets: "[(){}]|\\[|\\]"
+    - identifier: "\\b(HASH|HKDF|AEAD_ENC|AEAD_DEC|ENC|DEC|MAC|ASSERT|SIGN|SIGNVERIF)\\b"
+    - statement: "(attacker|principal|queries|confidentiality|authentication)"   
+    - comment:
+        start: "//"
+        end: "$"
+        rules: []

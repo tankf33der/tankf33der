@@ -14,8 +14,8 @@
 		"matchbraceleft": true,
 		"tabsize": 3,
 		"tabstospaces": true
-	}
-	"*.vp" {
+	},
+	"*.vp": {
 		"filetype": "verifpal"
 	}
 }

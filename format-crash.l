@@ -1,4 +1,3 @@
-`(== 64 64)
 (seed (in "/dev/urandom" (rd 8)))
 
 (de boom (N)

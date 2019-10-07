@@ -19,13 +19,15 @@
 #define HASH_UPDATE COMBINE2(HASH, _update)
 #define HASH_FINAL  COMBINE2(HASH, _final)
 
-#define FOR(i, start, end)   for (size_t (i) = (start); (i) < (end); (i)++)
+#define FOR(i, start, end)   for (size_t i = (start); i < (end); i++)
 #define WIPE_CTX(ctx)        crypto_wipe(ctx   , sizeof(*(ctx)))
 #define WIPE_BUFFER(buffer)  crypto_wipe(buffer, sizeof(buffer))
 #define MIN(a, b)            ((a) <= (b) ? (a) : (b))
+#define MAX(a, b)            ((a) >= (b) ? (a) : (b))
 #define ALIGN(x, block_size) ((~(x) + 1) & ((block_size) - 1))
 typedef int8_t   i8;
 typedef uint8_t  u8;
+typedef int16_t  i16;
 typedef uint32_t u32;
 typedef int32_t  i32;
 typedef int64_t  i64;
@@ -137,10 +139,10 @@ static void chacha20_rounds(u32 out[16], const u32 in[16])
 static void chacha20_init_key(crypto_chacha_ctx *ctx, const u8 key[32])
 {
     // constant
-    ctx->input[0] = load32_le((u8*)"expa");
-    ctx->input[1] = load32_le((u8*)"nd 3");
-    ctx->input[2] = load32_le((u8*)"2-by");
-    ctx->input[3] = load32_le((u8*)"te k");
+    ctx->input[0] = load32_le((const u8*)"expa");
+    ctx->input[1] = load32_le((const u8*)"nd 3");
+    ctx->input[2] = load32_le((const u8*)"2-by");
+    ctx->input[3] = load32_le((const u8*)"te k");
     // key
     FOR (i, 0, 8) {
         ctx->input[i+4] = load32_le(key + i*4);
@@ -272,7 +274,7 @@ void crypto_chacha20_encrypt(crypto_chacha_ctx *ctx,
 }
 
 void crypto_chacha20_stream(crypto_chacha_ctx *ctx,
-                            uint8_t *stream, size_t size)
+                            u8 *stream, size_t size)
 {
     crypto_chacha20_encrypt(ctx, stream, 0, size);
 }
@@ -492,16 +494,16 @@ static void blake2b_compress(crypto_blake2b_ctx *ctx, int is_last_block)
     u64 v3 = ctx->hash[3];  u64 v11 = iv[3];
     u64 v4 = ctx->hash[4];  u64 v12 = iv[4] ^ ctx->input_offset[0];
     u64 v5 = ctx->hash[5];  u64 v13 = iv[5] ^ ctx->input_offset[1];
-    u64 v6 = ctx->hash[6];  u64 v14 = iv[6] ^ is_last_block;
+    u64 v6 = ctx->hash[6];  u64 v14 = iv[6] ^ (u64)~(is_last_block - 1);
     u64 v7 = ctx->hash[7];  u64 v15 = iv[7];
 
     // mangle work vector
-    uint64_t *input = ctx->input;
+    u64 *input = ctx->input;
 #define BLAKE2_G(v, a, b, c, d, x, y)                  \
     v##a += v##b + x;  v##d = rotr64(v##d ^ v##a, 32); \
     v##c += v##d;      v##b = rotr64(v##b ^ v##c, 24); \
     v##a += v##b + y;  v##d = rotr64(v##d ^ v##a, 16); \
-    v##c += v##d;      v##b = rotr64(v##b ^ v##c, 63);
+    v##c += v##d;      v##b = rotr64(v##b ^ v##c, 63)
 #define BLAKE2_ROUND(i)                                                 \
     BLAKE2_G(v, 0, 4,  8, 12, input[sigma[i][ 0]], input[sigma[i][ 1]]);\
     BLAKE2_G(v, 1, 5,  9, 13, input[sigma[i][ 2]], input[sigma[i][ 3]]);\
@@ -621,8 +623,8 @@ void crypto_blake2b_final(crypto_blake2b_ctx *ctx, u8 *hash)
     FOR (i, ctx->input_idx, 128) {
         blake2b_set_input(ctx, 0, i);
     }
-    blake2b_incr(ctx);         // update the input offset
-    blake2b_compress(ctx, -1); // compress the last block
+    blake2b_incr(ctx);        // update the input offset
+    blake2b_compress(ctx, 1); // compress the last block
     size_t nb_words = ctx->hash_size >> 3;
     FOR (i, 0, nb_words) {
         store64_le(hash + i*8, ctx->hash[i]);
@@ -708,7 +710,7 @@ static void extended_hash(u8       *digest, u32 digest_size,
     if (digest_size > 64) {
         // the conversion to u64 avoids integer overflow on
         // ludicrously big hash sizes.
-        u32 r   = (((u64)digest_size + 31) >> 5) - 2;
+        u32 r   = (u32)(((u64)digest_size + 31) >> 5) - 2;
         u32 i   =  1;
         u32 in  =  0;
         u32 out = 32;
@@ -1026,8 +1028,9 @@ static void fe_sub (fe h,const fe f,const fe g){FOR(i,0,10) h[i] = f[i] - g[i];}
 
 static void fe_cswap(fe f, fe g, int b)
 {
+    i32 mask = -b; // rely on 2's complement: -1 = 0xffffffff
     FOR (i, 0, 10) {
-        i32 x = (f[i] ^ g[i]) & -b;
+        i32 x = (f[i] ^ g[i]) & mask;
         f[i] = f[i] ^ x;
         g[i] = g[i] ^ x;
     }
@@ -1035,8 +1038,9 @@ static void fe_cswap(fe f, fe g, int b)
 
 static void fe_ccopy(fe f, const fe g, int b)
 {
+    i32 mask = -b; // rely on 2's complement: -1 = 0xffffffff
     FOR (i, 0, 10) {
-        i32 x = (f[i] ^ g[i]) & -b;
+        i32 x = (f[i] ^ g[i]) & mask;
         f[i] = f[i] ^ x;
     }
 }
@@ -1131,7 +1135,7 @@ static void fe_mul(fe h, const fe f, const fe g)
     c9 = (h9 + (i64) (1<<24)) >> 25; h0 += c9 * 19; h9 -= c9 * (1 << 25); \
     c0 = (h0 + (i64) (1<<25)) >> 26; h1 += c0;      h0 -= c0 * (1 << 26); \
     h[0]=(i32)h0;  h[1]=(i32)h1;  h[2]=(i32)h2;  h[3]=(i32)h3;  h[4]=(i32)h4; \
-    h[5]=(i32)h5;  h[6]=(i32)h6;  h[7]=(i32)h7;  h[8]=(i32)h8;  h[9]=(i32)h9; \
+    h[5]=(i32)h5;  h[6]=(i32)h6;  h[7]=(i32)h7;  h[8]=(i32)h8;  h[9]=(i32)h9
 
     CARRY;
 }
@@ -1276,10 +1280,6 @@ static int fe_isnonzero(const fe f)
     return isnonzero;
 }
 
-///////////////
-/// X-25519 /// Taken from Supercop's ref10 implementation.
-///////////////
-
 static void trim_scalar(u8 s[32])
 {
     s[ 0] &= 248;
@@ -1287,7 +1287,14 @@ static void trim_scalar(u8 s[32])
     s[31] |= 64;
 }
 
-static int scalar_bit(const u8 s[32], size_t i) {return (s[i>>3] >> (i&7)) & 1;}
+static int scalar_bit(const u8 s[32], int i) {
+    if (i < 0) { return 0; } // handle -1 for sliding windows
+    return (s[i>>3] >> (i&7)) & 1;
+}
+
+///////////////
+/// X-25519 /// Taken from Supercop's ref10 implementation.
+///////////////
 
 int crypto_x25519(u8       raw_shared_secret[32],
                   const u8 your_secret_key  [32],
@@ -1392,11 +1399,12 @@ static void modL(u8 *r, i64 x[64])
     }
 }
 
+// Reduces a hash modulo L (little endian)
 static void reduce(u8 r[64])
 {
     i64 x[64];
     FOR (i, 0, 64) {
-        x[i] = (u64) r[i];
+        x[i] = (i64)(u64)r[i]; // preserve unsigned
         r[i] = 0;
     }
     modL(r, x);
@@ -1407,17 +1415,18 @@ static void reduce(u8 r[64])
 static void mul_add(u8 r[32], const u8 a[32], const u8 b[32], const u8 c[32])
 {
     i64 s[64];
-    FOR (i,  0, 32) { s[i] = (u64) c[i]; }
-    FOR (i, 32, 64) { s[i] = 0;          }
+    FOR (i,  0, 32) { s[i] = (i64)(u64)c[i]; } // preserve unsigned
+    FOR (i, 32, 64) { s[i] = 0;              }
     FOR (i,  0, 32) {
         FOR (j, 0, 32) {
-            s[i+j] += a[i] * (u64) b[j];
+            s[i+j] += a[i] * (u64)b[j];
         }
     }
     modL(r, s);
     WIPE_BUFFER(s);
 }
 
+// Variable time! a must not be secret!
 static int is_above_L(const u8 a[32])
 {
     for (int i = 31; i >= 0; i--) {
@@ -1649,86 +1658,95 @@ static const fe window_T2[8] = {
      -2735503, -13812022, -16236442, -32461234, -12290683},
 };
 
-// Compute signed sliding windows (either 0, or odd numbers)
-static void slide(size_t width, i8 *adds, const u8 scalar[32])
+// Incremental sliding windows (left to right)
+// Based on Roberto Maria Avanzi[2005]
+typedef struct {
+    i16 next_index; // position of the next signed digit
+    i8  next_digit; // next signed digit (odd number below 2^window_width)
+    u8  next_check; // point at which we must check for a new window
+} slide_ctx;
+
+void slide_init(slide_ctx *ctx, const u8 scalar[32])
 {
-    FOR (i,   0, 256        ) { adds[i] = (i8)scalar_bit(scalar, i); }
-    FOR (i, 256, 253 + width) { adds[i] = 0;                         }
-    FOR (i, 0, 254) {
-        if (adds[i] != 0) {
-            // base value of the window
-            FOR (j, 1, width) {
-                adds[i  ] |= adds[i+j] << j;
-                adds[i+j]  = 0;
-            }
-            if (adds[i] > (1 << (width - 1))) {
-                // go back to [-half_range, half_range], propagate carry.
-                adds[i] -= 1 << width;
-                size_t j = i + width;
-                while (adds[j] != 0) {
-                    adds[j] = 0;
-                    j++;
-                }
-                adds[j] = 1;
-            }
+    int i = 255;
+    while (i > 0 && scalar_bit(scalar, i) == 0) {
+        i--;
+    }
+    ctx->next_check = (u8)(i + 1);
+    ctx->next_index = -1;
+    ctx->next_digit = -1;
+}
+
+void slide_step(slide_ctx *ctx, int width, int i, const u8 scalar[32])
+{
+    if (scalar_bit(scalar, i) == scalar_bit(scalar, i - 1)) {
+        ctx->next_check--;
+    } else {
+        int w = MIN(width, i + 1);
+        int v = -(scalar_bit(scalar, i) << ((int)w-1));
+        FOR (j, 0, (size_t)w-1) {
+            v += scalar_bit(scalar, i-(w-1)+(int)j) << j;
         }
+        v += scalar_bit(scalar, i-w);
+        int lsb = v & (~v + 1);            // smallest bit of v
+        int s   = (   ((lsb & 0xAA) != 0)  // log2(lsb)
+                   | (((lsb & 0xCC) != 0) << 1)
+                   | (((lsb & 0xF0) != 0) << 2));
+        ctx->next_index  = (i16)(i-(w-1)+s);
+        ctx->next_digit  = (i8) (v >> s   );
+        ctx->next_check -= w;
     }
 }
 
-#define P_WINDOW_WIDTH 3 // Affects the size of the stack
-#define B_WINDOW_WIDTH 5 // Affects the size of the binary
-#define P_WINDOW_SIZE  (1<<(P_WINDOW_WIDTH-2))
-#define B_WINDOW_SIZE  (1<<(B_WINDOW_WIDTH-2))
+#define P_W_WIDTH 3 // Affects the size of the stack
+#define B_W_WIDTH 5 // Affects the size of the binary
+#define P_W_SIZE  (1<<(P_W_WIDTH-2))
+#define B_W_SIZE  (1<<(B_W_WIDTH-2))
 
 // Variable time! Internal buffers are not wiped! Inputs must not be secret!
 // => Use only to *check* signatures.
-static void ge_double_scalarmult_vartime(ge *sum, const ge *P,
-                                         u8 p[32], u8 b[32])
+static void ge_double_scalarmult_vartime(ge *P, const u8 p[32], const u8 b[32])
 {
     // cache P window for addition
-    ge_cached cP[P_WINDOW_SIZE];
-    ge tmp;
+    ge_cached cP[P_W_SIZE];
     {
-        ge P2;
+        ge P2, tmp;
         ge_double(&P2, P, &tmp);
         ge_cache(&cP[0], P);
-        FOR (i, 0, (P_WINDOW_SIZE)-1) {
+        FOR (i, 0, (P_W_SIZE)-1) {
             ge_add(&tmp, &P2, &cP[i]);
             ge_cache(&cP[i+1], &tmp);
         }
     }
 
-    // Compute the indices for the windows
-    i8 p_adds[253 + P_WINDOW_WIDTH];  slide(P_WINDOW_WIDTH, p_adds, p);
-    i8 b_adds[253 + B_WINDOW_WIDTH];  slide(B_WINDOW_WIDTH, b_adds, b);
-
-    // Avoid the first doublings
-    int i = 253;
-    while (i >= 0         &&
-           p_adds[i] == 0 &&
-           b_adds[i] == 0) {
-        i--;
-    }
-
-    // Merged double and add ladder
-    fe t1, t2;
-#define CACHED_ADD(i)                                              \
-    if (p_adds[i] > 0) { ge_add(sum, sum, &cP[ p_adds[i] / 2]); }  \
-    if (p_adds[i] < 0) { ge_sub(sum, sum, &cP[-p_adds[i] / 2]); }  \
-    if (b_adds[i] > 0) { ge_madd(sum, sum,                         \
-                                 window_Yp[ b_adds[i] / 2],            \
-                                 window_Ym[ b_adds[i] / 2],            \
-                                 window_T2[ b_adds[i] / 2], t1, t2); } \
-    if (b_adds[i] < 0) { ge_msub(sum, sum,                             \
-                                 window_Yp[-b_adds[i] / 2],            \
-                                 window_Ym[-b_adds[i] / 2],            \
-                                 window_T2[-b_adds[i] / 2], t1, t2); }
+    // Merged double and add ladder, fused with sliding
+    slide_ctx p_slide;  slide_init(&p_slide, p);
+    slide_ctx b_slide;  slide_init(&b_slide, b);
+    int i = MAX(p_slide.next_check, b_slide.next_check);
+    ge *sum = P;
     ge_zero(sum);
-    CACHED_ADD(i);
-    i--;
     while (i >= 0) {
+        ge tmp;
         ge_double(sum, sum, &tmp);
-        CACHED_ADD(i);
+        if (i == p_slide.next_check) { slide_step(&p_slide, P_W_WIDTH, i, p); }
+        if (i == b_slide.next_check) { slide_step(&b_slide, B_W_WIDTH, i, b); }
+        if (i == p_slide.next_index) {
+            int digit = p_slide.next_digit;
+            if (digit > 0) { ge_add(sum, sum, &cP[ digit / 2]); }
+            if (digit < 0) { ge_sub(sum, sum, &cP[-digit / 2]); }
+        }
+        if (i == b_slide.next_index) {
+            fe t1, t2;
+            int digit = b_slide.next_digit;
+            if (digit > 0) { ge_madd(sum, sum,
+                                     window_Yp[ digit / 2],
+                                     window_Ym[ digit / 2],
+                                     window_T2[ digit / 2], t1, t2); }
+            if (digit < 0) { ge_msub(sum, sum,
+                                     window_Yp[-digit / 2],
+                                     window_Ym[-digit / 2],
+                                     window_T2[-digit / 2], t1, t2); }
+        }
         i--;
     }
 }
@@ -1858,8 +1876,8 @@ static void ge_scalarmult_base(ge *p, const u8 scalar[32])
     mul_add(s_scalar, scalar, half_mod_L, half_ones);
 
     // Double and add ladder
-    fe yp, ym, t2, n2, a, b; // temporaries for addition
-    ge dbl;                  // temporary for doublings
+    fe yp, ym, t2, n2, a; // temporaries for addition
+    ge dbl;               // temporary for doublings
     ge_zero(p);
     for (int i = 50; i >= 0; i--) {
         if (i < 50) {
@@ -1885,11 +1903,11 @@ static void ge_scalarmult_base(ge *p, const u8 scalar[32])
         fe_neg(n2, t2);
         fe_cswap(t2, n2, high);
         fe_cswap(yp, ym, high);
-        ge_madd(p, p, ym, yp, n2, a, b);
+        ge_madd(p, p, ym, yp, n2, a, t2); // reuse t2 as temporary
     }
     WIPE_CTX(&dbl);
-    WIPE_BUFFER(a);  WIPE_BUFFER(yp);  WIPE_BUFFER(t2);
-    WIPE_BUFFER(b);  WIPE_BUFFER(ym);  WIPE_BUFFER(n2);
+    WIPE_BUFFER(yp);  WIPE_BUFFER(t2);  WIPE_BUFFER(a);
+    WIPE_BUFFER(ym);  WIPE_BUFFER(n2);
     WIPE_BUFFER(s_scalar);
 }
 
@@ -1963,7 +1981,7 @@ void crypto_sign_final(crypto_sign_ctx *ctx, u8 signature[64])
     u8 *half_sig = ctx->buf + 64;
     u8 h_ram[64];
     HASH_FINAL(&ctx->hash, h_ram);
-    reduce(h_ram);  // reduce the hash modulo L
+    reduce(h_ram);
     FOR (i, 0, 32) {
         signature[i] = half_sig[i];
     }
@@ -2003,18 +2021,26 @@ void crypto_check_update(crypto_check_ctx *ctx, const u8 *msg, size_t msg_size)
 
 int crypto_check_final(crypto_check_ctx *ctx)
 {
-    ge diff, A;
-    u8 h_ram[64], R_check[32];
-    u8 *s = ctx->sig + 32;                       // s
-    u8 *R = ctx->sig;                            // R
+    ge  A;
+    u8 *h_ram   = ctx->pk; // save stack space
+    u8 *R_check = ctx->pk; // save stack space
+    u8 *R       = ctx->sig;                      // R
+    u8 *s       = ctx->sig + 32;                 // s
+    ge *diff    = &A;                            // -A is overwriten...
     if (ge_frombytes_neg_vartime(&A, ctx->pk) ||
         is_above_L(s)) { // prevent s malleability
         return -1;
     }
-    HASH_FINAL(&ctx->hash, h_ram);
-    reduce(h_ram);
-    ge_double_scalarmult_vartime(&diff, &A, h_ram, s);
-    ge_tobytes(R_check, &diff);                  // R_check = s*B - h_ram*A
+    {
+        u8 h_ram[64];
+        HASH_FINAL(&ctx->hash, h_ram);
+        reduce(h_ram);
+        FOR (i, 0, 32) { // the extra copy saves 32 bytes of stack
+            ctx->pk[i] = h_ram[i];
+        }
+    }
+    ge_double_scalarmult_vartime(&A, h_ram, s);  // ...here
+    ge_tobytes(R_check, diff);                   // R_check = s*B - h_ram*A
     return crypto_verify32(R, R_check);          // R == R_check ? OK : fail
     // No secret, no wipe
 }
@@ -2167,228 +2193,3 @@ int crypto_unlock(u8       *plain_text,
     return crypto_unlock_aead(plain_text, key, nonce, mac, 0, 0,
                               cipher_text, text_size);
 }
-
-/* /////////////////////// */
-/* /// Secure channels /// */
-/* /////////////////////// */
-/* static void copy32(u8 out[32], const u8 in[32]){FOR (i, 0, 32){out[i] = in[i];}} */
-/* static void xor32 (u8 out[32], const u8 in[32]){FOR (i, 0, 32){out[i]^= in[i];}} */
-
-/* static void kex_update_key(crypto_kex_ctx  *ctx, */
-/*                            const u8 secret_key[32], */
-/*                            const u8 public_key[32]) */
-/* { */
-/*     static const u8 one[16] = {1}; */
-
-/*     // Extract */
-/*     u8 shared_secret[32]; */
-/*     crypto_x25519(shared_secret, secret_key, public_key); */
-/*     crypto_chacha20_H(shared_secret    , shared_secret    , zero); */
-/*     crypto_chacha20_H(ctx->chaining_key, ctx->chaining_key, one ); */
-/*     xor32(ctx->chaining_key, shared_secret); */
-
-/*     // Expand (directly from chaining key) */
-/*     crypto_chacha_ctx chacha_ctx; */
-/*     crypto_chacha20_init  (&chacha_ctx, ctx->chaining_key, one); */
-/*     crypto_chacha20_stream(&chacha_ctx, ctx->derived_keys, 64); */
-
-/*     // Clean up */
-/*     WIPE_BUFFER(shared_secret); */
-/*     WIPE_CTX(&chacha_ctx); */
-/* } */
-
-/* static void kex_auth(crypto_kex_ctx *ctx, u8 mac[16]) */
-/* { */
-/*     crypto_poly1305(mac, ctx->transcript, ctx->transcript_size, */
-/*                     ctx->derived_keys); */
-/* } */
-
-/* static int kex_verify(crypto_kex_ctx *ctx, const u8 mac[16]) */
-/* { */
-/*     u8 real_mac[16]; */
-/*     kex_auth(ctx, real_mac); */
-/*     int mismatch = crypto_verify16(real_mac, mac); */
-/*     if (mismatch) {  WIPE_CTX(ctx); } */
-/*     WIPE_BUFFER(real_mac); */
-/*     return mismatch; */
-/* } */
-
-/* static void kex_send(crypto_kex_ctx *ctx, u8 msg[32], const u8 src[32]) */
-/* { */
-/*     // Send message, encrypted if we have a key */
-/*     copy32(msg, src); */
-/*     xor32(msg, ctx->derived_keys + 32); */
-/*     // Record sent message */
-/*     copy32(ctx->transcript + ctx->transcript_size, msg); */
-/*     ctx->transcript_size += 32; */
-/* } */
-
-/* static void kex_receive(crypto_kex_ctx *ctx, u8 dest[32], const u8 msg[32]) */
-/* { */
-/*     // Record incoming message */
-/*     copy32(ctx->transcript + ctx->transcript_size, msg); */
-/*     ctx->transcript_size += 32; */
-/*     // Receive message, decrypted it if we have a key */
-/*     copy32(dest, msg); */
-/*     xor32(dest, ctx->derived_keys + 32); */
-/* } */
-
-/* static void kex_init(crypto_kex_ctx *ctx, */
-/*                      const u8        local_sk[32], */
-/*                      const u8        local_pk[32]) */
-/* { */
-/*     if (local_pk == 0) crypto_x25519_public_key(ctx->local_pk, local_sk); */
-/*     else               copy32                  (ctx->local_pk, local_pk); */
-/*     copy32(ctx->chaining_key     , zero    ); */
-/*     copy32(ctx->derived_keys + 32, zero    ); // first encryption key is zero */
-/*     copy32(ctx->local_sk         , local_sk); */
-/*     ctx->transcript_size = 0; */
-/* } */
-
-/* static void kex_seed(crypto_kex_ctx *ctx, u8 random_seed[32]) */
-/* { */
-/*     copy32(ctx->local_ske        , random_seed); */
-/*     crypto_wipe(random_seed, 32); // auto wipe seed to avoid reuse */
-/*     crypto_x25519_public_key(ctx->local_pke, ctx->local_ske); */
-/* } */
-
-
-/* /////////// */
-/* /// XK1 /// */
-/* /////////// */
-/* static const u8 xk1_ck0[32] = "Monokex XK1"; */
-/* void crypto_kex_xk1_init_client(crypto_kex_client_ctx *client_ctx, */
-/*                                 u8                     random_seed[32], */
-/*                                 const u8               client_sk  [32], */
-/*                                 const u8               client_pk  [32], */
-/*                                 const u8               server_pk  [32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(client_ctx->ctx); */
-/*     kex_init   (ctx, client_sk, client_pk); */
-/*     kex_seed   (ctx, random_seed); */
-/*     kex_receive(ctx, ctx->remote_pk, server_pk); */
-/*     copy32(ctx->chaining_key, xk1_ck0); */
-/* } */
-
-/* void crypto_kex_xk1_init_server(crypto_kex_server_ctx *server_ctx, */
-/*                                 u8                     random_seed[32], */
-/*                                 const u8               server_sk  [32], */
-/*                                 const u8               server_pk  [32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(server_ctx->ctx); */
-/*     kex_init   (ctx, server_sk, server_pk); */
-/*     kex_seed   (ctx, random_seed); */
-/*     kex_receive(ctx, ctx->local_pk, ctx->local_pk); */
-/*     copy32(ctx->chaining_key, xk1_ck0); */
-/* } */
-
-/* void crypto_kex_xk1_1(crypto_kex_client_ctx *client_ctx, */
-/*                       u8                     msg1[32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(client_ctx->ctx); */
-/*     kex_send      (ctx, msg1           , ctx->local_pke );  // -> IE */
-/* } */
-
-/* void crypto_kex_xk1_2(crypto_kex_server_ctx *server_ctx, */
-/*                       u8                     msg2[48], */
-/*                       const u8               msg1[32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(server_ctx->ctx); */
-/*     kex_receive   (ctx, ctx->remote_pke, msg1           );  // -> IE */
-/*     kex_send      (ctx, msg2           , ctx->local_pke );  // <- RE */
-/*     kex_update_key(ctx, ctx->local_ske , ctx->remote_pke);  //    ee */
-/*     kex_update_key(ctx, ctx->local_sk  , ctx->remote_pke);  //    es */
-/*     kex_auth      (ctx, msg2 + 32);                         // auth */
-/* } */
-
-/* int crypto_kex_xk1_3(crypto_kex_client_ctx *client_ctx, */
-/*                      u8                     session_key[32], */
-/*                      u8                     msg3       [48], */
-/*                      const u8               msg2       [48]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(client_ctx->ctx); */
-/*     kex_receive   (ctx, ctx->remote_pke, msg2           );  // <- RE */
-/*     kex_update_key(ctx, ctx->local_ske , ctx->remote_pke);  //    ee */
-/*     kex_update_key(ctx, ctx->local_ske , ctx->remote_pk );  //    es */
-/*     if (kex_verify(ctx, msg2 + 32)) { return -1; }          // verify */
-/*     kex_send      (ctx, msg3           , ctx->local_pk  );  // -> IS */
-/*     kex_update_key(ctx, ctx->local_sk  , ctx->remote_pke);  //    se */
-/*     kex_auth      (ctx, msg3 + 32);                         // auth */
-/*     copy32(session_key, ctx->derived_keys + 32); */
-/*     WIPE_CTX(ctx); */
-/*     return 0; */
-/* } */
-
-/* int crypto_kex_xk1_4(crypto_kex_server_ctx *server_ctx, */
-/*                      u8                     session_key[32], */
-/*                      u8                     client_pk  [32], */
-/*                      const u8               msg3       [48]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(server_ctx->ctx); */
-/*     kex_receive   (ctx, ctx->remote_pk , msg3           );  // -> IS */
-/*     kex_update_key(ctx, ctx->local_ske , ctx->remote_pk );  //    se */
-/*     if (kex_verify(ctx, msg3 + 32)) { return -1; }          // verify */
-/*     copy32(client_pk  , ctx->remote_pk); */
-/*     copy32(session_key, ctx->derived_keys + 32); */
-/*     WIPE_CTX(ctx); */
-/*     return 0; */
-/* } */
-
-/* ///////// */
-/* /// X /// */
-/* ///////// */
-/* static const u8 x_ck0[32] = "Monokex X"; */
-/* void crypto_kex_x_init_client(crypto_kex_client_ctx *client_ctx, */
-/*                               u8                     random_seed[32], */
-/*                               const u8               client_sk  [32], */
-/*                               const u8               client_pk  [32], */
-/*                               const u8               server_pk  [32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(client_ctx->ctx); */
-/*     kex_init   (ctx, client_sk, client_pk); */
-/*     kex_seed   (ctx, random_seed); */
-/*     kex_receive(ctx, ctx->remote_pk, server_pk); */
-/*     copy32(ctx->chaining_key, x_ck0); */
-/* } */
-
-/* void crypto_kex_x_init_server(crypto_kex_server_ctx *server_ctx, */
-/*                               const u8               server_sk  [32], */
-/*                               const u8               server_pk  [32]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(server_ctx->ctx); */
-/*     kex_init   (ctx, server_sk, server_pk); */
-/*     kex_receive(ctx, ctx->local_pk, ctx->local_pk); */
-/*     copy32(ctx->chaining_key, x_ck0); */
-/* } */
-
-/* void crypto_kex_x_1(crypto_kex_client_ctx *client_ctx, */
-/*                     u8                     session_key[32], */
-/*                     u8                     msg1       [80]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(client_ctx->ctx); */
-/*     kex_send      (ctx, msg1           , ctx->local_pke );  // -> IE */
-/*     kex_update_key(ctx, ctx->local_ske , ctx->remote_pk );  //    es */
-/*     kex_send      (ctx, msg1 + 32      , ctx->local_pk  );  // -> IS */
-/*     kex_update_key(ctx, ctx->local_sk  , ctx->remote_pk );  //    ss */
-/*     kex_auth      (ctx, msg1 + 64);                         // auth */
-/*     copy32(session_key, ctx->derived_keys + 32); */
-/*     WIPE_CTX(ctx); */
-/* } */
-
-/* int crypto_kex_x_2(crypto_kex_server_ctx *server_ctx, */
-/*                    u8                     session_key[32], */
-/*                    u8                     client_pk  [32], */
-/*                    const u8               msg1       [80]) */
-/* { */
-/*     crypto_kex_ctx *ctx = &(server_ctx->ctx); */
-/*     kex_receive   (ctx, ctx->remote_pke, msg1           );  // -> IE */
-/*     kex_update_key(ctx, ctx->local_sk  , ctx->remote_pke);  //    es */
-/*     kex_receive   (ctx, ctx->remote_pk , msg1 + 32      );  // -> IS */
-/*     kex_update_key(ctx, ctx->local_sk  , ctx->remote_pk );  //    ss */
-/*     if (kex_verify(ctx, msg1 + 64)) { return -1; }          // verify */
-/*     copy32(client_pk  , ctx->remote_pk); */
-/*     copy32(session_key, ctx->derived_keys + 32); */
-/*     WIPE_CTX(ctx); */
-/*     return 0; */
-/* } */
-

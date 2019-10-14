@@ -55,6 +55,7 @@
       (test
          (check Z P M)
          (check_donna Z P M) )
+      (test Z (need 64 0))
       (println N (check_donna Z P M))
    )
 )

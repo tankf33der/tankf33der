@@ -1,7 +1,13 @@
-(in "x25519_test.csv"
+(de hex2L (H)
+   (make
+      (for (L H L (cddr L))
+         (link (hex (pack (car L) (cadr L)))) ) ) )
+(in "eddsa_test.csv"
    (until (eof)
-      (prinl (prog1 (till ",") (char)) ':)
-      (prinl (prog1 (till ",") (char)) ':)
-      (prinl (line) ':)
-      (prinl) ) )
+      (prin "{ ")
+      (do 3 (from ","))
+      (prinl (glue "," (hex2L (till ","))))
+      (line)
+      
+      (prinl "}") ) )
 (bye)

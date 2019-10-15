@@ -55,7 +55,7 @@
 (set (nth P 32) 128)
 
 
-(for N (range 130 135)
+(for N (range 0 255)
    (let M (list N)
       (println
          N
@@ -69,7 +69,7 @@
    )
 )
 
-
+#{
 (off M)
 (loop
    (setq M (randL 3))
@@ -80,7 +80,7 @@
 (println 'donna (check_donna Z P M))
 (println 'sodiu (check_soda Z P M))
 (println 'twwet (check_tweetnacl Z P M))
-
+}#
 
 
 (msg 'ok)

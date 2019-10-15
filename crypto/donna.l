@@ -55,9 +55,10 @@
 (set (nth P 32) 128)
 
 
-(for N (range 0 255)
+(for N (range 130 135)
    (let M (list N)
       (println
+         N
          (check Z P M)
          (check_donna Z P M) 
          (check_soda Z P M)

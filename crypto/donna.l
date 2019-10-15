@@ -1,4 +1,7 @@
 `(== 64 64)
+(seed (in "/dev/urandom" (rd 8)))
+(de randL (N)
+   (make (do N (link (rand 0 255)))) )
 (de check_donna (Sig P M)
    (let (ML (length M) R
       (native
@@ -31,34 +34,52 @@
          (if M (cons NIL (cons ML) M) 0)
          ML
          (cons NIL (32) P) ) )
-      (if (=0 R) 1 0) ) )
+      (if (= -1 R) 0 1) ) )
 (de check_tweetnacl (Sig P M)
-   (let (ML (length M)  S)
+   (let (ML (length M)  R
       (native
          "libtweet.so.0"
          "crypto_sign_ed25519_tweet_open"
          'I
-         #(cons NIL (128) S)
-         '(S (128 B . 128))
+         (cons NIL (128) S)
+         #'(S (128 B . 128))
          NIL
          (if M (cons NIL (cons ML) M) 0)
          ML
          (cons NIL (32) P) )
-       ) ) 
+       )
+      (if (= -1 R) 0 1) ) ) 
       
 (setq P (need 32 0))
 (setq Z (need 64 0))
 (set (nth P 32) 128)
 
+
 (for N (range 0 255)
    (let M (list N)
-      (test
+      (println
          (check Z P M)
-         (check_donna Z P M) )
+         (check_donna Z P M) 
+         (check_soda Z P M)
+         (check_tweetnacl Z P M)
+         )
       (test Z (need 64 0))
-      (println N (check_donna Z P M))
+      #(println N (check_donna Z P M))
    )
 )
+
+
+(off M)
+(loop
+   (setq M (randL 3))
+   (T (=1 (check Z P M))) )
+(println Z P M)
+
+(println 'monoo (check Z P M))
+(println 'donna (check_donna Z P M))
+(println 'sodiu (check_soda Z P M))
+(println 'twwet (check_tweetnacl Z P M))
+
 
 
 (msg 'ok)

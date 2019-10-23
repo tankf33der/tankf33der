@@ -40,7 +40,7 @@
             "};" ) ) ) )
 (prinl
    "size_t nb_si = "
-   (/ C 4)
+   C
    ";" )
 (prin "size_t msg_sizes[] = {")
 (for N 1024

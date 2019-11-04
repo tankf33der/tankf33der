@@ -32,6 +32,15 @@
       (cons NIL (64) A)
       (cons NIL (64) B)
       64 ) )
+(de sodium__memcmp (A B)
+   (let Len (length A)
+      (native
+         "libsodium.so"
+         "sodium_memcmp"
+         'I
+         (ifn A 0 (cons NIL (cons Len) A))
+         (ifn B 0 (cons NIL (cons Len) B))
+         Len ) ) )
 (for (N 0 (>= 255 N) (inc N))
    (let
       (A (need 64 N)
@@ -91,5 +100,7 @@
                (test -1 (sodium-verify64 Z Z1))
                (set L N) ) )
          Z ) ) )
+(let D (randL 1024)
+   (println (sodium__memcmp)) )
 (msg 'ok-verify)
-(bye)`
+(bye)

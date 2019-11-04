@@ -1,4 +1,5 @@
 *.o
+a.out
 *.use
 obj/*
 bigint

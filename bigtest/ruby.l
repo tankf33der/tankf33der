@@ -37,7 +37,7 @@
          (bye) ) ) )
 (pipe
    (out '(ruby bigint.rb)
-      (do 10000000
+      (do 1000000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
@@ -53,8 +53,8 @@
          (prinl (abs N1) " << " 1024)
          (prinl (abs N1) " >> " 64)
          (at (0 . 1000) (wait 50)) ) )
-   (do 100
-      (do 1000000
+   (do 10
+      (do 100000
          (setq
             N1 (read)
             N2 (read) )

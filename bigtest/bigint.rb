@@ -1,11 +1,13 @@
-while s = STDIN.gets.split(" ")
-	s[0] = s[0].to_i
-	s[2] = s[2].to_i
+while s = gets
+	s = s.split(" ")
 
 	if not s[1]
 		puts(s[0])
 		next
 	end
+	
+	s[0] = s[0].to_i
+	s[2] = s[2].to_i
 
 	case s[1]
 	when "+"

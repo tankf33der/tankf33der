@@ -1,5 +1,3 @@
-## go build bigint.go
-
 (seed (in "/dev/urandom" (rd 8)))
 #  Random patterns:
 #  cnt
@@ -38,8 +36,8 @@
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
 (pipe
-   (out '("./bigint")
-      (do 10000000
+   (out '("ruby bigint.rb")
+      (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
@@ -55,8 +53,8 @@
          (prinl (abs N1) " << " 1024)
          (prinl (abs N1) " >> " 64)
          (at (0 . 1000) (wait 50)) ) )
-   (do 1000
-      (do 10000
+   (do 10
+      (do 1000
          (setq
             N1 (read)
             N2 (read) )
@@ -74,5 +72,5 @@
       (prin ".")
       (flush) )
    (prinl) )
-(msg 'OK-go)
+(msg 'OK-ruby)
 (bye)

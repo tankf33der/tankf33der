@@ -16,5 +16,10 @@
       (prinl) )
    Grid )
 
+(with 'a1
+   (println (south This))
+)
+
+
 (msg 'ok)
 (bye)

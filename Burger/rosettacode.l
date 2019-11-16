@@ -1,4 +1,5 @@
 # 27mar14abu
+
 # (c) Software Lab. Alexander Burger
 
 # Task: 100 doors

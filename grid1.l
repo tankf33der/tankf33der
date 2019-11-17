@@ -26,6 +26,10 @@
 (show (last (last Grid)))
 (with 'e5
    (println 'east (east 'e5)) )
+(msg "next")
+(with 'c3
+   (show (north (east This)))
+)
 
 (msg 'ok)
 (bye)

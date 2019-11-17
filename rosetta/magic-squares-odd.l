@@ -22,7 +22,7 @@
                (prin (align 4 (: V))) )
             (prinl) )
          Grid )
-      # delete
+      # clean
       (mapc '((L) (mapc zap L)) Grid) ) )      
 (magic 5)
 (prinl)

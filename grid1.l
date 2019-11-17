@@ -1,6 +1,6 @@
 (load "@lib/simul.l")
 
-(setq Grid (grid 5 5))
+(setq Grid (grid 5 5 T T))
 (zero C)
 
 (for G Grid
@@ -8,6 +8,7 @@
       (=: V (inc 'C))
    )
 )  
+(show 'a1)
 (show 'a2)
 (prinl)
 (mapc
@@ -16,10 +17,15 @@
       (prinl) )
    Grid )
 
-(with 'a1
-   (println (south This))
-)
-
+(show (last (last Grid)))
+(with 'e5
+   (println 'east (east 'e5)) )
+# cut corner
+(with (last (last Grid))
+   (con (: 0 1)) )
+(show (last (last Grid)))
+(with 'e5
+   (println 'east (east 'e5)) )
 
 (msg 'ok)
 (bye)

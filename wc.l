@@ -1,20 +1,28 @@
 #!/bin/env picolisp
-(setq *Delim " ^I^J^M-_.,\"'*[]?!&@#$%^\(\):;")
-(setq *Skip (chop *Delim))
+
+#(setq *Delim "-_.,\"'*[]?!&@#$%^\(\):; ^I^J^M")
+#(setq *Skip (chop *Delim))
 
 (set 'F (opt))
-(zero W)
+#(zero W)
+#(off I)
 (println (lines F))
-(println (car (info F)))
-
+#(println (car (info F)))
+#{
 (in F
-   (until (eof)
-      (when (till *Delim)
-         
-         (inc 'W)
+   (while (char)
+      (case @
+         (" " (off I))
+         ("^J" (off I))
+         (T
+            (or
+               I
+               (inc 'W) )
+            (on I) )
       )
-      (char)
-       ) )
-(println W)
+   )
+)
 
+(println W)
+}#
 (bye)

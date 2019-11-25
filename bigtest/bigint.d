@@ -27,7 +27,6 @@ void main() {
          case "<=":  writeln(a <= b); break;
          case "<<": writeln(a << b.to!int); break;
          case ">>": writeln(a >> b.to!int); break;
-		 case
          default: break;
         }
     }

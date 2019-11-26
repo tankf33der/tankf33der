@@ -31,7 +31,7 @@
 (de sign (S P M)
    (let (ML (length M)  Sign)
       (native
-         "libmonocypher.so.2"
+         "libmonocypher.so"
          "crypto_sign"
          NIL
          '(Sign (64 B . 64))
@@ -43,7 +43,7 @@
 (de check (Sig P M)
    (let ML (length M)
       (native
-         "libmonocypher.so.2"
+         "libmonocypher.so"
          "crypto_check"
          'I
          (cons NIL (64) Sig)
@@ -99,6 +99,6 @@
                Result
                @@ ) )
          (inc 'C) ) ) )
-(test 111 (dec C)) # check EOF
+(test 145 (dec C)) # check EOF
 
 (msg 'eddsa-OK)

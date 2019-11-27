@@ -15,7 +15,7 @@
    (let (Len (length L)  Ken (length K))
       (use R
          (native
-            "libmonocypher.so.2"
+            "libmonocypher.so"
             "crypto_blake2b_general"
             NIL
             (cons 'R (cons (cons O 'B O)))

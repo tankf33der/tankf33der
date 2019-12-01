@@ -55,6 +55,6 @@
                Result
                @@ ) )
          (inc 'C) ) ) )
-(test 111 (dec C)) # check EOF
+(test 145 (dec C)) # check EOF
 
 (msg 'eddsa-OK)

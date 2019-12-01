@@ -10,7 +10,7 @@
    (use P
       (native
          "libmonocypher.so"
-         "crypto_sign_public_key"
+         "crypto_ed25519_public_key"
          NIL
          '(P (32 B . 32))
          (cons NIL (32) S) )
@@ -28,7 +28,7 @@
    (let (ML (length M)  Sign)
       (native
          "libmonocypher.so"
-         "crypto_sign"
+         "crypto_ed25519_sign"
          NIL
          '(Sign (64 B . 64))
          (cons NIL (32) S)
@@ -39,7 +39,7 @@
 (de sign_init1 (C Prv Pub)
    (native
       "libmonocypher.so"
-      "crypto_sign_init_first_pass"
+      "crypto_ed25519_sign_init_first_pass"
       NIL
       C
       (cons NIL (32) Prv)
@@ -47,14 +47,14 @@
 (de sign_init2 (C)
    (native
       "libmonocypher.so"
-      "crypto_sign_init_second_pass"
+      "crypto_ed25519_sign_init_second_pass"
       NIL
       C ) )
 (de sign_update (C M)
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_sign_update"
+         "crypto_ed25519_sign_update"
          NIL
          C
          (if M (cons NIL (cons ML) M) 0)
@@ -63,7 +63,7 @@
    (let Sign NIL
       (native
          "libmonocypher.so"
-         "crypto_sign_final"
+         "crypto_ed25519_sign_final"
          NIL
          C
          '(Sign (64 B . 64)) )
@@ -72,7 +72,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_check"
+         "crypto_ed25519_check"
          'I
          (cons NIL (64) Sig)
          (cons NIL (32) P)
@@ -81,7 +81,7 @@
 (de check_init (C Sig P)
    (native
       "libmonocypher.so"
-      "crypto_check_init"
+      "crypto_ed25519_check_init"
       NIL
       C
       (cons NIL (64) Sig)
@@ -90,7 +90,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_check_update"
+         "crypto_ed25519_check_update"
          NIL
          C
          (if M (cons NIL (cons ML) M) 0)
@@ -98,7 +98,7 @@
 (de check_final (C)
    (native
       "libmonocypher.so"
-      "crypto_check_final"
+      "crypto_ed25519_check_final"
       'I
       C ) )
 (de check_soda (Sig P M)

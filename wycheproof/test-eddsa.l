@@ -23,7 +23,7 @@
    (use P
       (native
          "libmonocypher.so"
-         "crypto_sign_public_key"
+         "crypto_ed25519_public_key"
          NIL
          '(P (32 B . 32))
          (cons NIL (32) S) )
@@ -32,7 +32,7 @@
    (let (ML (length M)  Sign)
       (native
          "libmonocypher.so"
-         "crypto_sign"
+         "crypto_ed25519_sign"
          NIL
          '(Sign (64 B . 64))
          (cons NIL (32) S)
@@ -44,7 +44,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_check"
+         "crypto_ed25519_check"
          'I
          (cons NIL (64) Sig)
          (cons NIL (32) P)

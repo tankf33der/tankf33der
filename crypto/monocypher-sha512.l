@@ -4,14 +4,14 @@
    (make (do N (link (rand 0 255)))) )
 (de mono_sha512_init (M)
    (native
-      "libmonocypher.so.2"
+      "libmonocypher.so"
       "crypto_sha512_init"
       NIL
       M ) )
 (de mono_sha512_update (M D)
    (let Len (length D)
       (native
-         "libmonocypher.so.2"
+         "libmonocypher.so"
          "crypto_sha512_update"
          NIL
          M
@@ -20,7 +20,7 @@
 (de mono_sha512_fin (M)
    (let R NIL
       (native
-         "libmonocypher.so.2"
+         "libmonocypher.so"
          "crypto_sha512_final"
          NIL
          M

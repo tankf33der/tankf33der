@@ -1,7 +1,18 @@
 `(== 64 64)
+(load "sha512.l")
 (seed (in "/dev/urandom" (rd 8)))
 (de randL (N)
    (make (do N (link (rand 0 255)))) )
+(de mono_sha512 (M)
+   (let (L (length M)  R)
+      (native
+         "libmonocypher.so"
+         "crypto_sha512"
+         NIL
+         '(R (64 B . 64))
+         (cons NIL (cons L) M)
+         L )
+      R ) )
 (de mono_sha512_init (M)
    (native
       "libmonocypher.so"
@@ -25,6 +36,16 @@
          NIL
          M
          '(R (64 B . 64)) )
+      R ) )
+(de sodium_sha512 (M)
+   (let (L (length M)  R)
+      (native
+         "libsodium.so"
+         "crypto_hash_sha512"
+         'I
+         '(R (64 B . 64))
+         (cons NIL (cons L) M)
+         L )
       R ) )
 (de sodium_sha512_init (S)
    (native
@@ -50,6 +71,12 @@
          S
          '(R (64 B . 64)) )
       R ) )
+(for N 1024
+   (let D (randL N)
+      (test (sha512 D) (sodium_sha512 D)) ) )
+(for N 1024
+   (let D (range 1 N)
+      (test (mono_sha512 D) (sodium_sha512 D)) ) )
 (setq M (native "@" "malloc" 'N 856))
 (setq S (native "@" "malloc" 'N 208))
 (do 1024

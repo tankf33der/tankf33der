@@ -31,7 +31,7 @@
 (println (mono-hmac (mapcar char (chop "Hi There")) (need 20 11)))
 }#
 
-(let D (range 1 200)
+(let D (range 1 300)
    (println (hmac 'sha512 D D))
    (println (mono-hmac D D))
 )

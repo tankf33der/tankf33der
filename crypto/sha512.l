@@ -1,3 +1,7 @@
+# XXX found broken
+# for N (sha512 (range 1 N)))
+# dec2019
+#
 (setq *Sha512-K
    (mapcar hex
       '("428a2f98d728ae22" "7137449123ef65cd" "b5c0fbcfec4d3b2f" 

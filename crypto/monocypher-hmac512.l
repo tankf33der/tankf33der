@@ -39,7 +39,9 @@
 (test
    (h2l "e37b6a775dc87dbaa4dfa9f96e5e3ffddebd71f8867289865df5a32d20cdc944b6022cac3c4982b10d5eeb55c3e4de15134676fb6de0446065c97440fa8c6a58")
    (mono-hmac (s2l "This is a test using a larger than block-size key and a larger than block-size data. The key needs to be hashed before being used by the HMAC algorithm.") (need 131 170)) )
-         
+(test
+   (h2l "9cb8abb703b31746d63477d88e6b9b2ef428b5ab5ad5a1c6db91c6ffc2c4f3e89f154eecc4efe9a8b66b08183d0e79afc581b9cd2223377dba7323bda0dfab35")
+   (mono-hmac (s2l "Today web engineering has modern apps adhere to what is known as a single-page app (SPA) model.") (s2l "4234kxzjcjj3nxnxbcvsjfjzaqwsxcderfvbgtyhnmjuik4234kxzjcjj3nxnxbcvsjfjzaqwsxcderfvbgtyhnmjuik")) )
          
 (msg 'ok)
 (bye)

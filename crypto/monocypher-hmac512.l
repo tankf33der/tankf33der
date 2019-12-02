@@ -4,7 +4,7 @@
       (for (L (chop H) L (cddr L))
          (link (hex (pack (car L) (cadr L)))) ) ) )
 (de l2hex (Lst)
-   (lowc 
+   (lowc
       (pack
          (mapcar '((B) (pad 2 (hex B))) Lst) ) ) )
 (de s2l (Str)
@@ -21,6 +21,7 @@
          (if M (cons NIL (cons ML) M) 0)
          ML )
       R ) )
+# RFC 7 vectors
 (test
    (h2l "87aa7cdea5ef619d4ff0b4241a1d6cb02379f4e2ce4ec2787ad0b30545e17cdedaa833b7d6b8a702038b274eaea3f4e4be9d914eeb61f1702e696c203a126854")
    (mono-hmac (s2l "Hi There") (need 20 11)) )
@@ -39,9 +40,26 @@
 (test
    (h2l "e37b6a775dc87dbaa4dfa9f96e5e3ffddebd71f8867289865df5a32d20cdc944b6022cac3c4982b10d5eeb55c3e4de15134676fb6de0446065c97440fa8c6a58")
    (mono-hmac (s2l "This is a test using a larger than block-size key and a larger than block-size data. The key needs to be hashed before being used by the HMAC algorithm.") (need 131 170)) )
+# golang
 (test
    (h2l "9cb8abb703b31746d63477d88e6b9b2ef428b5ab5ad5a1c6db91c6ffc2c4f3e89f154eecc4efe9a8b66b08183d0e79afc581b9cd2223377dba7323bda0dfab35")
    (mono-hmac (s2l "Today web engineering has modern apps adhere to what is known as a single-page app (SPA) model.") (s2l "4234kxzjcjj3nxnxbcvsjfjzaqwsxcderfvbgtyhnmjuik4234kxzjcjj3nxnxbcvsjfjzaqwsxcderfvbgtyhnmjuik")) )
-         
+(use (Klen Tlen Key Msg Mac C)
+   (zero C)
+   (in "tests/hmac-sha512.txt"
+      (while (from "Klen = ")
+         (inc 'C)
+         (setq Klen (read))
+         (from "Tlen = ")
+         (setq Tlen (read))
+         (from "Key = ")
+         (setq Key (h2l (line T)))
+         (from "Msg = ")
+         (setq Msg (h2l (line T)))
+         (from "Mac = ")
+         (setq Mac (h2l (line T)))
+         (test
+            Mac
+            (head Tlen (mono-hmac Msg Key)) ) ) ) )
 (msg 'ok)
 (bye)

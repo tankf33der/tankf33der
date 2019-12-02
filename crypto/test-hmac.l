@@ -5,7 +5,16 @@
 (load "../md5.l")
 (load "tiger.l")
 (load "hmac.l")
-
+(de h2l (H)                                                                     
+   (make                                                                        
+      (for (L (chop H) L (cddr L))                                              
+         (link (hex (pack (car L) (cadr L)))) ) ) )                             
+(de l2h (Lst)                                                                 
+   (lowc                                                                        
+      (pack                                                                     
+         (mapcar '((B) (pad 2 (hex B))) Lst) ) ) )
+(de s2l (Str)
+   (mapcar char (chop Str)) )
 (setq Tests
    (quote
       (md4 (90 . 82))
@@ -42,6 +51,5 @@
          (mapcar char (chop "Test Using Larger Than Block-Size Key - Hash Key First"))
          (need 80 `(hex "AA")) ) )
    (test T (and (= 170 (car L)) (= 18 (last L)))) )
-
 (msg 'OK-HMAC)
 

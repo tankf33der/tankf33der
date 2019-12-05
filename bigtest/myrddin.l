@@ -52,7 +52,7 @@
          (bye) ) ) )
 (pipe
    (out '("./bigint")
-      (do 1000000
+      (do 10000000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (setq N3 (rand 0 1024))
@@ -79,7 +79,7 @@
          (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) ) 
    (do 100
-      (do 10000
+      (do 100000
          (setq
             N1 (read)
             N2 (read)

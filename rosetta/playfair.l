@@ -33,7 +33,7 @@
 (let Lst (5x5 "PLAYFAIREXAMPLE")
    (println Lst)
    (println (apply mapcar Lst list))
-   
+
 )
 
 

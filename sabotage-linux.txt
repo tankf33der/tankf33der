@@ -1,0 +1,12 @@
+pseudo notes:
+install kernel
+...
+inistall core
+install squash-tool
+cryptsetup
+squash-tool mkinitramfs /boot/initrd.img
+
+out
+install syslinux
+install squashfs-tools
+make-iso -t

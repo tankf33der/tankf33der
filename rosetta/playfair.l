@@ -1,3 +1,5 @@
+# hardly can be finished
+#
 (de 5x5 (L I?)
    (default I? 'I)
    (let L (conc (chop L) (chop "ABCDEFGHIJKLMNOPQRSTUVWXYZ"))

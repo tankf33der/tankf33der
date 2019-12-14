@@ -13,7 +13,7 @@
    (let (ML (length M)  KL (length K)  R)
       (native
          "libmonocypher.so"
-         "crypto_hmac"
+         "crypto_hmac_sha512"
          NIL
          '(R (64 B . 64))
          (if K (cons NIL (cons KL) K) 0)

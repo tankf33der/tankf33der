@@ -10,7 +10,7 @@
                   ","
                   (cdr (assoc "public" L))
                   ","
-                  (cdr (assoc "shared" L)) ) ) 
+                  (cdr (assoc "shared" L)) ) )
             (cdr (assoc "tests" L)) ) ) )
    (assoc "testGroups" (in "x25519_test.json" (readJson))) )
 (bye)

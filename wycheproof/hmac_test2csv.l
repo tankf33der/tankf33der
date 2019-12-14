@@ -10,7 +10,7 @@
                ","
                (cdr (assoc "tag" L))
                ","
-               (if (= (cdr (assoc "result" L)) "valid") 1 0) ) )
+               (if (= (cdr (assoc "result" L)) "valid") 0 1) ) )
          (cdr (assoc "tests" L)) ) )
    (assoc "testGroups" (in "hmac_sha512_test.json" (readJson))) )
 (bye)

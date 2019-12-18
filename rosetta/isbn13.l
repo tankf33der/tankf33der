@@ -5,13 +5,7 @@
             (and (format N) (link @)) ) )
       (and
          (= 13 (length L))
-         (=0
-            (%
-               (sum
-                  '((A B) (* A B))
-                  L
-                  (circ 1 3) )
-               10 ) ) ) ) )
+         (=0 (% (sum * L (circ 1 3)) 10)) ) ) )
 (println (isbn13? "978-1734314502"))
 (println (isbn13? "978-1734314509"))
 (println (isbn13? "978-1-86197-876-9"))

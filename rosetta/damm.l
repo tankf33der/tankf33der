@@ -10,6 +10,15 @@
       (8 9 4 5 3 6 2 0 1 7)
       (9 4 3 8 6 1 7 2 0 5)
       (2 5 8 1 4 3 6 7 9 0) ) )
+(de damm? (N)
+   (let R 1
+      (for N (mapcar format (chop N))
+         (setq R (inc (get *D R (inc N)))) )
+      (= 1 R) ) )
+(println (damm? 5724))
+(println (damm? 5727))
+(println (damm? 112946))
+(println (damm? 112940))
 
 (msg 'ok)
 (bye)

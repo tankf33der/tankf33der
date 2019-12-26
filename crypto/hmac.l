@@ -1,14 +1,14 @@
 # 64 -> 144 for SHA3-224
 # 128 sha512
 # you must tune blocksize
-(de hmac ("Fun" Msg Key)
+(de hmac ("Fun" Msg Key N)
+   (default N 64)
    (let (Msg (copy Msg)  Key (copy Key))
       (and
-         (> (length Key) 64)
+         (> (length Key) N)
          (setq Key ("Fun" Key)) )
-      (setq Key (need -64 Key 0))
+      (setq Key (need (- N) Key 0))
       ("Fun"
          (conc
-            (mapcar x| (need 64 `(hex "5C")) Key)
-            ("Fun" (conc (mapcar x| (need 64 `(hex "36")) Key) Msg)) ) ) ) )
-
+            (mapcar x| (need N `(hex "5C")) Key)
+            ("Fun" (conc (mapcar x| (need N `(hex "36")) Key) Msg)) ) ) ) )

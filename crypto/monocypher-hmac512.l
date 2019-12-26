@@ -1,4 +1,9 @@
 `(== 64 64)
+(seed (in "/dev/urandom" (rd 8)))
+(load "sha512.l")
+(load "hmac.l")
+(de randL (N)
+   (make (do N (link (rand 0 255)))) )
 (de h2l (H)
    (make
       (for (L (chop H) L (cddr L))
@@ -61,5 +66,11 @@
          (test
             Mac
             (head Tlen (mono-hmac Msg Key)) ) ) ) )
+# against picolisp
+(for N 1024
+   (let D (randL N)
+      (test
+         (mono-hmac NIL D)
+         (hmac 'sha512 NIL D 128) ) ) )
 (msg 'ok)
 (bye)

@@ -1,5 +1,5 @@
 (seed (in "/dev/urandom" (rd 8)))
-(de rnd NIL 
+(de rnd- NIL
    (let Big (| (rand 0 7) (>> -28 (rand 0 15)) (>> -57 (rand 0 7)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -9,6 +9,13 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -64 Big))) ) )
       (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 128 256)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de testme @
    (let (N (read)  X (eval (rest)))
       (unless (= N X)
@@ -35,7 +42,7 @@
    (prinl "BigInt(abs(" N1 ")) >> abs(" N2 ")") )
 (pipe
    (out '(julia)
-      (do 10000
+      (do 100000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
@@ -143,8 +150,8 @@
          (prinl N1 ">=" N2)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 1000
-         (setq N1 (read)  N2 (read)) 
+      (do 10000
+         (setq N1 (read)  N2 (read))
          (testme '+ N1 N2)
          (testme '+ N1 1)
          (testme '+ N1 2)
@@ -249,6 +256,6 @@
       (prin ".")
       (flush) ) )
 (prinl)
-      
+
 (msg 'OK-julia)
 (bye)

@@ -16,7 +16,7 @@
 #     xxx111111111111111111111111111xxxx111111111111111111111111111xxx
 #        1FFFFFFC3FFFFFF8
 
-(de rnd ()
+(de rnd- ()
    (let Big (| (rand 0 14) (>> -56 (rand 0 30)) (>> -100 (rand 0 14)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -26,6 +26,13 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -128 Big))) ) )
       (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 128 256)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de test1 (S N1)
    (let (N (read)  X (eval (list S N1)))
       (unless (= N X)

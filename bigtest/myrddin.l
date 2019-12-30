@@ -14,7 +14,7 @@
 #
 #     xxx111111111111111111111111111xxxx111111111111111111111111111xxx
 #        1FFFFFFC3FFFFFF8
-(de rnd ()
+(de rnd- ()
    (let Big (| (rand 0 14) (>> -56 (rand 0 30)) (>> -100 (rand 0 14)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -24,11 +24,18 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -128 Big))) ) )
       (if (rand T) Big (- Big)) ) )
-(de rand32 NIL
+(de rand32- NIL
    (make
       (do 32
          (link (rand 0 255)) ) ) )
-(de bigint (L)
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 128 256)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
+(de bigint- (L)
    (apply
       |
       (mapcar

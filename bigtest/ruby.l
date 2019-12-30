@@ -15,7 +15,7 @@
 #     xxx111111111111111111111111111xxxx111111111111111111111111111xxx
 #        1FFFFFFC3FFFFFF8
 
-(de rnd ()
+(de rnd- ()
    (let Big (| (rand 0 28) (>> -56 (rand 0 60)) (>> -100 (rand 0 14)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -25,6 +25,13 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -128 Big))) ) )
       (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 128 256)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de test1 (S N1)
    (let (N (read)  X (eval (list S N1)))
       (unless (= N X)
@@ -37,7 +44,7 @@
          (bye) ) ) )
 (pipe
    (out '(ruby bigint.rb)
-      (do 10000000
+      (do 100000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
@@ -54,7 +61,7 @@
          (prinl (abs N1) " >> " 64)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 1000000
+      (do 10000
          (setq
             N1 (read)
             N2 (read) )

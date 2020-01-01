@@ -15,34 +15,42 @@
       (for L Lst
          (link
             (if2 (= "#" L) Flg 0 1 1 0) ) ) ) )
+(de getL (Lst)
+   (make
+      (cut 3 'Lst)
+      (do 6
+         (link (convs (cut 7 'Lst))) )
+      (cut 5 'Lst)
+      (do 6
+         (link (convs (cut 7 'Lst) T)) ) ) )
 (de parse (Str)
-   (let Lst (clip (chop Str))
+   (let Lst
       (make
-         (cut 3 'Lst)
-         (link (convs (cut 7 'Lst)))
-         (link (convs (cut 7 'Lst)))
-         (link (convs (cut 7 'Lst)))
-         (link (convs (cut 7 'Lst)))
-         (link (convs (cut 7 'Lst)))
-         (link (convs (cut 7 'Lst)))
-         (cut 5 'Lst)
-         (link (convs (cut 7 'Lst) T))
-         (link (convs (cut 7 'Lst) T))
-         (link (convs (cut 7 'Lst) T))
-         (link (convs (cut 7 'Lst) T))
-         (link (convs (cut 7 'Lst) T))
-         (link (convs (cut 7 'Lst) T))
-      )
+         (link (clip (chop Str)))
+         (link (reverse (car (made)))) )
+      (find
+         '((N) (fully num? N))
+         (mapcar '((L) (mapcar l2n (getL L))) Lst) ) ) )
+(de upc (Str)
+   (let Lst (parse Str)
+      (println Lst)
    )
 )
+
+(println
+      (upc "         # #   # ##  #  ## #   ## ### ## ### ## #### # # # ## ##  #   #  ##  ## ###  # ##  ## ### #  # #       ")
+   )
 
 
 (println
-   (mapcar
-      l2n
-      (parse "         # #   # ##  #  ## #   ## ### ## ### ## #### # # # ## ##  #   #  ##  ## ###  # ##  ## ### #  # #       ")
+      (upc "        # # #   ##   ## # #### #   # ## #   ## #   ## # # # ###  # ###  ##  ## ###  # #  ### ###  # # #         ")
    )
-)
+
+
+(println
+      (upc "         # #    # # #  ###  #   #    # #  #   #    # # # # ## #   ## #   ## #   ##   # # #### ### ## # #         ")
+   )
+
 
 (msg 'ok)
 (bye)

@@ -7,13 +7,21 @@
       Lst ) )
 
 # Destructive
-(de deldestr (Item "Lst")
+(de deldestr-- (Item "Lst")
    (when (setq @@ (index Item (val "Lst")))
       (if (=1 @)
          (set "Lst" (cdr (val "Lst")))
          (con
             (nth (val "Lst") (dec @@))
             (tail (- @@) (val "Lst")) ) ) ) )
+(de deldestr (Item "Var")
+   (let Lst (val "Var")
+      (let? M (member Item Lst)
+         (ifn (prior M Lst)
+            (set "Var" (cdr Lst))
+            (con @ (cdr M))
+            (val "Var") ) ) ) )
+
 (let (N 2  L (range 1 5))
    (delnon N L)
    (println 'L L)

@@ -12,5 +12,13 @@
 # make
 # make tools gate
 ```
+* add picolisp dir to $PATH
+* 
+```
+# pil @lib/test.l +
+OK
+:
+<Ctrl-D>
+```
 
 

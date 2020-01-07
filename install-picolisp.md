@@ -16,8 +16,7 @@
 # make tools gate
 ```
 * add just picolisp dir to $PATH
-*
-```
+* ```
 # pil @lib/test.l +
 OK
 : (bye)

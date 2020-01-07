@@ -2,7 +2,7 @@
 
 # bootstrap via pil32
 * ```# yum update```
-* ```# yum install git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
+* ```# yum install git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686```
 * ```# reboot```
 * 
 ```

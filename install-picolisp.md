@@ -12,7 +12,7 @@
 # make
 # make tools gate
 ```
-* add picolisp dir to $PATH
+* add just picolisp dir to $PATH
 * 
 ```
 # pil @lib/test.l +
@@ -20,5 +20,16 @@ OK
 :
 <Ctrl-D>
 ```
+* ready to compile pil64
+
+## bootstrap via JDK
+* the same machine
+* clean prev. pil32 compilation
+```
+# cd picolisp/src
+# make clean
+# rm ../bin/picolisp
+```
+* ```# java-1.8.0-openjdk```
 
 

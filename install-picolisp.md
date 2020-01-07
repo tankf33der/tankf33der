@@ -1,11 +1,11 @@
 # you have fresh installed CentOS 7 x64 (Minimal)
 
 ## bootstrap via pil32
-* yum update
-* yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
-* reboot
 ```
-# cd
+# yum update
+# yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
+# reboot
+# <after reboot>
 # git clone https://github.com/picolisp/picolisp.git
 # cd picolisp/src
 # make

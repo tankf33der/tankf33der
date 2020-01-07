@@ -2,9 +2,8 @@
 
 ## bootstrap via pil32
 * yum update
-*  yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
+* yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
 * reboot
-* 
 ```
 # cd
 # git clone https://github.com/picolisp/picolisp.git

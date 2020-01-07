@@ -32,8 +32,8 @@ yum install java-1.8.0-openjdk
 
 ## bootstrap via *.s files
 ```
-rm ../bin/picolisp
-cd picolisp
+cd /home/user/picolisp
+rm bin/picolisp
 wget https://software-lab.de/x86-64.linux.tgz
 tar zxvf x86-64.linux.tgz
 ```

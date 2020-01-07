@@ -13,10 +13,8 @@
 # make tools gate
 ```
 * add just picolisp dir to $PATH
-```
-# export PATH=$PATH:/home/user/picolisp
-```
-    # pil @lib/test.l +
+    # export PATH=$PATH:/home/user/picolisp
+    # pil @lib/test.l
     OK
     : (bye)
 * ready to compile pil64

@@ -12,11 +12,13 @@
 # make
 # make tools gate
 ```
-* add just picolisp dir to $PATH
+* add just picolisp dir to $PATH and test
+```
     # export PATH=$PATH:/home/user/picolisp
     # pil @lib/test.l
     OK
     : (bye)
+```
 * ready to compile pil64
 
 ## bootstrap via JDK

@@ -6,6 +6,7 @@ yum update
 yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
 reboot
 <after reboot>
+cd /home/user
 git clone https://github.com/picolisp/picolisp.git
 cd picolisp/src
 make
@@ -27,7 +28,6 @@ make clean
 rm ../bin/picolisp
 yum install java-1.8.0-openjdk
 ```
-
 * ready to compile pil64
 
 ## bootstrap via *.s files

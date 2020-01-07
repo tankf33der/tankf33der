@@ -20,12 +20,14 @@ OK
 ## bootstrap via JDK
 * the same machine, same installation
 * clean prev. pil32 compilation and install Java
+
 ```
 cd picolisp/src
 make clean
 rm ../bin/picolisp
 yum install java-1.8.0-openjdk
 ```
+
 * ready to compile pil64
 
 ## bootstrap via *.s files

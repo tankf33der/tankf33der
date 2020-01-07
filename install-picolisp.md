@@ -2,21 +2,18 @@
 
 ## bootstrap via pil32
 ```
-# yum update
-# yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
-# reboot
-# <after reboot>
-# git clone https://github.com/picolisp/picolisp.git
-# cd picolisp/src
-# make
-# make tools gate
-```
-* add just picolisp dir to $PATH and test
-```
-    # export PATH=$PATH:/home/user/picolisp
-    # pil @lib/test.l
-    OK
-    : (bye)
+yum update
+yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
+reboot
+<after reboot>
+git clone https://github.com/picolisp/picolisp.git
+cd picolisp/src
+make
+make tools gate
+export PATH=$PATH:/home/user/picolisp
+pil @lib/test.l
+OK
+: (bye)
 ```
 * ready to compile pil64
 

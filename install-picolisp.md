@@ -16,12 +16,9 @@
 ```
 # export PATH=$PATH:/home/user/picolisp
 ```
-*
-``` 
-# pil @lib/test.l +
-OK
-: (bye)
-```
+    # pil @lib/test.l +
+    OK
+    : (bye)
 * ready to compile pil64
 
 ## bootstrap via JDK

@@ -13,7 +13,9 @@
 # make tools gate
 ```
 * add just picolisp dir to $PATH
-
+```
+# export PATH=$PATH:/home/user/picolisp
+```
 *
 ``` 
 # pil @lib/test.l +

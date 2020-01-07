@@ -2,9 +2,9 @@
 
 ## bootstrap via pil32
 * 
-```# yum update```
+   # yum update
 * 
-```# yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686```
+   # yum install wget git gcc openssl-devel openssl-libs.i686 openssl-devel.i686 glibc-devel.i686 glibc-devel libgcc.i686
 * 
 ```# reboot```
 * 
@@ -15,8 +15,8 @@
 # make
 # make tools gate
 ```
-* add just picolisp dir to \$PATH
-* ```
+* add just picolisp dir to $PATH
+* 
 # pil @lib/test.l +
 OK
 : (bye)

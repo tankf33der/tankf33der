@@ -18,14 +18,14 @@ OK
 * ready to compile pil64
 
 ## bootstrap via JDK
-* the same machine
-* clean prev. pil32 compilation:
+* the same machine, same installation
+* clean prev. pil32 compilation and install Java
 ```
-# cd picolisp/src
-# make clean
-# rm ../bin/picolisp
+cd picolisp/src
+make clean
+rm ../bin/picolisp
+yum install java-1.8.0-openjdk
 ```
-* ```# yum install java-1.8.0-openjdk```
 * ready to compile pil64
 
 ## bootstrap via *.s files

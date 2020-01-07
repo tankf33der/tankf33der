@@ -14,7 +14,7 @@ make tools gate
 export PATH=$PATH:/home/user/picolisp
 pil @lib/test.l
 OK
-: (bye)
+:
 ```
 * ready to compile pil64
 
@@ -39,4 +39,20 @@ tar zxvf x86-64.linux.tgz
 ```
 * ready to compile pil64
 
+## install pil64 and test
+```
+cd /home/user/picolisp/src64
+make
+pil @lib/test.l +
+OK
+:
+```
 
+## daily-weekly-monthly update via github
+```
+cd /home/user/picolisp/src64
+git pull
+make
+```
+
+## happy coding.

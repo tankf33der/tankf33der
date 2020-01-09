@@ -1,5 +1,5 @@
 (seed (in "/dev/urandom" (rd 8)))
-(de rnd NIL 
+(de rnd- NIL 
    (let Big (| (rand 0 7) (>> -28 (rand 0 15)) (>> -57 (rand 0 7)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -9,6 +9,13 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -64 Big))) ) )
       (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 1024 2048)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de testme @
    (let (N (readNum)  X (eval (rest)))
       #(println N X (rest))

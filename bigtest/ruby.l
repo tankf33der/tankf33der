@@ -29,7 +29,7 @@
    (let B
       (format
          (make
-            (do (rand 128 256)
+            (do (rand 1024 2048)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -44,7 +44,7 @@
          (bye) ) ) )
 (pipe
    (out '(ruby bigint.rb)
-      (do 100000
+      (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
@@ -61,7 +61,7 @@
          (prinl (abs N1) " >> " 64)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 10000
+      (do 1000
          (setq
             N1 (read)
             N2 (read) )

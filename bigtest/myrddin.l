@@ -32,7 +32,7 @@
    (let B
       (format
          (make
-            (do (rand 128 256)
+            (do (rand 1024 2048)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de bigint- (L)
@@ -59,7 +59,7 @@
          (bye) ) ) )
 (pipe
    (out '("./bigint")
-      (do 10000000
+      (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (setq N3 (rand 0 1024))
@@ -73,20 +73,16 @@
          (prinl (abs N1) " & " (abs N2))
          (prinl (abs N1) " | " (abs N2))
          (prinl N1 " > " N2)
-         (prinl N1 " > " N1)
          (prinl N1 " >= " N2)
-         (prinl N1 " >= " N1)
          (prinl N1 " < " N2)
-         (prinl N1 " < " N1)
          (prinl N1 " <= " N2)
-         (prinl N1 " <= " N1)
          (prinl (abs N2) " ! " 0)
          (prinl N1 " / " N2)
          (prinl (abs N1) " << " N3)
          (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) ) 
-   (do 100
-      (do 100000
+   (do 10
+      (do 1000
          (setq
             N1 (read)
             N2 (read)

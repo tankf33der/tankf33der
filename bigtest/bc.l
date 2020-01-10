@@ -1,3 +1,5 @@
+# https://github.com/gavinhoward/bc
+#
 (seed (in "/dev/urandom" (rd 8)))
 #  Random patterns:
 #  cnt
@@ -14,8 +16,7 @@
 #
 #     xxx111111111111111111111111111xxxx111111111111111111111111111xxx
 #        1FFFFFFC3FFFFFF8
-
-(de rnd ()
+(de rnd- ()
    (let Big (| (rand 0 7) (>> -28 (rand 0 15)) (>> -57 (rand 0 7)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -25,6 +26,13 @@
                (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
             (setq Big (| Dig (>> -64 Big))) ) )
       (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 4096 8192)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de test1 (S N1)
    (let (N (read)  X (eval (list S N1)))
       (unless (= N X)
@@ -40,9 +48,9 @@
       (unless (== N X)
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
-(sys "BC_LINE_LENGTH" "200")
+(sys "BC_LINE_LENGTH" "8192")
 (pipe
-   (out '(bc)
+   (out '(/usr/local/bin/bc)
       (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
@@ -50,7 +58,7 @@
          (prinl N2)
          (prinl N1 " + " N2)
          (prinl N1 " - " N2)
-         (prinl N1 " * " N2)
+         #(prinl N1 " * " N2)
          (prinl N1 " % " N2)
          (prinl N1 " / " N2)
          (prinl N1 " >= " N2)
@@ -65,7 +73,7 @@
             N2 (read) )
          (test2 '+ N1 N2)
          (test2 '- N1 N2)
-         (test2 '* N1 N2)
+         #(test2 '* N1 N2)
          (test2 '% N1 N2)
          (test2 '/ N1 N2)
          (cmp2 '>= N1 N2)

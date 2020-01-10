@@ -19,14 +19,14 @@
          (setq
             A (index "@" Lst)
             B (or (index "/" Lst) T) )
-         (and 
+         (and
             (gt0 A)
             (> B A)
             (link
                (list 'u (pack (cut (dec A) 'Lst))) )
             (++ Lst) )
          # host[:port]
-         (link 
+         (link
             (list
                'h
                (pack
@@ -105,14 +105,5 @@
 (test
    '((s "http") (u "rob:abcd1234") (h "www.domain.com") (p "/path/index.html") (q "query1=test&silly=willy") (f "test=hash&chucky=cheese"))
    (url "http://rob:abcd1234@www.domain.com/path/index.html?query1=test&silly=willy#test=hash&chucky=cheese") )
-
-
-
-
-
-
-
-
-
 (msg 'ok)
 (bye)

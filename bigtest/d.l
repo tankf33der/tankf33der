@@ -30,7 +30,7 @@
    (let B
       (format
          (make
-            (do (rand 4096 8192)
+            (do (rand 128 512)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -50,11 +50,13 @@
          (bye) ) ) )
 (pipe
    (out '("./bigint")
-      (do 1000
+      (do 100000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
+         (setq N3 (rand 10 2048))
          (prinl N1)
          (prinl N2)
+         (prinl N3)
          (prinl N1 " + " N2)
          (prinl N1 " - " N2)
          #(prinl N1 " * " N2)
@@ -65,18 +67,20 @@
          (prinl N1 " < " N2)
          (prinl N1 " <= " N2)
          (prinl (abs N1) " & " (abs N2))
+         (prinl (abs N3) " & " (abs N1))
          (prinl (abs N1) " | " (abs N2))
+         (prinl (abs N3) " | " (abs N1))
          (prinl (abs N1) " \^ " (abs N2))
-         (prinl (abs N1) " << " 10)
-         (prinl (abs N1) " << " 1024)
-         (prinl (abs N1) " >> " 10)
-         (prinl (abs N1) " >> " 1024)
+         (prinl (abs N3) " \^ " (abs N1))
+         (prinl (abs N1) " << " N3)
+         (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 100
+      (do 10000
          (setq
             N1 (read)
-            N2 (read) )
+            N2 (read)
+            N3 (read) )
          (test2 '+ N1 N2)
          (test2 '- N1 N2)
          #(test2 '* N1 N2)
@@ -87,12 +91,13 @@
          (cmp2 '< N1 N2)
          (cmp2 '<= N1 N2)
          (test2 '& (abs N1) (abs N2))
+         (test2 '& (abs N3) (abs N1))
          (test2 '| (abs N1) (abs N2))
+         (test2 '| (abs N3) (abs N1))
          (test2 'x| (abs N1) (abs N2))
-         (test2 '>> -10 (abs N1))
-         (test2 '>> -1024 (abs N1))
-         (test2 '>> 10 (abs N1))
-         (test2 '>> 1024 (abs N1))
+         (test2 'x| (abs N3) (abs N1))
+         (test2 '>> (- N3) (abs N1))
+         (test2 '>> N3 (abs N1))
       )
       (prin ".")
       (flush) )

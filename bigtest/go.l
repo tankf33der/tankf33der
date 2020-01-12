@@ -23,7 +23,7 @@
       (do 1000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
-         (setq N3 (rand 10 1024))
+         (setq N3 (rand 10 2048))
          (prinl N1)
          (prinl N2)
          (prinl N3)

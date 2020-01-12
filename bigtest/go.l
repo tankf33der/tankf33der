@@ -1,4 +1,4 @@
-## go build bigint.go
+## go build -o big.go bigint.go
 
 (seed (in "/dev/urandom" (rd 8)))
 (de rnd NIL

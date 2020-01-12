@@ -1,4 +1,4 @@
-//mbld -b bigint bigint.myr
+//mbld -b big.myr bigint.myr
 
 use std
 use bio
@@ -17,7 +17,7 @@ const main = {
             std.bigfree(a)
             std.slfree(d)
             std.slfree(line)
-            continue 
+            continue
          ;;
          b = std.get(std.bigparse(line[2]))
          match line[1]

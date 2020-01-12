@@ -6,13 +6,6 @@
             (do (rand 16000 32000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
-(de bigint- (L)
-   (apply
-      |
-      (mapcar
-         >>
-         (-248 -240 -232 -224 -216 -208 -200 -192 -184 -176 -168 -160 -152 -144 -136 -128 -120 -112 -104 -96 -88 -80 -72 -64 -56 -48 -40 -32 -24 -16 -8 0)
-         (rand32) ) ) )
 (de test2 (S N1 N2)
    (let (N (read)  X (eval (list S N1 N2)))
       (unless (= N X)
@@ -29,11 +22,11 @@
          (prinl "^J" N ": bits (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
 (pipe
-   (out '("./bigint")
+   (out '("./big.myr")
       (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
-         (setq N3 (rand 0 1024))
+         (setq N3 (rand 64 1024))
          (prinl N1)
          (prinl N2)
          (prinl N3)

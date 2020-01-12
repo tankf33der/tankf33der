@@ -5,7 +5,7 @@
    (let B
       (format
          (make
-            (do (rand 128 256)
+            (do (rand 20000 32000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -35,7 +35,7 @@
          (prinl (abs N1) " & " (abs N2))
          (prinl (abs N1) " | " (abs N2))
          (prinl (abs N1) " xor " (abs N2))
-         #(prinl (abs N1) " << " N3)
+         (prinl (abs N1) " << " N3)
          (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
@@ -52,7 +52,7 @@
          (test2 '& (abs N1) (abs N2))
          (test2 '| (abs N1) (abs N2))
          (test2 'x| (abs N1) (abs N2))
-         #(test2 '>> (- N3) (abs N1))
+         (test2 '>> (- N3) (abs N1))
          (test2 '>> N3 (abs N1))
          )
       (prin ".")

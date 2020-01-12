@@ -28,8 +28,8 @@ func main() {
 		case "&": fmt.Println(a.And(a, b))
 		case "|": fmt.Println(a.Or(a, b))
 		case "xor": fmt.Println(a.Xor(a, b))
-		case "<<": fmt.Println(a.Lsh(a, 1024))
-		case ">>": fmt.Println(a.Rsh(a, 64))
+		case "<<": fmt.Println(a.Lsh(a, uint(b.Uint64())))
+		case ">>": fmt.Println(a.Rsh(a, uint(b.Uint64())))
 		}
 	}
 }

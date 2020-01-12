@@ -19,7 +19,7 @@
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
 (pipe
-   (out '("./bigint")
+   (out '("./big.go")
       (do 1000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))

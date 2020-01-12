@@ -1,14 +1,11 @@
 (seed (in "/dev/urandom" (rd 8)))
-(de rnd NIL 
-   (let Big (| (rand 0 7) (>> -28 (rand 0 15)) (>> -57 (rand 0 7)))
-      (when (rand T)
-         (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
-      (do (rand 0 2)
-         (let Dig (| (rand 0 7) (>> -30 (rand 0 15)) (>> -61 (rand 0 7)))
-            (when (rand T)
-               (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
-            (setq Big (| Dig (>> -64 Big))) ) )
-      (if (rand T) Big (- Big)) ) )
+(de rnd NIL
+   (let B
+      (format
+         (make
+            (do (rand 240 320)
+               (link (rand 0 9)) ) ) )
+      (if (rand T) B (- B)) ) )
 (de testme @
    (let (N (read)  X (eval (rest)))
       (unless (= N X)
@@ -18,35 +15,27 @@
    (prinl "(" A " " B " " C ")") )
 (pipe
    (out '(chicken-csi)
-      (do 100000
+      (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
          (prinl N2)
          (op "+" N1 N2)
-         (op "+" N1 1)
          (op "-" N1 N2)
-         (op "-" N1 1)
          (op "*" N1 N2)
-         (op "*" N1 2)
-         (op "*" N1 10)
          (at (0 . 1000) (wait 50))
       ))
    (do 6 (line))
    (do 10
-      (do 10000
-         (setq N1 (read)  N2 (read)) 
+      (do 1000
+         (setq N1 (read)  N2 (read))
          (testme '+ N1 N2)
-         (testme '+ N1 1)
          (testme '- N1 N2)
-         (testme '- N1 1)
          (testme '* N1 N2)
-         (testme '* N1 2)
-         (testme '* N1 10)
       )
       (prin ".")
       (flush) ) )
 (prinl)
-      
+
 (msg 'OK-chicken)
 (bye)

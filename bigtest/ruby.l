@@ -1,35 +1,9 @@
 (seed (in "/dev/urandom" (rd 8)))
-#  Random patterns:
-#  cnt
-#     xxx0000000000000000000000000xxxx0000000000000000000000000xxx
-#        (| 7 (>> -28 15) (>> -57 7))
-#
-#     xxx1111111111111111111111111xxxx1111111111111111111111111xxx
-#        1FFFFFF0FFFFFF8
-#
-#
-#  dig
-#     xxx000000000000000000000000000xxxx000000000000000000000000000xxx
-#        (| 7 (>> -30 15) (>> -61 7))
-#
-#     xxx111111111111111111111111111xxxx111111111111111111111111111xxx
-#        1FFFFFFC3FFFFFF8
-
-(de rnd- ()
-   (let Big (| (rand 0 28) (>> -56 (rand 0 60)) (>> -100 (rand 0 14)))
-      (when (rand T)
-         (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
-      (do (rand 0 4)
-         (let Dig (| (rand 0 28) (>> -60 (rand 0 60)) (>> -120 (rand 0 17)))
-            (when (rand T)
-               (setq Dig (| Dig `(hex "1FFFFFFC3FFFFFF8"))) )
-            (setq Big (| Dig (>> -128 Big))) ) )
-      (if (rand T) Big (- Big)) ) )
 (de rnd NIL
    (let B
       (format
          (make
-            (do (rand 1024 2048)
+            (do (rand 16000 32000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)

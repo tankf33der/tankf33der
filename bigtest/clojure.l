@@ -1,5 +1,5 @@
 (seed (in "/dev/urandom" (rd 8)))
-(de rnd- NIL 
+(de rnd- NIL
    (let Big (| (rand 0 7) (>> -28 (rand 0 15)) (>> -57 (rand 0 7)))
       (when (rand T)
          (setq Big (| Big `(hex "1FFFFFF0FFFFFF8"))) )
@@ -13,7 +13,7 @@
    (let B
       (format
          (make
-            (do (rand 1024 2048)
+            (do (rand 24000 32000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de testme @
@@ -40,27 +40,19 @@
          (prinl N1)
          (prinl N2)
          (op "+" N1 N2)
-         (op "+" N1 1)
          (op "-" N1 N2)
-         (op "-" N1 1)
          (op "*" N1 N2)
-         (op "*" N1 2)
          (op "quot" N1 N2)
-         (op "quot" N1 2)
          (op "mod" N1 N2)
          (at (0 . 1000) (wait 50)) ) )
    (line)
    (do 10
       (do 100
-         (setq N1 (readNum)  N2 (readNum)) 
+         (setq N1 (readNum)  N2 (readNum))
          (testme '+ N1 N2)
-         (testme '+ N1 1)
          (testme '- N1 N2)
-         (testme '- N1 1)
          (testme '* N1 N2)
-         (testme '* N1 2)
          (testme '/ N1 N2)
-         (testme '/ N1 2)
          (testme 'modulo N1 N2) )
       (prin ".")
       (flush) ) )

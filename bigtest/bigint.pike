@@ -10,7 +10,7 @@ int main()
     while(s = Stdio.stdin.gets()) {
          line = s / " ";
          if (sizeof(line) == 1) {
-            write("%s\n", line[0]);
+            write("%d\n", line[0]);
             continue;
 	     }
          a = (int)line[0];

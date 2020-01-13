@@ -18,7 +18,7 @@
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
 (de cmp2 (S N1 N2)
-   (let (N (read)  X (if (eval (list S N1 N2)) 'true 'false))
+   (let (N (read)  X (if (eval (list S N1 N2)) 1 0))
       (unless (= N X)
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )

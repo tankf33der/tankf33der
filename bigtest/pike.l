@@ -24,14 +24,13 @@
          (bye) ) ) )
 (pipe
    (out '("./bigint.pike")
-      (do 100
+      (do 10000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
          (prinl N1)
          (prinl N2)
          (prinl N1 " + " N2)
          (prinl N1 " - " N2)
-#{
          (prinl N1 " * " N2)
          (prinl N1 " % " N2)
          (prinl N1 " / " N2)
@@ -42,16 +41,14 @@
          (prinl (abs N1) " & " (abs N2))
          (prinl (abs N1) " | " (abs N2))
          (prinl (abs N1) " \^ " (abs N2))
-}#         
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 10
+      (do 1000
          (setq
             N1 (read)
             N2 (read) )
          (test2 '+ N1 N2)
          (test2 '- N1 N2)
-#{
          (test2 '* N1 N2)
          (test2 '% N1 N2)
          (test2 '/ N1 N2)
@@ -62,7 +59,6 @@
          (test2 '& (abs N2) (abs N1))
          (test2 '| (abs N2) (abs N1))
          (test2 'x| (abs N2) (abs N1))
-}#         
       )
       (prin ".")
       (flush) )

@@ -3,7 +3,7 @@
    (let B
       (format
          (make
-            (do (rand 8 16)
+            (do (rand 128 256)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -12,7 +12,6 @@
          (prinl "^J" N ": (" S " " N1 ") -> " X)
          (bye) ) ) )
 (de test2 (S N1 N2)
-   (println 'S S 'N1 N1 'N2 N2)
    (let (N (read)  X (eval (list S N1 N2)))
       (unless (= N X)
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)

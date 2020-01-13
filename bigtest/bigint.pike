@@ -26,7 +26,8 @@ int main()
               write("%d\n", a*b);
               break;
  	    case "/":
-              write("%d\n", (int)(a/b));
+ 	          int c = (int)a/b;
+              write("%d\n", c;
               break;
  	    case "%":
               write("%d\n", a%b);

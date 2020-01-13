@@ -48,8 +48,7 @@
       (do 10
          (setq
             N1 (read)
-            N2 (read)
-            N3 (read) )
+            N2 (read) )
          (test2 '+ N1 N2)
          (test2 '- N1 N2)
 #{

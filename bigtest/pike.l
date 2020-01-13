@@ -12,6 +12,7 @@
          (prinl "^J" N ": (" S " " N1 ") -> " X)
          (bye) ) ) )
 (de test2 (S N1 N2)
+   (println 'S S 'N1 N1 'N2 N2)
    (let (N (read)  X (eval (list S N1 N2)))
       (unless (= N X)
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)

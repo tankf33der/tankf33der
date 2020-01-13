@@ -22,12 +22,11 @@ int main()
 	    case "-":
               write("%d\n", a-b);
               break;
-       	    case "*":
+       	case "*":
               write("%d\n", a*b);
               break;
  	    case "/":
- 	          int c = (int)a/b;
-              write("%d\n", c);
+              write("%d\n", a/b);
               break;
  	    case "%":
               write("%d\n", a%b);

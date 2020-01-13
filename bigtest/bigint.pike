@@ -52,6 +52,13 @@ int main()
 	    case "^":
               write("%d\n", a^b);
               break;
+        case ">>":
+              write("%d\n", a>>b);
+              break;
+        case "<<":
+              write("%d\n", a<<b);
+              break;
+
          }
     }
   }

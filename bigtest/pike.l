@@ -3,7 +3,7 @@
    (let B
       (format
          (make
-            (do (rand 24 32)
+            (do (rand 32 64)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)

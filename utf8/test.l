@@ -32,15 +32,16 @@
             (when (upp? C) (inc 'U)) ) ) )
    (test S 21199166)
    (test U 2505) )
-#{
 (let (S 0  U 0)
    (in "unicode-sample.html"
       (until (eof)
          (let C (char)
             (inc 'S (char C))
-            (when (upp? C) (inc 'U)) ) ) )
+            (when (upp? C) (prinl C) (inc 'U)) ) ) )
    (test S 83058779)
-   (test U 724) )
+   (print U 724) )
+(bye)
+#{
 (let (S 0  U 0)
    (in "unicode-sample-3-2.html"
       (until (eof)

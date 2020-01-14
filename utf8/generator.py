@@ -9,7 +9,12 @@ def get_next_character(f):
         c = f.read(1)
  
 s = 0
+u = 0
 with open(sys.argv[1], encoding="utf-8") as f:
     for c in get_next_character(f):
         s = s +ord(c)
+        if c.isupper():
+           u = u + 1
+           
 print(s)
+print(u)

@@ -1,122 +1,197 @@
-(let S 0
+(let (S 0  U 0)
    (in "1wOx"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 201751) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 201751)
+   (test U 0) )
+(let (S 0  U 0)
    (in "UTF-8-demo.txt"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 20832567) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 20832567)
+   (test U 209) )
+#{
+(let (S 0  U 0)
    (in "0-0x10ffff_assigned_printable.txt"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 146517842895) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 146517842895)
+   (test U 1425) )
+}#
+(let (S 0  U 0)
    (in "utf8.html"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 21199166) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 21199166)
+   (test U 2505) )
+#{
+(let (S 0  U 0)
    (in "unicode-sample.html"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 83058779) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 83058779)
+   (test U 724) )
+(let (S 0  U 0)
    (in "unicode-sample-3-2.html"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 555661087) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 555661087)
+   (test U 1043) )
+}#
+(let (S 0  U 0)
    (in "armenia8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 171882) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 171882)
+   (test U 173) )
+(let (S 0  U 0)
    (in "banviet8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 495889) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 495889)
+   (test U 102) )
+(let (S 0  U 0)
    (in "calblur8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 4329689) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 4329689)
+   (test U 1429) )
+(let (S 0  U 0)
    (in "croattx8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 48324) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 48324)
+   (test U 83) )
+(let (S 0  U 0)
    (in "danish8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 154298) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 154298)
+   (test U 128) )
+(let (S 0  U 0)
    (in "esperan8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 87872) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 87872)
+   (test U 169) )
+(let (S 0  U 0)
    (in "huseyin8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 88296) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 88296)
+   (test U 86) )
+(let (S 0  U 0)
    (in "jpndoc8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 8600848) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 8600848)
+   (test U 578) )
+(let (S 0  U 0)
    (in "kordoc8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 764394) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 764394)
+   (test U 384) )
+(let (S 0  U 0)
    (in "linjilu8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 115540750) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 115540750)
+   (test U 1668) )
+(let (S 0  U 0)
    (in "maopoem8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 730705) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 730705)
+   (test U 207) )
+(let (S 0  U 0)
    (in "neural8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 1642868) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 1642868)
+   (test U 1002) )
+(let (S 0  U 0)
    (in "russmnv8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 557173) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 557173)
+   (test U 88) )
+(let (S 0  U 0)
    (in "sample68.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 3848063) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 3848063)
+   (test U 152) )
+(let (S 0  U 0)
    (in "tongtws8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 671623) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 671623)
+   (test U 409) )
+(let (S 0  U 0)
    (in "ulysses8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 59039450) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 59039450)
+   (test U 1732) )
+(let (S 0  U 0)
    (in "unilang8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 751747) )
-(let S 0
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 751747)
+   (test U 225) )
+(let (S 0  U 0)
    (in "zenbibl8.htm"
       (until (eof)
-         (inc 'S (char (char))) ) )
-   (test S 93696391) )
-
+         (let C (char)
+            (inc 'S (char C))
+            (when (upp? C) (inc 'U)) ) ) )
+   (test S 93696391)
+   (test U 14512) )
 (msg 'OK-UTF8)

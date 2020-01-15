@@ -3,7 +3,6 @@
    (find
       '((L) (<= (car L) N (cadr L)))
       *U ) )
-(println (car (argv)))
 (zero C)
 (in (car (argv))
    (until (eof)

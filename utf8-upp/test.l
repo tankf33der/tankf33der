@@ -4,10 +4,15 @@
       '((L) (<= (car L) N (cadr L)))
       *U ) )
 (zero C)
+(zero Y)
 (in (car (argv))
    (until (eof)
-      (and (u? (char (char))) (inc 'C)) ) )
+      (let Z (char (char))
+         (inc 'Y Z)
+         (and (u? Z) (inc 'C)) ) ) )
+(println 'Y Y)
 (println 'C C)
+
 
 (msg 'ok)
 (bye)

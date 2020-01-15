@@ -1,4 +1,5 @@
-(de parse (F)
+# for UnicodeData.txt format
+(de parse- (F)
    (make
       (in F
          (while (line)
@@ -6,6 +7,12 @@
                (and
                   (= '("L" "u") (get L 3))
                   (link (hex N)) ) ) ) ) ) )
+(de parse (F)
+   (make
+      (in F
+         (until (eof)
+            (link (hex (till ";")))
+            (line) ) ) ) )
 (de ranges (F)
    (let R NIL
       (for N (parse F)
@@ -15,7 +22,7 @@
       (flip R) ) )
 
 (prinl "(de *U")
-(for L (ranges "UnicodeData.txt")
+(for L (ranges "CaseFolding.txt")
    (space 3)
    (print L)
    (prinl

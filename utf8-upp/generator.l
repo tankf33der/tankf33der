@@ -17,6 +17,11 @@
 (prinl "(de *U")
 (for L (ranges "UnicodeData.txt")
    (space 3)
-   (println L) )
+   (print L)
+   (prinl
+      "   # "
+      (hex (car L))
+      " "
+      (hex (cadr L)) ) )
 (prinl ")")
 (bye)

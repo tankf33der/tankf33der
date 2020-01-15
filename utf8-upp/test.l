@@ -3,8 +3,9 @@
    (find
       '((L) (<= (car L) N (cadr L)))
       *U ) )
+(println (car (argv)))
 (zero C)
-(in "utf8-full-.dat"
+(in (car (argv))
    (until (eof)
       (and (u? (char (char))) (inc 'C)) ) )
 (println 'C C)

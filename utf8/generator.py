@@ -16,7 +16,6 @@ with open(sys.argv[1], encoding="utf-8") as f:
     for i, c in get_next_character(f):
         s = s + ord(c)
         if c.isupper():
-           print(ord(c))
            u = u + 1
 
 print(s)

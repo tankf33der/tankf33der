@@ -11,7 +11,7 @@
       (for (L (chop H) L (cddr L))
          (link (hex (pack (car L) (cadr L)))) ) ) )
 (de L2hex (Lst)
-   (lowc 
+   (lowc
       (pack
          (mapcar '((B) (pad 2 (hex B))) Lst) ) ) )
 (de crypto_scalarmult_base (S)
@@ -34,16 +34,13 @@
       P ) )
 (de crypto_scalarmult (S P)
    (use R
-      (and
-         (=0
-            (native
-               "libmonocypher.so"
-               "crypto_x25519"
-               'I
-               '(R (32 B . 32))
-               (cons NIL (32) S)
-               (cons NIL (32) P) ) )
-         R ) ) )
+      (native
+         "libmonocypher.so"
+         "crypto_x25519"
+         '(R (32 B . 32))
+         (cons NIL (32) S)
+         (cons NIL (32) P) )
+         R ) )
 (de crypto_loworder (S P)
    (use R
       (native
@@ -87,8 +84,8 @@
    (crypto_loworder (randL 32) Z) )
 (test
    (need 32 0)
-   (crypto_loworder 
-      (randL 32) 
+   (crypto_loworder
+      (randL 32)
       (hex2L "e0eb7a7c3b41b8ae1656e3faf19fc46ada098deb9c32b1fd866205165f49b800") ) )
 (test
    (need 32 0)
@@ -111,8 +108,8 @@
       (randL 32)
       (hex2L "eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f") ) )
 
-(setq 
-   AliceSK 
+(setq
+   AliceSK
    (hex2L "77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a")
    BobSK
    (hex2L "5dab087e624a8a4b79e17f8b83800ee66f3bb1292618b6fd1c2f8b27ff88e0eb")
@@ -138,22 +135,22 @@
 
 # Next
 # scalarmult_ed25519.c
-(setq 
+(setq
    N (randL 32)
-   P (hex2L "5866666666666666666666666666666666666666666666666666666666666666") 
+   P (hex2L "5866666666666666666666666666666666666666666666666666666666666666")
    NonCan (hex2L "f6ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f")
    NonCanInv (hex2L "f5ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f")
    MaxCan (hex2L "e4ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f") )
 (test
    NIL
-   (= 
+   (=
       (crypto_scalarmult_base N)
       (crypto_scalarmult N P) ) )
 
 # 1
 (setq N (need 32 0))
-(test 
-   T 
+(test
+   T
    (lst? (crypto_scalarmult_base N)) )
 (test
    T
@@ -178,8 +175,8 @@
 (set N 8)
 (test NIL (crypto_scalarmult N P))
 
-(test 
-   (crypto_scalarmult_base (range 0 31)) 
+(test
+   (crypto_scalarmult_base (range 0 31))
    (crypto_scalarmult_base_soda (range 0 31)) )
 (let Prv (need 32 0)
    (for X (range 0 255)

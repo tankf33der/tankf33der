@@ -39,7 +39,7 @@
 (de sign_init1 (C Prv Pub)
    (native
       "libmonocypher.so"
-      "crypto_ed25519_sign_init_first_pass"
+      "crypto_sign_init_first_pass"
       NIL
       C
       (cons NIL (32) Prv)
@@ -47,14 +47,14 @@
 (de sign_init2 (C)
    (native
       "libmonocypher.so"
-      "crypto_ed25519_sign_init_second_pass"
+      "crypto_sign_init_second_pass"
       NIL
       C ) )
 (de sign_update (C M)
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_sign_update"
+         "crypto_sign_update"
          NIL
          C
          (if M (cons NIL (cons ML) M) 0)
@@ -63,7 +63,7 @@
    (let Sign NIL
       (native
          "libmonocypher.so"
-         "crypto_ed25519_sign_final"
+         "crypto_sign_final"
          NIL
          C
          '(Sign (64 B . 64)) )
@@ -81,7 +81,7 @@
 (de check_init (C Sig P)
    (native
       "libmonocypher.so"
-      "crypto_ed25519_check_init"
+      "crypto_check_init"
       NIL
       C
       (cons NIL (64) Sig)
@@ -90,7 +90,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_check_update"
+         "crypto_check_update"
          NIL
          C
          (if M (cons NIL (cons ML) M) 0)
@@ -98,7 +98,7 @@
 (de check_final (C)
    (native
       "libmonocypher.so"
-      "crypto_ed25519_check_final"
+      "crypto_check_final"
       'I
       C ) )
 (de check_soda (Sig P M)
@@ -131,6 +131,7 @@
          ML
          (cons NIL (32) P)
          (cons NIL (64) Sig) ) ) )
+#{
 (let P (randL 32)
    (do 10000
       (at (0 . 1000) (prin ".") (flush))
@@ -144,9 +145,7 @@
                (public_key P)
                (public_key_donna P) ) )
          P ) ) )
-(msg 'ok)
-(bye)
-
+}#
 # donna-1K-pubkey
 (setq Donna (rc "tests/donna-pubkey.rc" 'D))
 (for D Donna
@@ -181,6 +180,9 @@
       (test B (public_key A)) )
    Sk
    Tst )
+
+#{
+# XXX
 (let
    (Prv (randL 32)
       Pub (public_key_donna Prv)
@@ -220,22 +222,23 @@
    (test 0 (check_final C))
    (native "@" "free" NIL S)
    (native "@" "free" NIL C) )
+}#
 
 # check low order only
 # https://github.com/jedisct1/libsodium/blob/master/src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.c#L17
 # https://crypto.stackexchange.com/questions/55632/libsodium-x25519-and-ed25519-small-order-check
 (setq
    Z1 (conc (cons 1) (need 31 0))
-   Z32 (need 32 0) 
+   Z32 (need 32 0)
    Z64 (need 64 0)
    Z123 (conc (range 1 5) (need 27 0))
    L2 (hex2L "e0eb7a7c3b41b8ae1656e3faf19fc46ada098deb9c32b1fd866205165f49b800")
-   L3 (hex2L "5f9c95bca3508c24b1d0b1559c83ef5b04445cc4581c8e86d8224eddd09f1157") 
+   L3 (hex2L "5f9c95bca3508c24b1d0b1559c83ef5b04445cc4581c8e86d8224eddd09f1157")
    L4 (hex2L "ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f")
    L5 (hex2L "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f")
    L6 (hex2L "eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f") )
-(do 64 
-   (let D (randL 3) 
+(do 64
+   (let D (randL 3)
       (test
          (check_donna Z123 Z32 D)
          (check       Z123 Z32 D) )
@@ -256,7 +259,35 @@
          (check       Z123 L5 D) )
        (test
          (check_donna Z123 L6 D)
-         (check       Z123 L6 D) ) ) )
+         (check       Z123 L6 D) )
+
+      # flip
+      (test
+         (check_donna Z123 D Z32)
+         (check       Z123 D Z32) )
+      (test
+         (check_donna Z123 D Z1)
+         (check       Z123 D Z1) )
+      (test
+         (check_donna Z123 D Z2)
+         (check       Z123 D Z2) )
+      (test
+         (check_donna Z123 D Z3)
+         (check       Z123 D Z3) )
+       (test
+         (check_donna Z123 D L4)
+         (check       Z123 D L4) )
+       (test
+         (check_donna Z123 D L5)
+         (check       Z123 D L5) )
+       (test
+         (check_donna Z123 D L6)
+         (check       Z123 D L6
+      ) )
+   )
+)
+(msg 'flip)
+(bye)
 (use L
    (in "tests/sign.input"
       (until (eof)
@@ -279,7 +310,7 @@
 
 # check mono understands brothers
 # -DED25519_SHA512
-(do 64 
+(do 64
    (let
       (Prv (randL 32)
          Pub (public_key_donna Prv)
@@ -290,7 +321,7 @@
             (check Sig Pub Prv)
             (check_soda Sig Pub Prv)
             (check_donna Sig Pub Prv) ) ) ) )
-(setq 
+(setq
    Z (need 64 0)
    M (randL 3) )
 (let Pub (need 32 0)
@@ -302,7 +333,7 @@
                (check Z Pub M)
                (check_donna Z Pub M) )
             (set L 0) )
-         Pub ) ) ) 
+         Pub ) ) )
 # you are ill.
 (do 64
    (let Pub (randL 32)
@@ -337,7 +368,7 @@
                      (check Z Pub M) )
                   (set L N) ) )
             Pub ) ) ) )
-(setq S (need 64 0)) 
+(setq S (need 64 0))
 (for A (1 2 4 8 16 32 64 128)
    (map
       '((SL)
@@ -367,7 +398,7 @@
                (public_key_donna Prv) )
             (set L 0) )
          Prv ) ) )
-(setq 
+(setq
    Prv (randL 32)
    Pub (public_key Prv)
    Sig (sign Prv Pub (1)) )
@@ -398,6 +429,6 @@
                   -1
                   (check (append Pub Pub) Pub Pub) )
                (set L 0) )
-            (nth Pub N) ) ) ) )  
+            (nth Pub N) ) ) ) )
 (msg 'ok)
 (bye)

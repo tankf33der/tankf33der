@@ -37,6 +37,7 @@
       (native
          "libmonocypher.so"
          "crypto_x25519"
+         NIL
          '(R (32 B . 32))
          (cons NIL (32) S)
          (cons NIL (32) P) )

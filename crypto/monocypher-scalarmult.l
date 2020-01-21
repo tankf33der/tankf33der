@@ -131,7 +131,7 @@
       (L2hex (crypto_scalarmult BobSK AlicePK))
       (L2hex (crypto_scalarmult AliceSK BobPK)) ) )
 (test
-   NIL
+   (need 32 0)
    (crypto_scalarmult BobSK SmallOrder) )
 
 # Next
@@ -172,9 +172,9 @@
 
 # 3
 (setq P (need 32 0))
-(test NIL (crypto_scalarmult N P))
+(test (need 32 0) (crypto_scalarmult N P))
 (set N 8)
-(test NIL (crypto_scalarmult N P))
+(test (need 32 0) (crypto_scalarmult N P))
 
 (test
    (crypto_scalarmult_base (range 0 31))

@@ -42,7 +42,7 @@
       (cons NIL (32) Pub) ) )
 (de sign_init2 (C)
    (native
-      "libmonocypher.so"
+      "libmonocypher.so.3"
       "crypto_ed25519_sign_init_second_pass"
       NIL
       C ) )

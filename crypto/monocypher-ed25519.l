@@ -10,7 +10,7 @@
    (use P
       (native
          "libmonocypher.so"
-         "crypto_sign_public_key"
+         "crypto_ed25519_public_key"
          NIL
          '(P (32 B . 32))
          (cons NIL (32) S) )
@@ -133,7 +133,7 @@
          (cons NIL (64) Sig) ) ) )
 
 (let Prv (randL 32)
-   (test
+   (println
       (public_key Prv)
       (public_key_donna Prv) ) )
 

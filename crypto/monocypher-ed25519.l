@@ -72,7 +72,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_check"
+         "crypto_check"
          'I
          (cons NIL (64) Sig)
          (cons NIL (32) P)
@@ -133,12 +133,9 @@
          (cons NIL (64) Sig) ) ) )
 
 (let Prv (randL 32)
-   (println (public_key Prv))
-   (println 'Prv Prv)
-   (println (public_key_donna Prv))
-   (println 'Prv Prv)
-)
-(bye)
+   (test
+      (public_key Prv)
+      (public_key_donna Prv) ) )
 
 #{
 (let P (randL 32)
@@ -209,10 +206,10 @@
       S (native "@" "malloc" 'N 984)
       C (native "@" "malloc" 'N 952) )
    (test Pub Pub2)
-   (println 'Sig Sig)
    (sign_init1 S Prv Pub)
    (sign_init2 S)
-   (println (sign_final S))
+   (test Sig (sign_final S))
+(msg 'ok)
 (bye)
 
 

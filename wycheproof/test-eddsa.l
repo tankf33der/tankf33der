@@ -14,7 +14,7 @@
       (for (L (chop H) L (cddr L))
          (link (hex (pack (car L) (cadr L)))) ) ) )
 (de L2hex (Lst)
-   (lowc 
+   (lowc
       (pack
          (mapcar '((B) (pad 2 (hex B))) Lst) ) ) )
 (de randL (N)
@@ -23,7 +23,7 @@
    (use P
       (native
          "libmonocypher.so"
-         "crypto_ed25519_public_key"
+         "crypto_sign_public_key"
          NIL
          '(P (32 B . 32))
          (cons NIL (32) S) )
@@ -32,7 +32,7 @@
    (let (ML (length M)  Sign)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_sign"
+         "crypto_sign"
          NIL
          '(Sign (64 B . 64))
          (cons NIL (32) S)
@@ -44,7 +44,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_check"
+         "crypto_check"
          'I
          (cons NIL (64) Sig)
          (cons NIL (32) P)
@@ -53,8 +53,8 @@
 # XXX, test valid library
 (test
    "2362bac514d5fad33802642e979a1e82de6eb6f1bcbf6a5b304f2bb02b9e57fe"
-   (L2hex 
-      (public_key 
+   (L2hex
+      (public_key
          (hex2L "f2d3023b9c19e241748bc4039a7a43c595701f23675505015213a8a2a0274c1b") ) ) )
 (test
    "d4fbdb52bfa726b44d1786a8c0d171c3e62ca83c9e5bbe63de0bb2483f8fd6cc1429ab72cafc41ab56af02ff8fcc43b99bfe4c7ae940f60f38ebaa9d311c4007"
@@ -82,7 +82,7 @@
 (one C)
 (in "eddsa_test.csv"
    (until (eof)
-      (let 
+      (let
          (Pk (prog1 (hex2L (till "," T)) (char))
             Sk (prog1 (hex2L (till "," T)) (char))
             Msg (prog1 (hex2L (till "," T)) (char))
@@ -92,9 +92,9 @@
          (test Pk (public_key Sk))
          (unless (= Result (setq @@ (check Sig Pk Msg)))
             (println
-               C 
+               C
                (L2hex Pk)
-               (L2hex Sig) 
+               (L2hex Sig)
                (L2hex Msg)
                Result
                @@ ) )

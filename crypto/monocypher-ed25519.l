@@ -10,7 +10,7 @@
    (use P
       (native
          "libmonocypher.so"
-         "crypto_ed25519_public_key"
+         "crypto_sign_public_key"
          NIL
          '(P (32 B . 32))
          (cons NIL (32) S) )
@@ -28,7 +28,7 @@
    (let (ML (length M)  Sign)
       (native
          "libmonocypher.so"
-         "crypto_ed25519_sign"
+         "crypto_sign"
          NIL
          '(Sign (64 B . 64))
          (cons NIL (32) S)
@@ -131,10 +131,19 @@
          ML
          (cons NIL (32) P)
          (cons NIL (64) Sig) ) ) )
+
+(let Prv (randL 32)
+   (println (public_key Prv))
+   (println 'Prv Prv)
+   (println (public_key_donna Prv))
+   (println 'Prv Prv)
+)
+(bye)
+
 #{
 (let P (randL 32)
-   (do 10000
-      (at (0 . 1000) (prin ".") (flush))
+   (do 1000
+      (at (0 . 100) (prin ".") (flush))
       (map
          '((L)
             (inc L 2)
@@ -146,7 +155,11 @@
                (public_key_donna P) ) )
          P ) ) )
 }#
+
+
+#{
 # donna-1K-pubkey
+# LONG
 (setq Donna (rc "tests/donna-pubkey.rc" 'D))
 (for D Donna
    (let L (need 32 0)
@@ -154,6 +167,8 @@
       (do 1000
          (setq L (public_key L)) )
       (test L (cdr D)) ) )
+(msg 'donna)
+
 # tinyssh/crypto-tests
 (de hex2L (H)
    (make
@@ -181,17 +196,27 @@
    Sk
    Tst )
 
-#{
+(msg 'precomp)
+}#
+
+
 # XXX
 (let
    (Prv (randL 32)
       Pub (public_key_donna Prv)
+      Pub2 (public_key Prv)
       Sig (sign Prv Pub)
       S (native "@" "malloc" 'N 984)
       C (native "@" "malloc" 'N 952) )
+   (test Pub Pub2)
+   (println 'Sig Sig)
    (sign_init1 S Prv Pub)
    (sign_init2 S)
-   (test Sig (sign_final S))
+   (println (sign_final S))
+(bye)
+
+
+
    (test
       (check Sig Pub)
       (check_donna Sig Pub) )
@@ -199,6 +224,7 @@
    (test 0 (check_final C))
    (native "@" "free" NIL S)
    (native "@" "free" NIL C) )
+(msg 'incr-1)
 (let
    (Prv (randL 32)
       Pub (public_key_donna Prv)
@@ -222,7 +248,10 @@
    (test 0 (check_final C))
    (native "@" "free" NIL S)
    (native "@" "free" NIL C) )
-}#
+
+(msg 'incr-2)
+(bye)
+
 
 # check low order only
 # https://github.com/jedisct1/libsodium/blob/master/src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.c#L17
@@ -286,8 +315,7 @@
       ) )
    )
 )
-(msg 'flip)
-(bye)
+(msg 'boom1)
 (use L
    (in "tests/sign.input"
       (until (eof)
@@ -307,6 +335,8 @@
       (hex2L "7c38e026f29e14aabd059a0f2db8b0cd783040609a8be684db12f82a27774ab067654bce3832c2d76f8f6f5dafc08d9339d4eef676573336a5c51eb6f946b31d")
       (hex2L "7d4d0e7f6153a69b6242b522abbee685fda4420f8834b108c3bdae369ef549fa")
       (hex2L "54657374") ) )
+
+(msg 'boom2)
 
 # check mono understands brothers
 # -DED25519_SHA512
@@ -334,6 +364,9 @@
                (check_donna Z Pub M) )
             (set L 0) )
          Pub ) ) )
+
+(msg 'boom3)
+
 # you are ill.
 (do 64
    (let Pub (randL 32)
@@ -368,6 +401,9 @@
                      (check Z Pub M) )
                   (set L N) ) )
             Pub ) ) ) )
+
+(msg 'boom4)
+
 (setq S (need 64 0))
 (for A (1 2 4 8 16 32 64 128)
    (map

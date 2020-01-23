@@ -43,14 +43,14 @@
 (de sign_init2 (C)
    (native
       "libmonocypher.so.3"
-      "crypto_ed25519_sign_init_second_pass"
+      "crypto_sign_init_second_pass"
       NIL
       C ) )
 (de sign_final (C)
    (let Sign NIL
       (native
          "libmonocypher.so"
-         "crypto_ed25519_sign_final"
+         "crypto_sign_final"
          NIL
          C
          '(Sign (64 B . 64)) )

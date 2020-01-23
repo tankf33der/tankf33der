@@ -28,7 +28,7 @@
    (let (ML (length M)  Sign)
       (native
          "libmonocypher.so"
-         "crypto_sign"
+         "crypto_ed25519_sign"
          NIL
          '(Sign (64 B . 64))
          (cons NIL (32) S)
@@ -39,7 +39,7 @@
 (de sign_init1 (C Prv Pub)
    (native
       "libmonocypher.so"
-      "crypto_sign_init_first_pass"
+      "crypto_ed25519_sign_init_first_pass"
       NIL
       C
       (cons NIL (32) Prv)
@@ -72,7 +72,7 @@
    (let ML (length M)
       (native
          "libmonocypher.so"
-         "crypto_check"
+         "crypto_ed25519_check"
          'I
          (cons NIL (64) Sig)
          (cons NIL (32) P)
@@ -81,7 +81,7 @@
 (de check_init (C Sig P)
    (native
       "libmonocypher.so"
-      "crypto_check_init"
+      "crypto_ed25519_check_init"
       NIL
       C
       (cons NIL (64) Sig)
@@ -131,13 +131,10 @@
          ML
          (cons NIL (32) P)
          (cons NIL (64) Sig) ) ) )
-
 (let Prv (randL 32)
-   (println
+   (test
       (public_key Prv)
       (public_key_donna Prv) ) )
-
-#{
 (let P (randL 32)
    (do 1000
       (at (0 . 100) (prin ".") (flush))
@@ -151,10 +148,7 @@
                (public_key P)
                (public_key_donna P) ) )
          P ) ) )
-}#
-
-
-#{
+(prinl)
 # donna-1K-pubkey
 # LONG
 (setq Donna (rc "tests/donna-pubkey.rc" 'D))
@@ -192,10 +186,7 @@
       (test B (public_key A)) )
    Sk
    Tst )
-
 (msg 'precomp)
-}#
-
 
 # XXX
 (let
@@ -205,15 +196,13 @@
       Sig (sign Prv Pub)
       S (native "@" "malloc" 'N 984)
       C (native "@" "malloc" 'N 952) )
+   # sign
    (test Pub Pub2)
    (sign_init1 S Prv Pub)
    (sign_init2 S)
    (test Sig (sign_final S))
-(msg 'ok)
-(bye)
 
-
-
+   # check
    (test
       (check Sig Pub)
       (check_donna Sig Pub) )
@@ -222,6 +211,7 @@
    (native "@" "free" NIL S)
    (native "@" "free" NIL C) )
 (msg 'incr-1)
+
 (let
    (Prv (randL 32)
       Pub (public_key_donna Prv)
@@ -245,9 +235,7 @@
    (test 0 (check_final C))
    (native "@" "free" NIL S)
    (native "@" "free" NIL C) )
-
 (msg 'incr-2)
-(bye)
 
 
 # check low order only
@@ -398,7 +386,6 @@
                      (check Z Pub M) )
                   (set L N) ) )
             Pub ) ) ) )
-
 (msg 'boom4)
 
 (setq S (need 64 0))

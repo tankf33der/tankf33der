@@ -1,1 +1,1 @@
-Lets code only IntCode tasks of event.
+Lets code only INTCODE tasks of event.

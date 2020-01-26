@@ -5,15 +5,21 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
-(de i2-split (Lst)
-   (make
-      (while Lst
-         (if (= 99 (car Lst))
-            (println (cut 1 'Lst))
-            (println (cut 4 'Lst)) ) ) ) )
+(de i2-1 (F)
+   (let Lst (i2-code F)
+      (set (cdr Lst) 12  (cddr Lst) 2)
+      (for (L Lst L)
+         (T (> (car L) 2))
+         (set
+            (nth Lst (inc (get L 4)))
+            ((if (=1 (car L)) '+ '*)
+               (get Lst (inc (get L 2)))
+               (get Lst (inc (get L 3))) ) )
+         (do 4
+            (++ L) ) )
+      (car Lst) ) )
+(test 5482655 (i2-1 "data/2.txt"))
 
-(setq L (i2-code "data/2-test-1.txt"))
-(i2-split L)
 
 (msg 'ok)
 (bye)

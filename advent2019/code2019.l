@@ -48,49 +48,45 @@
 ####
 (one *I5)   # input reg
 (de i5-opcode (N)
-   (let N (mapcar format (flip (chop (pad 5 N))))
+   (let N (mapcar format (flip (chop (pad 4 N))))
       (conc (cons (car N)) (cddr N)) ) )
 (de i5-trampo (L1 L2)
    (mapcar
       '((A B)
          (if (=0 A)
-            (get *I5-Lst (inc B))
+            (get Lst (inc B))
             B ) )
       L1
       L2 ) )
 (de i5-1 (Lst)
-   (let (X NIL  Y NIL)
+   (use (X Y)
    (for (L Lst L)
       (setq
          X (i5-opcode (car L))
-         Y (i5-trampo (cdr X) L) )
+         Y (i5-trampo (cdr X) (cdr L)) )
       (T (= 9 (car X)))    # halt
-      (println 'X X (less L 8))
-      (println 'Y Y (less Lst 10))
       (case (car X)
          (1
             (set
-               (nth Lst (inc (caddr Y)))
-               (+ (car Y) (cadr Y)) ) )
+               (nth Lst (inc (get L 4)))
+               (apply + Y) ) )
          (2
             (set
-               (nth Lst (inc (caddr Y)))
-               (* (car Y) (cadr Y)) ) )
+               (nth Lst (inc (get L 4)))
+               (apply * Y) ) )
          (3
-            (set
-               (nth Lst (inc (car Y)))
-               *I5 ) )
+            (set (nth Lst (inc (car Y))) *I5) )
          (4
-            (prinl (get Lst (inc (car Y)))) )
+            (println (car Y)) )
       )
-
       (do (if (> (car X) 2) 2 4)
          (++ L) )
-      (println 'boom)
+      (println 'loop)
    ))
 )
 (setq *I5-Lst (read-code "data/5.txt"))
 (i5-1 *I5-Lst)
+# XXX bnd Lst
 
 (msg 'ok)
 (bye)

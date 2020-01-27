@@ -1,9 +1,7 @@
 `(== 64 64)
 (load "@lib/simul.l")
 (seed (in "/dev/urandom" (rd 8)))
-#(gc 128)
-
-#{
+(gc 128)
 
 # --- Day 1: Chronal Calibration ---
 (setq *A1
@@ -64,7 +62,7 @@
                (cnt n0 (mapcar - (car L) (cadr L))) )
             (pack (mapcar char (sect (car L) (cadr L)))) ) ) ) )
 (test
-   "fgij" 
+   "fgij"
    (a2-2 "data/2-test-2.txt") )
 (test
    "lsrivmotzbdxpkxnaqmuwcchj"
@@ -85,7 +83,7 @@
                      (char)
                      (link (inc (format (till ":"))))
                      (char)
-                     (link 
+                     (link
                         (format (till "x"))
                         (prog (char) (read))
                         N ) ) ) )
@@ -154,11 +152,11 @@
       (push V (list K (list (cons N 1)))) ) )
 (de a4-1 (F)
    (let
-      (Lst 
+      (Lst
          (mapcar
             '((L)
-               (head 
-                  4 
+               (head
+                  4
                   (cddr (split (cdr (chop L)) " " "]" ":")) ) )
             (sort (a4-line-T F)) )
          G NIL
@@ -185,7 +183,7 @@
          '((Lst)
             (mapc '((L) (accu 'Z L 1)) Lst) )
          (cdr R) )
-      (* 
+      (*
          (car R)
          (caar (flip (by cdr sort Z))) ) ) )
 (test 240 (a4-1 "data/4-test-unsorted.txt"))
@@ -214,11 +212,11 @@
                (a4-accuL 'R G F W)
                (off F W) ) ) )
       (mapc
-         '((A) 
+         '((A)
             (mapc
                '((B)
                   (mapc
-                     '((C) (a4-accuN 'Z (car A) C)) 
+                     '((C) (a4-accuN 'Z (car A) C))
                      B ) )
                (cdr A) ) )
          R )
@@ -230,8 +228,8 @@
                   (cons (car L) (maxi cdr (cadr L))) )
                Z ) ) )
       (* (car Z) (cadr Z)) ) )
-(test 4455 (a4-2 "data/4-test-unsorted.txt"))  
-(test 4966 (a4-2 "data/4.txt"))  
+(test 4455 (a4-2 "data/4-test-unsorted.txt"))
+(test 4966 (a4-2 "data/4.txt"))
 
 # --- Day 5: Alchemical Reduction ---
 (de dec0 ("N")
@@ -289,14 +287,14 @@
             (C2 (+ C1 32)
                Lst
                (filter
-                  '((N) (and (<> N C1) (<> N C2))) 
+                  '((N) (and (<> N C1) (<> N C2)))
                   Lst ) )
             (a5-1 Lst) ) )
       (range (char A) (char B)) )
    @@ )
 (test 4 (a5-2 (mapcar char (chop "dabAcCaCBAcCcaDA")) 'A 'D) )
 # 26*8secs
-#(test 5412 (a5-2 *A5-D 'A 'Z)) 
+#(test 5412 (a5-2 *A5-D 'A 'Z))
 
 # --- Day 6: Chronal Coordinates ---
 (de a6-data (F)
@@ -318,7 +316,7 @@
                   (char)
                   (link (read)) ) ) ) ) ) )
 (de a6-1 (F)
-   (let 
+   (let
       (Lst (a6-data F)
          Max (prog (maxi caddr Lst) @@)
          May (prog (maxi cadddr Lst) @@) )
@@ -330,13 +328,13 @@
                      '((P)
                         (conc
                            (cons
-                              (+ 
+                              (+
                                  (abs (- (caddr P) X))
                                  (abs (- (cadddr P) Y)) ) )
                            P ) )
                      Lst ) )
                (when (<> (caar L) (caadr L))
-                  (inc (cddar L)) 
+                  (inc (cddar L))
                   (when
                      (or
                         (=0 X)
@@ -359,10 +357,10 @@
          S 0 )
       (for (X 0 (> Max X) (inc X))
          (for (Y 0 (> May Y) (inc Y))
-            (inc 
+            (inc
                'S
                (if
-                  (> 
+                  (>
                      Lim
                      (sum
                         '((P)
@@ -432,18 +430,18 @@
          Tm 0
          Cmpl NIL
          CmplD NIL
-         Blc NIL  
+         Blc NIL
          Unblc NIL
          Input NIL
          Step NIL
          Will 0 )
       (a7-data2 F 'Input)
-      (setq 
+      (setq
          Blc (mapcan '((L) (copy (cdr L))) Input)
          Unblc
          (mapcan
             '((L)
-               (and 
+               (and
                   (not (member (car L) Blc))
                   (cons (car L)) ) )
             Input ) )
@@ -451,7 +449,7 @@
          (when (setq @@ (assoc Tm CmplD))
             (for I (cdr (assoc (cadr @@) Input))
                (and (member I Blc) (setq Blc (delete I Blc)) )
-               (and (not (member I Blc)) (push 'Unblc I) ) ) 
+               (and (not (member I Blc)) (push 'Unblc I) ) )
             (dec 'W)
             (push 'Cmpl (cadr @@)) )
          (do (length Unblc)
@@ -502,15 +500,15 @@
          (if (=0 (% N 23))
             (prog
                (accu
-                  'D 
+                  'D
                   (% N P)
                   (+ (get L I) N) )
                (inc 'I 21)
-               (setq 
+               (setq
                   L (conc (tail 7 L) (head -8 L))
                   L (a9-shift L) ) )
             (setq L (a9-shift L))
-            (conc L (cons N)) ) ) 
+            (conc L (cons N)) ) )
       (cdr (maxi cdr D)) ) )
 # much faster reimplementation,
 # 4-10 times faster.
@@ -521,7 +519,7 @@
          (for N M
             (a9-shift-11)
             (if (gt0 (% N 23))
-               (link N) 
+               (link N)
                (accu
                   'D
                   (% N P)
@@ -593,7 +591,7 @@
          Last T
          Save NIL )
       (while (> Last D)
-         (setq 
+         (setq
             Last D
             Save (a10-copy Lst))
          (a10-tick 'Lst)
@@ -607,14 +605,14 @@
             (a10-list
                (inc (- MaxX MinX))
                (inc (- MaxY MinY)) ) )
-         (mapc 
+         (mapc
             '((L)
                (let
                   (X (inc (- (car L) MinX))
                      Y (inc (- (cadr L) MinY)) )
                   (set (nth B X Y) "#") ) )
             Save )
-         #{ 
+         #{
          # yes, rotate matrix to left 90 and print
          (for L (apply mapcar B list)
             (prinl L) )
@@ -631,7 +629,7 @@
 (de a11-power (X Y)
    (let X (+ 10 X)
       (-
-         (a11-digit (* X (+ S (* Y X)))) 
+         (a11-digit (* X (+ S (* Y X))))
          5 ) ) )
 (de a11-grid NIL
    (make
@@ -646,7 +644,7 @@
       (for (X A (> (+ A N) X) (inc X))
          (for (Y B (> (+ B N) Y) (inc Y))
             (inc 'Sum (a11-get X Y)) ) )
-      Sum ) ) 
+      Sum ) )
 (de a11-1 (S)
    (let (G (a11-grid)  Max)
       (for X 300
@@ -671,13 +669,13 @@
    (set
       (nth G X Y)
       (-
-         (+ 
+         (+
             N
             (a11-get-2 X (dec Y))
             (a11-get-2 (dec X) Y) )
          (a11-get-2 (dec X) (dec Y)) ) ) )
 (de a11-box-2 (X Y Z)
-   (- 
+   (-
       (+
          # D
          (a11-get-2 (+ X (dec Z)) (+ Y (dec Z)))
@@ -738,7 +736,7 @@
                (made (conc (made) (need 3 ".")))
                (made
                   (mapcon
-                     '((L) 
+                     '((L)
                         (when
                            (and
                               (cddddr L)
@@ -780,8 +778,8 @@
 
 # --- Day 13: Mine Cart Madness ---
 (de a13-cart (X Y D)
-   (push 'Carts 
-      (list 
+   (push 'Carts
+      (list
          (inc 'N)
          X
          Y
@@ -876,7 +874,7 @@
       (Carts NIL
          Lst (a13-data F)
          Carts (reverse Carts)
-         Coll 
+         Coll
          (loop
             (T
                (for Car Carts
@@ -922,10 +920,10 @@
                sort
                (filter car Carts) ) )
          # last one ?
-         (NIL (cdr Carts)) ) 
+         (NIL (cdr Carts)) )
       (cons (dec (caddar Carts)) (dec (cadar Carts))) ) )
-(test (6 . 4) (a13-2 "data/13-test-2.txt")) 
-(test (26 . 85) (a13-2 "data/13.txt")) 
+(test (6 . 4) (a13-2 "data/13-test-2.txt"))
+(test (26 . 85) (a13-2 "data/13.txt"))
 
 # --- Day 14: Chocolate Charts ---
 (de a14-1 (N)
@@ -947,7 +945,7 @@
                      (setq S (% S 10)) )
                   (link S)
                   (inc 'Len)
-                  (setq 
+                  (setq
                      P1
                      (%
                         (+ P1 1 (get (made) (inc P1)))
@@ -1105,7 +1103,7 @@
       (Lst (a15-read F)
          Grid (grid (length (car Lst)) (length Lst))
          Rounds 0 )
-      (a15-grid-set Grid Lst) 
+      (a15-grid-set Grid Lst)
       (catch 'exit
          (loop
             (for L (new-round Grid) # '((a2 . "G") (c3 . "E"))
@@ -1170,9 +1168,9 @@
 (de valA NIL
    (get Lst 3 2) )
 (de regB NIL
-   (get Lst 2 (inc (get Lst 3 3))) )   
+   (get Lst 2 (inc (get Lst 3 3))) )
 (de valB NIL
-   (get Lst 3 3) ) 
+   (get Lst 3 3) )
 (de regC NIL
    (nth Reg (inc (get Lst 3 4))) )
 (de setC (X)
@@ -1191,7 +1189,7 @@
 (de addr (Lst)
    (setC (+ (regA) (regB))) )
 (de seti (Lst)
-   (setC (valA)) )  
+   (setC (valA)) )
 (de setr (Lst)
    (setC (regA)) )
 (de banr (Lst)
@@ -1291,11 +1289,11 @@
       (Runs (a16-read-2 F)
          Code (a16-read-code C)
          Dict (makeD)
-         PC NIL ) 
+         PC NIL )
       (for R Runs
          (push (cdr (assoc (caar R) Dict)) R) )
       (do 16
-         (let 
+         (let
             Pick
             (pick
                '((F)
@@ -1324,7 +1322,7 @@
             ((cdr (assoc (car C) PC)) C) )
          (car Reg) ) ) )
 (test 582 (a16-2 "data/16-part1.txt" "data/16-part2.txt"))
-         
+
 # --- Day 17: Reservoir Research ---
 
 # --- Day 18: Settlers of The North Pole ---
@@ -1340,7 +1338,7 @@
                   (case Val
                      ("." 0)
                      ("|" 1)
-                     ("#" T) ) ) ) 
+                     ("#" T) ) ) )
             G
             L ) )
       Grid
@@ -1386,7 +1384,7 @@
                                  (>= (cdr (assoc 1 R)) 1)
                                  (>= (cdr (assoc T R)) 1) )
                               T
-                              0 ) ) ) ) ) ) )  
+                              0 ) ) ) ) ) ) )
          (for G Grid
             (for This G
                (=: unit (: next)) ) ) )
@@ -1402,11 +1400,7 @@
 # to infinity and beyond
 #(a18-1 "data/18.txt" 1000000000))
 
-}#
-
-# --- Day 19: Go With The Flow ---            
-
+# --- Day 19: Go With The Flow ---
 
 
 (msg 'OK-AoC18)
-(bye)

@@ -1,3 +1,4 @@
+(gc 256)
 (cd "utf8")
 (load "test.l")
 (cd "..")
@@ -25,8 +26,8 @@
 (cd "../advent2017")
 (load "code2017.l")
 
-#(cd "../advent2018")
-#(load "code2018.l")
+(cd "../advent2018")
+(load "code2018.l")
 
 (cd "../Simply-Scheme")
 (load "ss.l")
@@ -53,5 +54,4 @@
 (load "test.l")
 
 (msg 'OK-All)
-(bye)
-
+(bye)

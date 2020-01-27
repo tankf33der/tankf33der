@@ -14,7 +14,6 @@
             (when (upp? C) (inc 'U)) ) ) )
    (test S 20832567)
    (test U 209) )
-#{
 (let (S 0  U 0)
    (in "0-0x10ffff_assigned_printable.txt"
       (until (eof)
@@ -22,8 +21,8 @@
             (inc 'S (char C))
             (when (upp? C) (inc 'U)) ) ) )
    (test S 146517842895)
-   (test U 1425) )
-}#
+   #(test U 1425)
+)
 (let (S 0  U 0)
    (in "utf8.html"
       (until (eof)
@@ -37,11 +36,10 @@
       (until (eof)
          (let C (char)
             (inc 'S (char C))
-            (when (upp? C) (prinl C) (inc 'U)) ) ) )
+            (when (upp? C) (inc 'U)) ) ) )
    (test S 83058779)
-   (print U 724) )
-(bye)
-#{
+   #(test U 724)
+)
 (let (S 0  U 0)
    (in "unicode-sample-3-2.html"
       (until (eof)
@@ -49,8 +47,8 @@
             (inc 'S (char C))
             (when (upp? C) (inc 'U)) ) ) )
    (test S 555661087)
-   (test U 1043) )
-}#
+   #(test U 1043)
+)
 (let (S 0  U 0)
    (in "armenia8.htm"
       (until (eof)

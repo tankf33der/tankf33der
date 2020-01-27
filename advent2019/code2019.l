@@ -36,6 +36,7 @@
             (i2-1 (copy *I2-Lst) (car @@) (cdr @@)) ) ) )
    (+ (cdr @@) (* 100 (car @@))) )
 (test 4967 (i2-2))
+
 }#
 
 # --- Day 5: Sunny with a Chance of Asteroids ---
@@ -53,40 +54,35 @@
 (de i5-trampo (L1 L2)
    (mapcar
       '((A B)
-         (if (=0 A)
-            (get Lst (inc B))
-            B ) )
+         (if (=0 A) (get *I5-Lst (inc B)) B) )
       L1
       L2 ) )
 (de i5-1 (Lst)
    (use (X Y)
-   (for (L Lst L)
-      (setq
-         X (i5-opcode (car L))
-         Y (i5-trampo (cdr X) (cdr L)) )
-      (T (= 9 (car X)))    # halt
-      (case (car X)
-         (1
-            (set
-               (nth Lst (inc (get L 4)))
-               (apply + Y) ) )
-         (2
-            (set
-               (nth Lst (inc (get L 4)))
-               (apply * Y) ) )
-         (3
-            (set (nth Lst (inc (car Y))) *I5) )
-         (4
-            (println (car Y)) )
-      )
-      (do (if (> (car X) 2) 2 4)
-         (++ L) )
-      (println 'loop)
-   ))
-)
+      (for (L Lst L)
+         (setq
+            X (i5-opcode (car L))
+            Y (i5-trampo (cdr X) (cdr L)) )
+         (T (= 9 (car X)))    # halt
+         (case (car X)
+            (1
+               (set
+                  (nth Lst (inc (get L 4)))
+                  (apply + Y) ) )
+            (2
+               (set
+                  (nth Lst (inc (get L 4)))
+                  (apply * Y) ) )
+            (3 (set (nth Lst (inc (car Y))) *I5))
+            (4 (when (gt0 (car Y)) (println @))) )
+         (do (if (> (car X) 2) 2 4)
+            (++ L) ) ) ) )
 (setq *I5-Lst (read-code "data/5.txt"))
-(i5-1 *I5-Lst)
-# XXX bnd Lst
+# will print correct result: 15386262
+#(i5-1 *I5-Lst)
+
+# part 2
+
 
 (msg 'ok)
 (bye)

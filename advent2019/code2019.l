@@ -58,17 +58,39 @@
             B ) )
       L1
       L2 ) )
-(de i5-1 (F)
+(de i5-1 (Lst)
+   (let (X NIL  Y NIL)
    (for (L Lst L)
       (setq
-         @@ (i5-opcode (car L))
-         @@@ (i5-trampo (cdr @@) L) )
-      (T (= 9 (car @)))    # halt
-      (
-   )
+         X (i5-opcode (car L))
+         Y (i5-trampo (cdr X) L) )
+      (T (= 9 (car X)))    # halt
+      (println 'X X (less L 8))
+      (println 'Y Y (less Lst 10))
+      (case (car X)
+         (1
+            (set
+               (nth Lst (inc (caddr Y)))
+               (+ (car Y) (cadr Y)) ) )
+         (2
+            (set
+               (nth Lst (inc (caddr Y)))
+               (* (car Y) (cadr Y)) ) )
+         (3
+            (set
+               (nth Lst (inc (car Y)))
+               *I5 ) )
+         (4
+            (prinl (get Lst (inc (car Y)))) )
+      )
+
+      (do (if (> (car X) 2) 2 4)
+         (++ L) )
+      (println 'boom)
+   ))
 )
 (setq *I5-Lst (read-code "data/5.txt"))
-(i5-1 "data/5.txt")
+(i5-1 *I5-Lst)
 
 (msg 'ok)
 (bye)

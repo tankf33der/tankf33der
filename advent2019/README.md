@@ -1,1 +1,1 @@
-Lets code only INTCODE tasks (2, 5) of event.
+Lets code INTCODE-only tasks of event.

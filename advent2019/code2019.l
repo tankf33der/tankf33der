@@ -1,3 +1,5 @@
+`(== 64 64)
+
 # --- Day 2: 1202 Program Alarm ---
 (de read-code (F)
    (make

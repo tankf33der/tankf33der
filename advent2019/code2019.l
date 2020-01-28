@@ -85,13 +85,11 @@
 # part 2
 (de i5-2 (F *I5)
    (let (*Lst (read-code F)  L *Lst  X NIL  Y NIL)
-      (loop
+      (for (L *Lst L)
          (setq
             X (i5-opcode (car L))
             Y (i5-trampo (cdr X) (cdr L)) )
-         #(println (less L) 'X X 'Y Y *I5)
-         #(wait 300)
-         (T (= 9 (car X)))    # halt
+         (T (= 9 (car X)) (cadr L))    # halt
          (case (car X)
             (1
                (set
@@ -102,7 +100,7 @@
                   (nth *Lst (inc (get L 4)))
                   (apply * Y) ) )
             (3 (set (nth *Lst (inc (cadr L))) *I5))
-            (4 (println '! (car Y)))
+            (4 (set '*I5 (car Y)))
             (5
                (if (n0 (car Y))
                   (set 'L (nth *Lst (inc (cadr Y))))
@@ -136,13 +134,11 @@
             )
             (++ L) )
       )
+      *I5
    )
 
 )
-
-
-# 10376124
-(i5-2 "data/5.txt" 5)
+(test 10376124  (i5-2 "data/5.txt" 5))
 #(i5-2 "data/5-test-1.txt" 8)
 #(i5-2 "data/5-test-2.txt" 9)
 #(i5-2 "data/5-test-3.txt" 9)

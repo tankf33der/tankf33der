@@ -37,8 +37,6 @@
    (+ (cdr @@) (* 100 (car @@))) )
 (test 4967 (i2-2))
 
-}#
-
 # --- Day 5: Sunny with a Chance of Asteroids ---
 # Legend:
 # 1 3ops +
@@ -64,7 +62,6 @@
             X (i5-opcode (car L))
             Y (i5-trampo (cdr X) (cdr L)) )
          (T (= 9 (car X)) (cadr L))    # halt
-         #(println (less L) 'X X 'Y Y)
          (case (car X)
             (1
                (set
@@ -75,21 +72,21 @@
                   (nth *Lst (inc (get L 4)))
                   (apply * Y) ) )
             (3 (set (nth *Lst (inc (cadr L))) *I5))
-            (4 (println (car Y)))
+            # uncomment if you want output
+            #(4 (println (car Y)))
          )
          (do (if (> (car X) 2) 2 4)
             (++ L) ) ) ) )
-#(test 15386262 (i5-1 "data/5.txt"))
-
+(test 15386262 (i5-1 "data/5.txt"))
 
 # part 2
 (de i5-2 (F *I5)
-   (let (*Lst (read-code F)  L *Lst  X NIL  Y NIL)
+   (let (*Lst (read-code F)  X NIL  Y NIL)
       (for (L *Lst L)
          (setq
             X (i5-opcode (car L))
             Y (i5-trampo (cdr X) (cdr L)) )
-         (T (= 9 (car X)) (cadr L))    # halt
+         (T (= 9 (car X)))    # halt
          (case (car X)
             (1
                (set
@@ -104,51 +101,48 @@
             (5
                (if (n0 (car Y))
                   (set 'L (nth *Lst (inc (cadr Y))))
-                  (do 3 (++ L)) )
-            )
+                  (do 3
+                     (++ L) ) ) )
             (6
                (if (=0 (car Y))
                   (set 'L (nth *Lst (inc (cadr Y))))
-                  (do 3 (++ L)) )
-            )
+                  (do 3
+                     (++ L) ) ) )
             (7 (if (< (car Y) (cadr Y))
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     1 )
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     0 ) ) )
+                  (set (nth *Lst (inc (get L 4))) 1)
+                  (set (nth *Lst (inc (get L 4))) 0) ) )
             (8 (if (= (car Y) (cadr Y))
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     1 )
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     0 ) ) )
-         )
+                  (set (nth *Lst (inc (get L 4))) 1)
+                  (set (nth *Lst (inc (get L 4))) 0) ) ) )
          (do
             (case (car X)
                ((1 2 7 8) 4)
                ((3 4) 2)
-               #((5 6) 3)
+               #((5 6) already incresed above)
             )
-            (++ L) )
-      )
-      *I5
-   )
-
-)
+            (++ L) ) )
+      *I5 ) )
 (test 10376124  (i5-2 "data/5.txt" 5))
-#(i5-2 "data/5-test-1.txt" 8)
-#(i5-2 "data/5-test-2.txt" 9)
-#(i5-2 "data/5-test-3.txt" 9)
-#(i5-2 "data/5-test-4.txt" 7)
+(test 0 (i5-2 "data/5-test-1.txt" 9))
+(test 1 (i5-2 "data/5-test-1.txt" 8))
+(test 0 (i5-2 "data/5-test-1.txt" 7))
+(test 0 (i5-2 "data/5-test-2.txt" 9))
+(test 0 (i5-2 "data/5-test-2.txt" 8))
+(test 1 (i5-2 "data/5-test-2.txt" 7))
+(test 0 (i5-2 "data/5-test-3.txt" 9))
+(test 1 (i5-2 "data/5-test-3.txt" 8))
+(test 0 (i5-2 "data/5-test-3.txt" 7))
+(test 0 (i5-2 "data/5-test-4.txt" 9))
+(test 0 (i5-2 "data/5-test-4.txt" 8))
+(test 1 (i5-2 "data/5-test-4.txt" 7))
+(test 0 (i5-2 "data/5-test-5.txt" 0))
+(test 1 (i5-2 "data/5-test-5.txt" 10))
+(test 0 (i5-2 "data/5-test-6.txt" 0))
+(test 1 (i5-2 "data/5-test-6.txt" 10))
 
-#(i5-2 "data/5-test-5.txt" 0)
-#(i5-2 "data/5-test-5.txt" 10)
+}#
 
-#(i5-2 "data/5-test-6.txt" 10)
-
+# --- Day 7: Amplification Circuit ---
 
 (msg 'ok)
 (bye)

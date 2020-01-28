@@ -91,7 +91,7 @@
             Y (i5-trampo (cdr X) (cdr L)) )
          (println (less L) 'X X 'Y Y *I5)
          (wait 100)
-         (T (= 9 (car X)) (cadr L))    # halt
+         (T (= 9 (car X)))    # halt
          (case (car X)
             (1
                (set
@@ -101,18 +101,18 @@
                (set
                   (nth *Lst (inc (get L 4)))
                   (apply * Y) ) )
-            (3 (set (nth *Lst (inc (cadr Y))) *I5))
+            (3 (set (nth *Lst (inc (cadr L))) *I5))
             (4 (println '! (car Y)))
-            (5 (when (n0 (car L)) (set L (nth *Lst (inc (get cadr L))))))
-            (6 (when (=0 (car L)) (set L (nth *Lst (inc (get cadr L))))))
-            (7 (if (< (cadr L) (caddr L))
+            (5 (when (n0 (car Y)) (set L (nth *Lst (inc (get cadr L))))))
+            (6 (when (=0 (car Y)) (set L (nth *Lst (inc (get cadr L))))))
+            (7 (if (< (car Y) (cadr Y))
                   (set
                      (nth *Lst (inc (get L 4)))
                      1 )
                   (set
                      (nth *Lst (inc (get L 4)))
                      0 ) ) )
-            (8 (if (= (cadr L) (caddr L))
+            (8 (if (= (car Y) (cadr Y))
                   (set
                      (nth *Lst (inc (get L 4)))
                      1 )
@@ -122,8 +122,10 @@
          )
          (do
             (case (car X)
-               ((0 1 2 7 8) 4)
-               ((3 4) 2) )
+               ((1 2 7 8) 4)
+               ((3 4) 2)
+               ((5 6) 3)
+            )
             (++ L) )
       )
    )
@@ -133,7 +135,9 @@
 
 (i5-2 "data/5.txt" 5)
 #(i5-2 "data/5-test-1.txt" 8)
-#(i5-2 "data/5-test-2.txt" 7)
+#(i5-2 "data/5-test-2.txt" 9)
+#(i5-2 "data/5-test-3.txt" 9)
+#(i5-2 "data/5-test-4.txt" 7)
 
 (msg 'ok)
 (bye)

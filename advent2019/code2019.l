@@ -1,4 +1,5 @@
 `(== 64 64)
+(load "@lib/simul.l")
 
 # --- Day 2: 1202 Program Alarm ---
 (de read-code (F)
@@ -146,7 +147,15 @@
 (de i7-wrap (Prg C)
    (let R (i5-2 (copy Prg) (list (car C) 0))
       (for N (cdr C)
-         (setq R (i5-2 (copy Prg) (list N R))) ) ) )
+         (setq R (i5-2 (copy Prg) (list N R))) )
+      R ) )
+(de i7-1 (F)
+   (let Prg (read-code F)
+      (maxi
+         '((L) (i7-wrap Prg L))
+         (permute (range 0 4)) )
+      @@ ) )
+(test 43210 (i7-1 "data/7-test-1.txt"))
 (test
    43210
    (i7-wrap (read-code "data/7-test-1.txt") (range 4 0)))
@@ -156,6 +165,8 @@
 (test
    65210
    (i7-wrap (read-code "data/7-test-3.txt") (list 1 0 4 3 2)))
+(test 34686 (i7-1 "data/7.txt"))
+
 
 (msg 'ok)
 (bye)

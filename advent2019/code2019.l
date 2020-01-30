@@ -82,8 +82,8 @@
 (test 15386262 (i5-1 "data/5.txt"))
 
 # part 2
-(de i5-2 (L I5)
-   (let (*Lst (copy L)  X NIL  Y NIL)
+(de i5-2 (*Lst I5)
+   (let (X NIL  Y NIL)
       (for (L *Lst L)
          (setq
             X (i5-opcode (car L))

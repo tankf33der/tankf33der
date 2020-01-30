@@ -83,6 +83,7 @@
 
 # part 2
 (de i5-2 (*Lst I5)
+   (println *Lst I5)
    (let (X NIL  Y NIL)
       (for (L *Lst L)
          (setq
@@ -143,6 +144,23 @@
 (test 1 (i5-2 (read-code "data/5-test-6.txt") (list 10)))
 
 # --- Day 7: Amplification Circuit ---
+(de i7-wrap (Prg C)
+   (let R (i5-2 (copy Prg) (list (car C) (last C)))
+      (println 'N (car C) 'R R)
+      (for N (cdr C)
+         (println 'N N 'R R)
+         (setq R
+            (i5-2 (copy Prg) (list N R)) )
+      )
+   )
+)
+
+
+#(println
+#   (i7-wrap (read-code "data/7-test-1.txt") (list 4 3 2 1 0)))
+(println
+   (i7-wrap (read-code "data/7-test-2.txt") (list 0 1 2 3 4)))
 
 (msg 'ok)
 (bye)
+

@@ -7,6 +7,7 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
+
 (de i2-1 (Lst X Y)
    (set (cdr Lst) X  (cddr Lst) Y)
    (for (L Lst L)
@@ -81,8 +82,8 @@
 (test 15386262 (i5-1 "data/5.txt"))
 
 # part 2
-(de i5-2 (L1 *I5)
-   (let (*Lst (copy L1)  X NIL  Y NIL)
+(de i5-2 (F *I5)
+   (let (*Lst (read-code F)  X NIL  Y NIL)
       (for (L *Lst L)
          (setq
             X (i5-opcode (car L))
@@ -97,8 +98,8 @@
                (set
                   (nth *Lst (inc (get L 4)))
                   (apply * Y) ) )
-            (3 (set (nth *Lst (inc (cadr L))) (++ *I5)))
-            (4 (push '*I5 (car Y)))
+            (3 (set (nth *Lst (inc (cadr L))) *I5))
+            (4 (set '*I5 (car Y)))
             (5
                (if (n0 (car Y))
                   (set 'L (nth *Lst (inc (cadr Y))))
@@ -122,13 +123,9 @@
                #((5 6) already incresed above)
             )
             (++ L) ) )
-      (car *I5) ) )
-(setq *I5-Lst (read-code "data/5.txt"))
-(println *I5-Lst)
-(test 10376124 (i5-2 (copy *I5-Lst) (list 5)))
-(println *I5-Lst)
-(test 0 (i5-2 (copy *I5-Lst) (list 9)))
-(println *I5-Lst)
+      *I5 ) )
+(test 10376124 (i5-2 "data/5.txt" 5))
+(test 0 (i5-2 "data/5-test-1.txt" 9))
 (bye)
 (test 1 (i5-2 *I5-Lst (list 8)))
 (test 0 (i5-2 *I5-Lst (list 7)))

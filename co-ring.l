@@ -15,7 +15,7 @@
          (setq Got (yield))
          (loop
             (inc 'C)
-            (T (>= C 7))
+            (T (>= C 7) 123)
             (println 'loop N 'Rnd Rnd 'Got Got 'C C)
             (yield
                (inc 'Rnd Got)
@@ -27,7 +27,8 @@
 (wagon 1 10)
 (wagon 2 20)
 (wagon 3 30)
-(yield 10 'i71)
+(setq R (yield 10 'i71))
+(println 'R R)
 
 (msg 'fin)
 (bye)

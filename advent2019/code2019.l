@@ -216,7 +216,7 @@
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (println 'for N X Y)
+            (println 'for N X Y (less L))
             (T (= 9 (car X)) 'boom)    # halt
             (case (car X)
                (1

@@ -262,6 +262,11 @@
 (i7-wagon *I77 4)
 (i7-wagon *I77 5)
 (yield 9 'i71)
+(yield 8 'i72)
+(yield 7 'i73)
+(yield 6 'i74)
+(yield 5 'i75)
+
 (println (yield 0 'i71))
 
 

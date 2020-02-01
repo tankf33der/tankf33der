@@ -171,7 +171,7 @@
 # *Lst: 3 0 4 0 9
 # three wagons, pass input number thru all wagons
 # some wagon should halt somehow.
-(de wagon (*Lst N)
+(de wagon (Prg N)
    (co (intern (pack 'w N))
       (let
          (N N
@@ -180,7 +180,7 @@
                (pack
                   'w
                   (if (= 3 N) 1 (inc N))))
-            *Lst *Lst )
+            *Lst (copy Prg) )
          (for (L *Lst L)
             (T (= 9 (car L)) (yield 567))   # halt
             (case (car L)
@@ -198,7 +198,75 @@
 (wagon (copy *W7) 3)
 (test 567 (yield 7 'w1))
 
-# real part 2
+# part 2
+(de i7-wagon (Prg N)
+   (co (intern (pack 'i7 N))
+      (let
+         (*Lst (copy Prg)
+            N N
+            Send
+            (intern
+               (pack
+                  'i7
+                  (if (= 5 N) 1 (inc N)) ) )
+            X NIL
+            Y NIL
+         )
+         (for (L *Lst L)
+            (setq
+               X (i5-opcode (car L))
+               Y (i5-trampo (cdr X) (cdr L)) )
+            (println 'for N X Y)
+            (T (= 9 (car X)) 'boom)    # halt
+            (case (car X)
+               (1
+                  (set
+                     (nth *Lst (inc (get L 4)))
+                     (apply + Y) ) )
+               (2
+                  (set
+                     (nth *Lst (inc (get L 4)))
+                     (apply * Y) ) )
+               (3 (set (nth *Lst (inc (cadr L))) (yield)))
+               (4 (yield (get *Lst (inc (cadr L))) Send))
+               (5
+                  (if (n0 (car Y))
+                     (set 'L (nth *Lst (inc (cadr Y))))
+                     (do 3
+                        (++ L) ) ) )
+               (6
+                  (if (=0 (car Y))
+                     (set 'L (nth *Lst (inc (cadr Y))))
+                     (do 3
+                        (++ L) ) ) )
+               (7 (if (< (car Y) (cadr Y))
+                     (set (nth *Lst (inc (get L 4))) 1)
+                     (set (nth *Lst (inc (get L 4))) 0) ) )
+               (8 (if (= (car Y) (cadr Y))
+                     (set (nth *Lst (inc (get L 4))) 1)
+                     (set (nth *Lst (inc (get L 4))) 0) ) ) )
+            (do
+               (case (car X)
+                  ((1 2 7 8) 4)
+                  ((3 4) 2)
+                  #((5 6) already incresed above)
+               )
+               (++ L) )
+         ) #for
+))) # let-co-de
+
+(setq *I77 (read-code "data/7-test-4.txt"))
+(i7-wagon *I77 1)
+(i7-wagon *I77 2)
+(i7-wagon *I77 3)
+(i7-wagon *I77 4)
+(i7-wagon *I77 5)
+(yield 9 'i71)
+(println (yield 0 'i71))
+
+
+
+
 
 (msg 'ok)
 (bye)

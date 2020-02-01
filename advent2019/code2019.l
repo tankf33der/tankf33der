@@ -167,6 +167,38 @@
    (i7-wrap (read-code "data/7-test-3.txt") (list 1 0 4 3 2)))
 (test 34686 (i7-1 "data/7.txt"))
 
+# warmup pseudo part 2
+# *Lst: 3 0 4 0 9
+# three wagons, pass input number thru all wagons
+# some wagon should halt somehow.
+(de wagon (*Lst N)
+   (co (intern (pack 'w N))
+      (let
+         (N N
+            Send
+            (intern
+               (pack
+                  'w
+                  (if (= 3 N) 1 (inc N))))
+            *Lst *Lst )
+         (for (L *Lst L)
+            (T (= 9 (car L)) (yield 567))   # halt
+            (case (car L)
+               (3
+                  (set (nth *Lst (inc (cadr L))) (yield))
+                  (inc *Lst) )
+               (4
+                  (if (= 3 N) (inc *Lst))
+                  (yield (get *Lst (inc (cadr L))) Send)) )
+            (++ L)
+            (++ L) ) ) ) )
+(setq *W7 (list 3 0 4 0 9))
+(wagon (copy *W7) 1)
+(wagon (copy *W7) 2)
+(wagon (copy *W7) 3)
+(test 567 (yield 7 'w1))
+
+# real part 2
 
 (msg 'ok)
 (bye)

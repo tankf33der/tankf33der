@@ -231,12 +231,10 @@
                (3
                   (when Wait
                      (println 'sending Wait Send)
-                     (set
-                        (nth *Lst (inc (cadr L)))
-                        (yield Wait Send) )
+                     (yield Wait Send)
                      (off Wait)
                   )
-                  #(set (nth *Lst (inc (cadr L))) (yield))
+                  (set (nth *Lst (inc (cadr L))) (yield))
                   #(println N 'in *Lst)
                )
                (4

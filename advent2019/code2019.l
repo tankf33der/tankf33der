@@ -211,14 +211,13 @@
                   (if (= 5 N) 1 (inc N)) ) )
             X NIL
             Y NIL
+            Wait NIL
          )
          (for (L *Lst L)
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            #(when (=1 N)
-               (println 'for N X Y (less L) Send)
-            #)
+            (println 'for N X Y (less L) Wait)
             (T (= 9 (car X)) (println 'boom))    # halt
             (case (car X)
                (1
@@ -230,13 +229,22 @@
                      (nth *Lst (inc (get L 4)))
                      (apply * Y) ) )
                (3
-                  (set (nth *Lst (inc (cadr L))) (yield))
-                  (println N 'in *Lst)
+                  (when Wait
+                     (println 'sending Wait Send)
+                     (set
+                        (nth *Lst (inc (cadr L)))
+                        (yield Wait Send) )
+                     (off Wait)
+                  )
+                  #(set (nth *Lst (inc (cadr L))) (yield))
+                  #(println N 'in *Lst)
                )
                (4
-                  (println N 'out *Lst)
-                  (yield (get *Lst (inc (cadr L))) Send)
+                  #(println N 'out *Lst)
+                  #(yield (get *Lst (inc (cadr L))) Send)
+                  (setq Wait (get *Lst (inc (cadr L))))
                )
+
                (5
                   (if (n0 (car Y))
                      (set 'L (nth *Lst (inc (cadr Y))))
@@ -264,7 +272,6 @@
          ) #for
 ))) # let-co-de
 
-
 (setq *I77 (read-code "data/7-test-4.txt"))
 (i7-wagon *I77 1)
 (i7-wagon *I77 2)
@@ -272,16 +279,13 @@
 (i7-wagon *I77 4)
 (i7-wagon *I77 5)
 
-(yield 5 'i71)
-(yield 6 'i72)
+(yield 9 'i71)
+(yield 8 'i72)
 (yield 7 'i73)
-(yield 8 'i74)
-(yield 9 'i75)
+(yield 6 'i74)
+(yield 5 'i75)
 
-(println (yield 0 'i71))
-(println (yield 10 'i72))
-
-
+(println  (yield 0 'i71))
 
 
 (msg 'ok)

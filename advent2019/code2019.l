@@ -217,7 +217,9 @@
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (println 'for N X Y (less L) Wait)
+            (when (=1 N)
+               (println 'for N X Y (less L) Wait)
+            )
             (T (= 9 (car X)) (println 'fin N))    # halt
             (case (car X)
                (1
@@ -227,7 +229,11 @@
                (2
                   (set
                      (nth *Lst (inc (get L 4)))
-                     (apply * Y) ) )
+                     (apply * Y) )
+                  (when (=1 N)
+                     (println 'mul (tail 3 *Lst))
+                  )
+               )
                (3
                   (if Wait
                      (prog
@@ -265,7 +271,9 @@
                (8 (if (= (car Y) (cadr Y))
                      (set (nth *Lst (inc (get L 4))) 1)
                      (set (nth *Lst (inc (get L 4))) 0) ) ) )
-            (println 'case N (less L) *Lst)
+            (when (=1 N)
+               (println 'case N (less L) (tail 3 *Lst))
+            )
             (do
                (case (car X)
                   ((1 2 7 8) 4)

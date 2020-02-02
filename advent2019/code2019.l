@@ -198,6 +198,7 @@
 (wagon (copy *W7) 3)
 (test 567 (yield 7 'w1))
 
+
 # part 2
 (de i7-wagon (Prg N)
    (co (intern (pack 'i7 N))
@@ -214,26 +215,16 @@
             Wait NIL
          )
          (for (L *Lst L)
+            (when (=1 N)
+            (println 'for (less L) (tail 3 *Lst))
+            )
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (when (=1 N)
-               (println 'for N X Y (less L) Wait)
-            )
-            (T (= 9 (car X)) (println 'fin N))    # halt
+            (T (= 9 (car X)) Wait)    # halt
             (case (car X)
-               (1
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     (apply + Y) ) )
-               (2
-                  (set
-                     (nth *Lst (inc (get L 4)))
-                     (apply * Y) )
-                  (when (=1 N)
-                     (println 'mul (tail 3 *Lst))
-                  )
-               )
+               (1 (set (nth *Lst (inc (get L 4))) (apply + Y)))
+               (2 (set (nth *Lst (inc (get L 4))) (apply * Y)))
                (3
                   (if Wait
                      (prog
@@ -248,32 +239,21 @@
                      #(println N 'in *Lst)
                   )
                )
-               (4
-                  #(println N 'out *Lst)
-                  #(yield (get *Lst (inc (cadr L))) Send)
-                  (setq Wait (get *Lst (inc (cadr L))))
-               )
-
+               (4 (setq Wait (get *Lst (inc (cadr L)))))
                (5
                   (if (n0 (car Y))
                      (set 'L (nth *Lst (inc (cadr Y))))
-                     (do 3 (++ L))
-                  )
-               )
+                     (do 3 (++ L)) ) )
                (6
                   (if (=0 (car Y))
                      (set 'L (nth *Lst (inc (cadr Y))))
-                     (do 3
-                        (++ L) ) ) )
+                     (do 3 (++ L)) ) )
                (7 (if (< (car Y) (cadr Y))
                      (set (nth *Lst (inc (get L 4))) 1)
                      (set (nth *Lst (inc (get L 4))) 0) ) )
                (8 (if (= (car Y) (cadr Y))
                      (set (nth *Lst (inc (get L 4))) 1)
                      (set (nth *Lst (inc (get L 4))) 0) ) ) )
-            (when (=1 N)
-               (println 'case N (less L) (tail 3 *Lst))
-            )
             (do
                (case (car X)
                   ((1 2 7 8) 4)
@@ -290,13 +270,11 @@
 (i7-wagon *I77 3)
 (i7-wagon *I77 4)
 (i7-wagon *I77 5)
-
 (yield 9 'i71)
 (yield 8 'i72)
 (yield 7 'i73)
 (yield 6 'i74)
 (yield 5 'i75)
-
 (println  (yield 0 'i71))
 
 

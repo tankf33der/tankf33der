@@ -51,7 +51,7 @@
 (one *I5)   # input reg
 (de i5-opcode (N)
    (let N (mapcar format (flip (chop (pad 4 N))))
-      (conc (cons (car N)) (cddr N)) ) )
+      (conc (cons (if (= 9 (car N) (cadr N)) 99 (car N))) (cddr N)) ) )
 (de i5-trampo (L1 L2)
    (mapcar
       '((A B)
@@ -64,7 +64,7 @@
          (setq
             X (i5-opcode (car L))
             Y (i5-trampo (cdr X) (cdr L)) )
-         (T (= 9 (car X)) (cadr L))    # halt
+         (T (= 99 (car X)) (cadr L))    # halt
          (case (car X)
             (1
                (set
@@ -75,7 +75,7 @@
                   (nth *Lst (inc (get L 4)))
                   (apply * Y) ) )
             (3 (set (nth *Lst (inc (cadr L))) *I5))
-            # uncomment if you want output
+            #/ uncomment if you want output
             #(4 (println (car Y)))
          )
          (do (if (> (car X) 2) 2 4)
@@ -89,7 +89,7 @@
          (setq
             X (i5-opcode (car L))
             Y (i5-trampo (cdr X) (cdr L)) )
-         (T (= 9 (car X)))    # halt
+         (T (= 99 (car X)))    # halt
          (case (car X)
             (1
                (set
@@ -216,7 +216,7 @@
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (T (= 9 (car X)) (yield Wait Send))    # halt&send
+            (T (= 99 (car X)) (yield Wait Send))    # halt&send
             (case (car X)
                (1
                   (set
@@ -282,7 +282,6 @@
 (test 36384144 (i7-2 "data/7.txt"))
 
 # --- Day 9: Sensor Boost ---
-
 
 (msg 'ok)
 (bye)

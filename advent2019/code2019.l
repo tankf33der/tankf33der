@@ -55,7 +55,15 @@
 (de i5-trampo (L1 L2)
    (mapcar
       '((A B)
-         (if (=0 A) (get *Lst (inc B)) B) )
+         #(if (=0 A) (get *Lst (inc B)) B)
+         (case A
+            (0 (get *Lst (inc B)))
+            (1 B)
+            (2
+               (get *Lst (inc (+ B *Base)))
+            )
+         )
+      )
       L1
       L2 ) )
 (de i5-1 (F)
@@ -84,7 +92,7 @@
 
 # part 2
 (de i5-2 (*Lst I5)
-   (let (X NIL  Y NIL)
+   (let (X NIL  Y NIL  *Base 0)
       (for (L *Lst L)
          (setq
             X (i5-opcode (car L))
@@ -116,15 +124,19 @@
                   (set (nth *Lst (inc (get L 4))) 0) ) )
             (8 (if (= (car Y) (cadr Y))
                   (set (nth *Lst (inc (get L 4))) 1)
-                  (set (nth *Lst (inc (get L 4))) 0) ) ) )
+                  (set (nth *Lst (inc (get L 4))) 0) ) )
+            (9 (setq *Base (car Y)))
+         )#case
          (do
             (case (car X)
                ((1 2 7 8) 4)
-               ((3 4) 2)
+               ((3 4 9) 2)
                #((5 6) already incresed above)
             )
             (++ L) ) )
       (car I5) ) )
+# XXX
+#{
 (test 10376124 (i5-2 (read-code "data/5.txt") (list 5)))
 (test 0 (i5-2 (read-code "data/5-test-1.txt") (list 9)))
 (test 1 (i5-2 (read-code "data/5-test-1.txt") (list 8)))
@@ -280,6 +292,8 @@
 (setq *I77 (read-code "data/7-test-5.txt"))
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
+
+}#
 
 # --- Day 9: Sensor Boost ---
 

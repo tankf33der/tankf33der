@@ -198,7 +198,6 @@
 (wagon (copy *W7) 3)
 (test 567 (yield 7 'w1))
 
-
 # part 2
 (de i7-runner (Prg N)
    (co (intern (pack 'i7 N))
@@ -269,11 +268,20 @@
          (i7-runner Lst N) )
       (mapc '((A B) (yield A B)) Phase W)
       (prog1 (yield 0 'i71) (mapc co W)) ) )
+(de i7-2 (F)
+   (let Prg (read-code F)
+      (maxi
+         '((L) (i7-wagon Prg L))
+         (permute (range 5 9)) )
+      @@ ) )
+
 (setq *I77 (read-code "data/7-test-4.txt"))
 (test 139629729  (i7-wagon *I77 (list 9 8 7 6 5)))
 (setq *I77 (read-code "data/7-test-5.txt"))
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
+(test 36384144 (i7-2 "data/7.txt"))
 
+# --- Day 9: Sensor Boost ---
 
 
 (msg 'ok)

@@ -200,7 +200,7 @@
 
 
 # part 2
-(de i7-wagon (Prg N)
+(de i7-runner (Prg N)
    (co (intern (pack 'i7 N))
       (let
          (*Lst (copy Prg)
@@ -212,38 +212,41 @@
                   (if (= 5 N) 1 (inc N)) ) )
             X NIL
             Y NIL
-            Wait NIL
-         )
+            Wait NIL )
          (for (L *Lst L)
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (T (= 9 (car X)) (yield Wait Send))    # halt
+            (T (= 9 (car X)) (yield Wait Send))    # halt&send
             (case (car X)
-               (1 (set (nth *Lst (inc (get L 4))) (apply + Y)))
-               (2 (set (nth *Lst (inc (get L 4))) (apply * Y)))
+               (1
+                  (set
+                     (nth *Lst (inc (get L 4)))
+                     (apply + Y) ) )
+               (2
+                  (set
+                     (nth *Lst (inc (get L 4)))
+                     (apply * Y) ) )
                (3
                   (if Wait
                      (prog
-                        #(println 'sending Wait Send)
                         (set
                            (nth *Lst (inc (cadr L)))
-                           (yield Wait Send)
-                        )
-                        (off Wait)
-                     )
-                     (set (nth *Lst (inc (cadr L))) (yield))
-                  )
-               )
+                           (yield Wait Send) )
+                        (off Wait) )
+                     (set (nth *Lst (inc (cadr L))) (yield)) ) )
+               # let be this way
                (4 (setq Wait (get *Lst (inc (cadr L)))))
                (5
                   (if (n0 (car Y))
                      (set 'L (nth *Lst (inc (cadr Y))))
-                     (do 3 (++ L)) ) )
+                     (do 3
+                        (++ L) ) ) )
                (6
                   (if (=0 (car Y))
                      (set 'L (nth *Lst (inc (cadr Y))))
-                     (do 3 (++ L)) ) )
+                     (do 3
+                        (++ L) ) ) )
                (7 (if (< (car Y) (cadr Y))
                      (set (nth *Lst (inc (get L 4))) 1)
                      (set (nth *Lst (inc (get L 4))) 0) ) )
@@ -256,39 +259,20 @@
                   ((3 4) 2)
                   #((5 6) already incresed above)
                )
-               (++ L) )
-         ) #for
-))) # let-co-de
-
+               (++ L) ) ) ) ) )
+(de i7-wagon (Lst Phase)
+   (let W
+      (make
+         (for N 5
+            (link (intern (pack 'i7 N)) ) ) )
+      (for N 5
+         (i7-runner Lst N) )
+      (mapc '((A B) (yield A B)) Phase W)
+      (prog1 (yield 0 'i71) (mapc co W)) ) )
 (setq *I77 (read-code "data/7-test-4.txt"))
-(i7-wagon *I77 1)
-(i7-wagon *I77 2)
-(i7-wagon *I77 3)
-(i7-wagon *I77 4)
-(i7-wagon *I77 5)
-(yield 9 'i71)
-(yield 8 'i72)
-(yield 7 'i73)
-(yield 6 'i74)
-(yield 5 'i75)
-(test 139629729  (yield 0 'i71))
-
-(for N 5
-   (co (intern (pack "i7" N))) )
-
+(test 139629729  (i7-wagon *I77 (list 9 8 7 6 5)))
 (setq *I77 (read-code "data/7-test-5.txt"))
-(i7-wagon *I77 1)
-(i7-wagon *I77 2)
-(i7-wagon *I77 3)
-(i7-wagon *I77 4)
-(i7-wagon *I77 5)
-(yield 9 'i71)
-(yield 7 'i72)
-(yield 8 'i73)
-(yield 5 'i74)
-(yield 6 'i75)
-(test 18216  (yield 0 'i71))
-
+(test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 
 
 

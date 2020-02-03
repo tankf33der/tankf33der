@@ -215,13 +215,10 @@
             Wait NIL
          )
          (for (L *Lst L)
-            (when (=1 N)
-            (println 'for (less L) (tail 3 *Lst))
-            )
             (setq
                X (i5-opcode (car L))
                Y (i5-trampo (cdr X) (cdr L)) )
-            (T (= 9 (car X)) Wait)    # halt
+            (T (= 9 (car X)) (yield Wait Send))    # halt
             (case (car X)
                (1 (set (nth *Lst (inc (get L 4))) (apply + Y)))
                (2 (set (nth *Lst (inc (get L 4))) (apply * Y)))
@@ -236,7 +233,6 @@
                         (off Wait)
                      )
                      (set (nth *Lst (inc (cadr L))) (yield))
-                     #(println N 'in *Lst)
                   )
                )
                (4 (setq Wait (get *Lst (inc (cadr L)))))
@@ -275,7 +271,25 @@
 (yield 7 'i73)
 (yield 6 'i74)
 (yield 5 'i75)
-(println  (yield 0 'i71))
+(test 139629729  (yield 0 'i71))
+
+(for N 5
+   (co (intern (pack "i7" N))) )
+
+(setq *I77 (read-code "data/7-test-5.txt"))
+(i7-wagon *I77 1)
+(i7-wagon *I77 2)
+(i7-wagon *I77 3)
+(i7-wagon *I77 4)
+(i7-wagon *I77 5)
+(yield 9 'i71)
+(yield 7 'i72)
+(yield 8 'i73)
+(yield 5 'i74)
+(yield 6 'i75)
+(test 18216  (yield 0 'i71))
+
+
 
 
 (msg 'ok)

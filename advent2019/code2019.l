@@ -136,7 +136,6 @@
             (++ L) ) )
       (car I5) ) )
 # XXX
-#{
 (test 10376124 (i5-2 (read-code "data/5.txt") (list 5)))
 (test 0 (i5-2 (read-code "data/5-test-1.txt") (list 9)))
 (test 1 (i5-2 (read-code "data/5-test-1.txt") (list 8)))
@@ -292,8 +291,6 @@
 (setq *I77 (read-code "data/7-test-5.txt"))
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
-
-}#
 
 # --- Day 9: Sensor Boost ---
 

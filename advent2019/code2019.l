@@ -8,7 +8,6 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
-
 (de i2-1 (Lst X Y)
    (set (cdr Lst) X  (cddr Lst) Y)
    (for (L Lst L)
@@ -154,6 +153,7 @@
 (test 1 (i5-2 (read-code "data/5-test-6.txt") (list 10)))
 
 # XXX
+#{
 (de s ("Var" I V)
    (let K (char (hash I))
       (if (idx "Var" K)
@@ -165,13 +165,16 @@
       (if (idx "Var" K)
          (val (car @))
          0 ) ) )
-
-#{
 # try rewrite from scratch
-(de i2-mode ("Var" M N)
-   (
-)
-(de i2-3 (Lst I)
+(de i5-mode ("Var" M N X)
+   (if (=1 (% (/ M X) 1))
+      N
+      (g "Var (g "Var" N)) ) )
+(de i5-first ("Var" M N)
+   (i5-mode "Var" M N 100) )
+(de i5-second ("Var" M N)
+   (i5-mode "Var" M N 1000) )
+(de i5-3 (Lst I)
    (let (Op NIL  R NIL)
       (for (I . N) Lst
          (s 'R (dec I) N) )
@@ -183,21 +186,32 @@
                (s 'R
                   (g 'R (cadddr L))
                   (+
-                     (i2-mode ("Var" (car L) (cadr L)))
-                     (i2-mode ("Var" (car L) (caddr L))) ) ) )
+                     (i2-first 'R (car L) (cadr L)))
+                     (i2-second 'R (car L) (caddr L))) ) ) )
+            (2
+               (s 'R
+                  (g 'R (cadddr L))
+                  (*
+                     (i2-first
+
+}#
+#{
+(setq *W (read-code "data/2.txt"))
+(off R)
+(for (I . N) *W
+   (s 'R (dec I) N) )
+(println *W)
+(println (mapcar val (idx 'R)))
 }#
 
+#{
 (off R)
 (s 'R 33 1)
 (test 1 (g 'R 33))
 (s 'R 1 1122)
 (test 1122 (g 'R 1))
 #(println R)
-
-
-(bye)
-
-
+}#
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)

@@ -8,6 +8,29 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
+# set
+(de s ("Var" I V F)
+   (let K (char (hash I))
+      (if (idx "Var" K)
+         (set (car @) V)
+         (set K V)
+         (put K 'p I)
+         (idx "Var" K T) ) ) )
+# get
+(de g ("Var" I)
+   (let K (char (hash I))
+      (if (idx "Var" K) (val (car @)) 0) ) )
+# create
+(de c ("Var" Lst)
+   (for (I . N) Lst
+      (s 'R (dec I) N T) ) )
+(de sorted ("Var")
+   (mapcar
+      val
+      (by
+         '((C) (get C 'p))
+         sort
+         (idx "Var") ) ) )
 (de i2-1 (Lst X Y)
    (set (cdr Lst) X  (cddr Lst) Y)
    (for (L Lst L)
@@ -22,6 +45,24 @@
    (car Lst) )
 (setq *I2-Lst (read-code "data/2.txt"))
 (test 5482655 (i2-1 (copy *I2-Lst) 12 2))
+
+# variation
+(de i2-1-2 (Lst X Y)
+   (set (cdr Lst) X  (cddr Lst) Y)
+   (let R NIL
+      (c 'R Lst)
+      (for (L Lst L)
+         (T (= 99 (car L)))
+         (s
+            'R
+            (cadddr L)
+            ((if (=1 (car L)) '+ '*)
+               (g 'R (cadr L))
+               (g 'R (caddr L)) ) )
+         (do 4
+            (++ L) ) )
+      (car (sorted 'R)) ) )
+(test 5482655 (i2-1-2 (read-code "data/2.txt") 12 2))
 
 # part2
 (de i2-gen NIL
@@ -54,15 +95,7 @@
 (de i5-trampo (L1 L2)
    (mapcar
       '((A B)
-         #(if (=0 A) (get *Lst (inc B)) B)
-         (case A
-            (0 (get *Lst (inc B)))
-            (1 B)
-            (2
-               (get *Lst (inc (+ B *Base)))
-            )
-         )
-      )
+         (if (=0 A) (get *Lst (inc B)) B) )
       L1
       L2 ) )
 (de i5-1 (F)

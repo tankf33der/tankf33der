@@ -135,7 +135,6 @@
             )
             (++ L) ) )
       (car I5) ) )
-# XXX
 (test 10376124 (i5-2 (read-code "data/5.txt") (list 5)))
 (test 0 (i5-2 (read-code "data/5-test-1.txt") (list 9)))
 (test 1 (i5-2 (read-code "data/5-test-1.txt") (list 8)))
@@ -153,6 +152,52 @@
 (test 1 (i5-2 (read-code "data/5-test-5.txt") (list 10)))
 (test 0 (i5-2 (read-code "data/5-test-6.txt") (list 0)))
 (test 1 (i5-2 (read-code "data/5-test-6.txt") (list 10)))
+
+# XXX
+(de s ("Var" I V)
+   (let K (char (hash I))
+      (if (idx "Var" K)
+         (set (car @) V)
+         (set K V)
+         (idx "Var" K T) ) ) )
+(de g ("Var" I)
+   (let K (char (hash I))
+      (if (idx "Var" K)
+         (val (car @))
+         0 ) ) )
+
+#{
+# try rewrite from scratch
+(de i2-mode ("Var" M N)
+   (
+)
+(de i2-3 (Lst I)
+   (let (Op NIL  R NIL)
+      (for (I . N) Lst
+         (s 'R (dec I) N) )
+      (for (L Lst L)
+         (setq Op (% (car L) 100))
+         (T (= 99 Op))
+         (case Op
+            (1
+               (s 'R
+                  (g 'R (cadddr L))
+                  (+
+                     (i2-mode ("Var" (car L) (cadr L)))
+                     (i2-mode ("Var" (car L) (caddr L))) ) ) )
+}#
+
+(off R)
+(s 'R 33 1)
+(test 1 (g 'R 33))
+(s 'R 1 1122)
+(test 1122 (g 'R 1))
+#(println R)
+
+
+(bye)
+
+
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)

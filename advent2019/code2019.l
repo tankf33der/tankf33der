@@ -202,9 +202,10 @@
 (de i55-second ("Var" M N)
    (i55-mode "Var" M N 1000) )
 (de i55 (Lst I)
-   (let (R NIL  Op NIL)
+   (let (L NIL  R NIL  Op NIL)
       (c5 'R (copy Lst))
-      (for (L (get 'R 'c) L)
+      (setq L (get 'R 'c))
+      (loop
          (setq Op (% (car L) 100))
          (T (= 99 Op) (car I))
          (case Op

@@ -206,32 +206,78 @@
       (c5 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
-         (setq Op (% (car L) 100))
+         (set 'Op (% (car L) 100))
          (T (= 99 Op) (car I))
          (case Op
             (1
-               (put 'R 'c (inc (cadddr L))
+               (put
+                  'R
+                  'c
+                  (inc (cadddr L))
                   (+
                      (i55-first 'R (car L) (cadr L))
                      (i55-second 'R (car L) (caddr L)) ) )
                (do 4
                   (++ L) ) )
             (2
-               (put 'R 'c (inc (cadddr L))
+               (put
+                  'R
+                  'c
+                  (inc (cadddr L))
                   (*
                      (i55-first 'R (car L) (cadr L))
                      (i55-second 'R (car L) (caddr L)) ) )
                (do 4
                   (++ L) ) )
             (3
-               (put 'R 'c (inc (cadr L)) (++ I))
+               (put
+                  'R
+                  'c
+                  (inc (cadr L)) (++ I))
                (do 2
                   (++ L) ) )
             (4
-               (push 'I (get 'R 'c (inc (cadr L))))
+               (push 'I
+                  (get 'R 'c (inc (cadr L))) )
                (do 2
+                  (++ L) ) )
+            (5
+               (if (n0 (i55-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i55-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (6
+               (if (=0 (i55-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i55-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (7
+               (if
+                  (>
+                     (i55-second 'R (car L) (caddr L))
+                     (i55-first 'R (car L) (cadr L)) )
+                  (put 'R 'c (inc (cadddr L)) 1)
+                  (put 'R 'c (inc (cadddr L)) 0) )
+               (do 4
+                  (++ L) ) )
+            (8
+               (if
+                  (=
+                     (i55-second 'R (car L) (caddr L))
+                     (i55-first 'R (car L) (cadr L)) )
+                  (put 'R 'c (inc (cadddr L)) 1)
+                  (put 'R 'c (inc (cadddr L)) 0) )
+               (do 4
                   (++ L) ) ) ) ) ) )
-(test 15386262 (i55 (read-code "data/5.txt") (list 1)))
+(test 10376124 (i55 (read-code "data/5.txt") (list 5)))
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)
@@ -373,6 +419,6 @@
 
 # --- Day 9: Sensor Boost ---
 
-(msg 'ok)
+(msg 'OK-AoC19)
 (bye)
 

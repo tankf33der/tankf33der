@@ -185,60 +185,6 @@
 (test 0 (i5-2 (read-code "data/5-test-6.txt") (list 0)))
 (test 1 (i5-2 (read-code "data/5-test-6.txt") (list 10)))
 
-# XXX
-# try rewrite from scratch
-(de i5-mode ("Var" M N X)
-   (if (=1 (% (/ M X) 1))
-      N
-      (g "Var" (g "Var" N)) ) )
-(de i5-first ("Var" M N)
-   (i5-mode "Var" M N 100) )
-(de i5-second ("Var" M N)
-   (i5-mode "Var" M N 1000) )
-(de i5-3 (Lst I)
-   (let (Op NIL  R NIL)
-      (c 'R Lst)
-      (for (L Lst L)
-         (setq Op (% (car L) 100))
-         (T (= 99 Op) (car I))
-         (println (less L) Op)
-         (wait 1000)
-         (case Op
-            (1
-               (s
-                  'R
-                  (g 'R (cadddr L))
-                  (+
-                     (i5-first 'R (car L) (cadr L)))
-                     (i5-second 'R (car L) (caddr L)))
-               (do 4
-                  (++ L) ) )
-            (2
-               (s
-                  'R
-                  (g 'R (cadddr L))
-                  (*
-                     (i5-first 'R (car L) (cadr L))
-                     (i5-second 'R (car L) (caddr L)) ) )
-               (do 4
-                  (++ L) ) )
-            (3
-               (s 'R (g 'R (cadr L)) (++ I))
-               (do 2
-                  (++ L) ) )
-            (4
-               (push 'I (get 'R (get 'R (cadr L))))
-               (do 2
-                  (++ L) ) )
-         )
-      )
-   )
-)
-(println (i5-3 (read-code "data/5.txt") (list 1)))
-
-(msg 'ok)
-(bye)
-
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)
    (let R (i5-2 (copy Prg) (list (car C) 0))

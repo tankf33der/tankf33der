@@ -210,7 +210,7 @@
       (for (L Lst L)
          (setq Op (% (car L) 100))
          (T (= 99 Op) (car I))
-         (println (less L) Op I)
+         #(println (less L) Op I)
          (wait 1000)
          (case Op
             (1
@@ -243,7 +243,10 @@
       )
    )
 )
-(println (i5-3 (read-code "data/5.txt") (list 1)))
+#(println (i5-3 (read-code "data/5.txt") (list 1)))
+
+(de c5 ("Var" Lst)
+
 
 
 # --- Day 7: Amplification Circuit ---
@@ -385,6 +388,8 @@
 (test 36384144 (i7-2 "data/7.txt"))
 
 # --- Day 9: Sensor Boost ---
+(de c9 ("Var" Lst)
+
 
 (msg 'ok)
 (bye)

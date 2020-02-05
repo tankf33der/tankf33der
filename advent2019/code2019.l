@@ -410,7 +410,6 @@
          '((L) (i7-wagon Prg L))
          (permute (range 5 9)) )
       @@ ) )
-
 (setq *I77 (read-code "data/7-test-4.txt"))
 (test 139629729  (i7-wagon *I77 (list 9 8 7 6 5)))
 (setq *I77 (read-code "data/7-test-5.txt"))
@@ -418,6 +417,125 @@
 (test 36384144 (i7-2 "data/7.txt"))
 
 # --- Day 9: Sensor Boost ---
+(de c9 ("Var" Lst)
+   (put "Var" 'c Lst)
+   (put "Var" 'b 0)
+   (put "Var" 'l (length (get "Var" 'c))) )
+(de i9-mode ("Var" M N X)
+   (case (% (/ M X) 10)
+      (0 (i9-get "Var" (inc N)))
+      (1 N)
+      (2 (i9-get "Var" (+ (get "Var" 'b) (inc N))))
+   )
+)
+(de i9-first ("Var" M N)
+   (i9-mode "Var" M N 100) )
+(de i9-second ("Var" M N)
+   (i9-mode "Var" M N 1000) )
+(de i9-get ("Var" N)
+   (if (> N (get "Var" 'b))
+      (i9-idx-get "Var" N)
+      (get "Var" 'c N) ) )
+(de i9-put ("Var" I N)
+   (if (> I (get "Var" 'b))
+      (i9-idx-set "Var" I N)
+      (put 'R 'c N) ) )
+(de i9-idx-get ("Var" N)
+   (let K (char (hash N))
+      (if (idx "Var" K) (val (car @)) 0) ) )
+(de i9-idx-set ("Var" N V)
+   (let K (char (hash N))
+      (if (idx "Var" K)
+         (set (car @) V)
+         (set K V)
+         (idx "Var" K T) ) ) )
+(de i9-1 (Lst I)
+   (let (L NIL  R NIL  Op NIL)
+      (c9 'R (copy Lst))
+      (setq L (get 'R 'c))
+      (loop
+         (set 'Op (% (car L) 100))
+         (T (= 99 Op) I)
+         (println (less L))
+         (wait 1000)
+         (case Op
+            (1
+               (i9-put
+                  'R
+                  (inc (cadddr L))
+                  (+
+                     (i9-first 'R (car L) (cadr L))
+                     (i9-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (2
+               (i9-put
+                  'R
+                  (inc (cadddr L))
+                  (*
+                     (i9-first 'R (car L) (cadr L))
+                     (i9-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (3
+               (i9-put
+                  'R
+                  (inc (cadr L))
+                  (++ I) )
+               (do 2
+                  (++ L) ) )
+            (4
+               (push 'I
+                  (i9-get 'R (inc (cadr L))) )
+               (println 4 I)
+               (do 2
+                  (++ L) ) )
+            (5
+               (if (n0 (i9-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (6
+               (if (=0 (i9-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (7
+               (if
+                  (>
+                     (i9-second 'R (car L) (caddr L))
+                     (i9-first 'R (car L) (cadr L)) )
+                  (i9-put 'R (inc (cadddr L)) 1)
+                  (i9-put 'R (inc (cadddr L)) 0) )
+               (do 4
+                  (++ L) ) )
+            (8
+               (if
+                  (=
+                     (i9-second 'R (car L) (caddr L))
+                     (i9-first 'R (car L) (cadr L)) )
+                  (i9-put 'R (inc (cadddr L)) 1)
+                  (i9-put 'R (inc (cadddr L)) 0) )
+               (do 4
+                  (++ L) ) )
+            (9
+               (put 'R 'b (+ (get 'R 'b) (i9-first 'R (car L) (cadr L))))
+               (println 9 (get 'R 'b))
+               (do 2
+                  (++ L) ) )
+ ) ) ) )
+
+(println (i9-1 (read-code "data/9-test-1.txt")))
+
+
 
 (msg 'OK-AoC19)
 (bye)

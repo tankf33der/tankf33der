@@ -167,7 +167,6 @@
             )
             (++ L) ) )
       (car I5) ) )
-#{
 (test 10376124 (i5-2 (read-code "data/5.txt") (list 5)))
 (test 0 (i5-2 (read-code "data/5-test-1.txt") (list 9)))
 (test 1 (i5-2 (read-code "data/5-test-1.txt") (list 8)))
@@ -185,7 +184,6 @@
 (test 1 (i5-2 (read-code "data/5-test-5.txt") (list 10)))
 (test 0 (i5-2 (read-code "data/5-test-6.txt") (list 0)))
 (test 1 (i5-2 (read-code "data/5-test-6.txt") (list 10)))
-}#
 
 # XXX
 # try rewrite from scratch
@@ -204,7 +202,7 @@
          (setq Op (% (car L) 100))
          (T (= 99 Op) (car I))
          (println (less L) Op)
-         #(wait 2000)
+         (wait 1000)
          (case Op
             (1
                (s

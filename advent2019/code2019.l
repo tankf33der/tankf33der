@@ -1,4 +1,4 @@
-`(== 64 64)
+#`(== 64 64)
 (load "@lib/simul.l")
 
 # --- Day 2: 1202 Program Alarm ---
@@ -8,8 +8,6 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
-
-#{
 
 # set
 (de s ("Var" I V F)
@@ -67,6 +65,8 @@
       (car (sorted 'R)) ) )
 (test 5482655 (i2-1-2 (read-code "data/2.txt") 12 2))
 
+#{
+
 # part2
 (de i2-gen NIL
    (co 'i2-gen
@@ -82,6 +82,8 @@
             (i2-1 (copy *I2-Lst) (car @@) (cdr @@)) ) ) )
    (+ (cdr @@) (* 100 (car @@))) )
 (test 4967 (i2-2))
+
+}#
 
 # --- Day 5: Sunny with a Chance of Asteroids ---
 # Legend:
@@ -279,6 +281,8 @@
                (do 4
                   (++ L) ) ) ) ) ) )
 (test 10376124 (i55 (read-code "data/5.txt") (list 5)))
+
+#{
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)
@@ -587,6 +591,12 @@
 (test
    (4288078517)
    (i9-1 (read-code "data/9.txt") (list 1)) )
+
+# part 2
+(test (69256) (i9-1 (read-code "data/9.txt") (list 2)))
+
+# --- Day 11: Space Police ---
+
 
 (msg 'OK-AoC19)
 (bye)

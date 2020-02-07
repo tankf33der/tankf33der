@@ -1,4 +1,4 @@
-#`(== 64 64)
+`(== 64 64)
 (load "@lib/simul.l")
 
 # --- Day 2: 1202 Program Alarm ---
@@ -65,8 +65,6 @@
       (car (sorted 'R)) ) )
 (test 5482655 (i2-1-2 (read-code "data/2.txt") 12 2))
 
-#{
-
 # part2
 (de i2-gen NIL
    (co 'i2-gen
@@ -82,8 +80,6 @@
             (i2-1 (copy *I2-Lst) (car @@) (cdr @@)) ) ) )
    (+ (cdr @@) (* 100 (car @@))) )
 (test 4967 (i2-2))
-
-}#
 
 # --- Day 5: Sunny with a Chance of Asteroids ---
 # Legend:
@@ -282,8 +278,6 @@
                   (++ L) ) ) ) ) ) )
 (test 10376124 (i55 (read-code "data/5.txt") (list 5)))
 
-#{
-
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)
    (let R (i5-2 (copy Prg) (list (car C) 0))
@@ -420,8 +414,6 @@
 (setq *I77 (read-code "data/7-test-5.txt"))
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
-
-}#
 
 # --- Day 9: Sensor Boost ---
 (de c9 ("Var" Lst)

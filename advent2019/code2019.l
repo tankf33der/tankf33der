@@ -464,12 +464,9 @@
    (inc 'N 1) # 1-based
    (if (> N (get "Var" 'l))
       (let K (char (hash I))
-         (if (idx "Var" K) (val (car @)
+         (if (idx "Var" K) (val (car @)) 0) )
+      (get "Var" 'c N) )
 )
-#{
-   (let K (char (hash I))
-      (if (idx "Var" K) (val (car @)) 0) ) )
-}#
 (de i9-1 (Lst I)
    (let (L NIL  R NIL  Op NIL)
       (c9 'R (copy Lst))
@@ -507,7 +504,7 @@
                   (++ L) ) )
             (4
                (push 'I
-                  (i9-get 'R (inc (cadr L))) )
+                  (i9-get-first 'R (car L) (cadr L)) )
                (println 4 I)
                (do 2
                   (++ L) ) )
@@ -548,7 +545,7 @@
                (do 4
                   (++ L) ) )
             (9
-               (put 'R 'b (+ (get 'R 'b) (i9-first 'R (car L) (cadr L))))
+               (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (println 9 (get 'R 'b))
                (do 2
                   (++ L) ) )

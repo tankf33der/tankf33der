@@ -1,5 +1,6 @@
 # intcode warmup
 (de c ("Var" Lst)
+   (set "Var" 'mike)
    (put "Var" 'c Lst)
    (put "Var" 'l (length (get "Var" 'c))) )
 (off R)

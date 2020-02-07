@@ -1,8 +1,6 @@
 `(== 64 64)
 (load "@lib/simul.l")
 
-(de modulo (X Y)
-   (% (+ Y (% X Y)) Y) )
 # --- Day 2: 1202 Program Alarm ---
 (de read-code (F)
    (make
@@ -10,6 +8,9 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
+
+#{
+
 # set
 (de s ("Var" I V F)
    (let K (char (hash I))
@@ -416,6 +417,8 @@
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
 
+}#
+
 # --- Day 9: Sensor Boost ---
 (de c9 ("Var" Lst)
    (put "Var" 'c Lst)
@@ -450,10 +453,10 @@
          (set K V)
          (idx "Var" K T) ) ) )
 (de i9-get-first ("Var" M N)
-   (i9-mode "Var" M N 100) )
+   (i9-mode-get "Var" M N 100) )
 (de i9-get-second ("Var" M N)
-   (i9-mode "Var" M N 1000) )
-(de i9-mode ("Var" M N X)
+   (i9-mode-get "Var" M N 1000) )
+(de i9-mode-get ("Var" M N X)
    (case (% (/ M X) 10)
       (1 N)
       (0 (i9-get "Var" N))
@@ -463,96 +466,124 @@
    (inc 'N B)
    (inc 'N 1) # 1-based
    (if (> N (get "Var" 'l))
-      (let K (char (hash I))
+      (let K (char (hash N))
          (if (idx "Var" K) (val (car @)) 0) )
-      (get "Var" 'c N) )
-)
+      (get "Var" 'c N) ) )
+(de i9-put-third ("Var" M N V)
+   (i9-mode-put "Var" M N V 10000) )
+(de i9-put-second ("Var" M N V)
+   (i9-mode-put "Var" M N V 1000) )
+(de i9-put-first ("Var" M N V)
+   (i9-mode-put "Var" M N V 100) )
+(de i9-mode-put ("Var" M N V X)
+   (case (% (/ M X) 10)
+      (0 (i9-put "Var" N V))
+      (2 (i9-put "Var" N V (get "Var" 'b))) ) )
+(de i9-put ("Var" N V B)
+   (default B 0)
+   (inc 'N B)
+   (inc 'N 1) # 1-based
+   (if (> N (get "Var" 'l))
+      (let K (char (hash N))
+         (if (idx "Var" K)
+            (set (car @) V)
+            (set K V)
+            (idx "Var" K T) ) )
+      (put "Var" 'c N V) ) )
 (de i9-1 (Lst I)
    (let (L NIL  R NIL  Op NIL)
       (c9 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))
-         (T (= 99 Op) I)
-         (println (less L))
-         (wait 1000)
+         (T (= 99 Op) (flip I))
+         #(println (less L))
+         #(wait 100)
          (case Op
             (1
-               (i9-put
+               (i9-put-third
                   'R
-                  (inc (cadddr L))
+                  (car L)
+                  (cadddr L)
                   (+
-                     (i9-first 'R (car L) (cadr L))
-                     (i9-second 'R (car L) (caddr L)) ) )
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
                (do 4
                   (++ L) ) )
             (2
-               (i9-put
+               (i9-put-third
                   'R
-                  (inc (cadddr L))
+                  (car L)
+                  (cadddr L)
                   (*
-                     (i9-first 'R (car L) (cadr L))
-                     (i9-second 'R (car L) (caddr L)) ) )
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
                (do 4
                   (++ L) ) )
             (3
-               (i9-put
+               (i9-put-first
                   'R
-                  (inc (cadr L))
+                  (car L)
+                  (cadr L)
                   (++ I) )
                (do 2
                   (++ L) ) )
             (4
                (push 'I
                   (i9-get-first 'R (car L) (cadr L)) )
-               (println 4 I)
                (do 2
                   (++ L) ) )
             (5
-               (if (n0 (i9-first 'R (car L) (cadr L)))
+               (if (n0 (i9-get-first 'R (car L) (cadr L)))
                   (set
                      'L
                      (nth
                         (get 'R 'c)
-                        (inc (i9-second 'R (car L) (caddr L))) ) )
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
                   (do 3
                      (++ L)) ) )
             (6
-               (if (=0 (i9-first 'R (car L) (cadr L)))
+               (if (=0 (i9-get-first 'R (car L) (cadr L)))
                   (set
                      'L
                      (nth
                         (get 'R 'c)
-                        (inc (i9-second 'R (car L) (caddr L))) ) )
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
                   (do 3
                      (++ L)) ) )
             (7
                (if
                   (>
-                     (i9-second 'R (car L) (caddr L))
-                     (i9-first 'R (car L) (cadr L)) )
-                  (i9-put 'R (inc (cadddr L)) 1)
-                  (i9-put 'R (inc (cadddr L)) 0) )
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
                (do 4
                   (++ L) ) )
             (8
                (if
                   (=
-                     (i9-second 'R (car L) (caddr L))
-                     (i9-first 'R (car L) (cadr L)) )
-                  (i9-put 'R (inc (cadddr L)) 1)
-                  (i9-put 'R (inc (cadddr L)) 0) )
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
                (do 4
                   (++ L) ) )
             (9
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
-               (println 9 (get 'R 'b))
                (do 2
                   (++ L) ) )
  ) ) ) )
 
-(println (i9-1 (read-code "data/9-test-1.txt")))
-
+(test
+   (109 1 204 -1 1001 100 1 100 1008 100 16 101 1006 101 0 99)
+   (i9-1 (read-code "data/9-test-1.txt")) )
+(test
+   (1219070632396864)
+   (i9-1 (read-code "data/9-test-2.txt")) )
+(test
+   (1125899906842624)
+   (i9-1 (read-code "data/9-test-3.txt")) )
 
 
 (msg 'OK-AoC19)

@@ -449,9 +449,27 @@
          (set (car @) V)
          (set K V)
          (idx "Var" K T) ) ) )
-
-
-
+(de i9-get-first ("Var" M N)
+   (i9-mode "Var" M N 100) )
+(de i9-get-second ("Var" M N)
+   (i9-mode "Var" M N 1000) )
+(de i9-mode ("Var" M N X)
+   (case (% (/ M X) 10)
+      (1 N)
+      (0 (i9-get "Var" N))
+      (2 (i9-get "Var" N (get "Var" 'b))) ) )
+(de i9-get ("Var" N B)
+   (default B 0)
+   (inc 'N B)
+   (inc 'N 1) # 1-based
+   (if (> N (get "Var" 'l))
+      (let K (char (hash I))
+         (if (idx "Var" K) (val (car @)
+)
+#{
+   (let K (char (hash I))
+      (if (idx "Var" K) (val (car @)) 0) ) )
+}#
 (de i9-1 (Lst I)
    (let (L NIL  R NIL  Op NIL)
       (c9 'R (copy Lst))

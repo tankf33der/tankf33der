@@ -584,7 +584,9 @@
 (test
    (1125899906842624)
    (i9-1 (read-code "data/9-test-3.txt")) )
-
+(test
+   (4288078517)
+   (i9-1 (read-code "data/9.txt") (list 1)) )
 
 (msg 'OK-AoC19)
 (bye)

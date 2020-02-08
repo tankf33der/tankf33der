@@ -570,6 +570,10 @@
       (loop
          (set 'Op (% (car L) 100))
          (T (= 99 Op) (flip I))
+
+         (wait 1000)
+         (println (less L))
+
          (case Op
             (1
                (i9-put-third
@@ -600,7 +604,7 @@
                (do 2
                   (++ L) ) )
             (4
-               (push 'I
+               (println 'out
                   (i9-get-first 'R (car L) (cadr L)) )
                (do 2
                   (++ L) ) )
@@ -644,7 +648,7 @@
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (do 2
                   (++ L) ) ) ) ) ) )
-
+(i11-1 (read-code "data/11.txt") (list 0))
 
 (msg 'OK-AoC19)
 (bye)

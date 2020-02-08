@@ -417,6 +417,8 @@
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
 
+}#
+
 # --- Day 9: Sensor Boost ---
 (de c9 ("Var" Lst)
    (put "Var" 'c Lst)
@@ -541,6 +543,7 @@
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (do 2
                   (++ L) ) ) ) ) ) )
+#{
 (test
    (109 1 204 -1 1001 100 1 100 1008 100 16 101 1006 101 0 99)
    (i9-1 (read-code "data/9-test-1.txt")) )
@@ -560,6 +563,87 @@
 }#
 
 # --- Day 11: Space Police ---
+(de i11-1 (Lst I)
+   (let (L NIL  R NIL  Op NIL)
+      (c9 'R (copy Lst))
+      (setq L (get 'R 'c))
+      (loop
+         (set 'Op (% (car L) 100))
+         (T (= 99 Op) (flip I))
+         (case Op
+            (1
+               (i9-put-third
+                  'R
+                  (car L)
+                  (cadddr L)
+                  (+
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (2
+               (i9-put-third
+                  'R
+                  (car L)
+                  (cadddr L)
+                  (*
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (3
+               (i9-put-first
+                  'R
+                  (car L)
+                  (cadr L)
+                  (++ I) )
+               (do 2
+                  (++ L) ) )
+            (4
+               (push 'I
+                  (i9-get-first 'R (car L) (cadr L)) )
+               (do 2
+                  (++ L) ) )
+            (5
+               (if (n0 (i9-get-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (6
+               (if (=0 (i9-get-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (7
+               (if
+                  (>
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
+               (do 4
+                  (++ L) ) )
+            (8
+               (if
+                  (=
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
+               (do 4
+                  (++ L) ) )
+            (9
+               (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
+               (do 2
+                  (++ L) ) ) ) ) ) )
 
 
 (msg 'OK-AoC19)

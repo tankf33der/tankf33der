@@ -8,7 +8,7 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
-
+#{
 # set
 (de s ("Var" I V F)
    (let K (char (hash I))
@@ -586,6 +586,8 @@
 
 # part 2
 (test (69256) (i9-1 (read-code "data/9.txt") (list 2)))
+
+}#
 
 # --- Day 11: Space Police ---
 

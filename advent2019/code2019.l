@@ -8,7 +8,9 @@
          (until (eof)
             (link (read))
             (char) ) ) ) )
+
 #{
+
 # set
 (de s ("Var" I V F)
    (let K (char (hash I))
@@ -420,34 +422,6 @@
    (put "Var" 'c Lst)
    (put "Var" 'b 0)
    (put "Var" 'l (length (get "Var" 'c))) )
-(de -i9-mode ("Var" M N X)
-   (case (% (/ M X) 10)
-      (0 (i9-get "Var" (inc N)))
-      (1 N)
-      (2 (i9-get "Var" (+ (get "Var" 'b) (inc N))))
-   )
-)
-(de -i9-first ("Var" M N)
-   (i9-mode "Var" M N 100) )
-(de -i9-second ("Var" M N)
-   (i9-mode "Var" M N 1000) )
-(de -i9-get ("Var" N)
-   (if (> N (get "Var" 'b))
-      (i9-idx-get "Var" N)
-      (get "Var" 'c N) ) )
-(de -i9-put ("Var" I N)
-   (if (> I (get "Var" 'b))
-      (i9-idx-set "Var" I N)
-      (put 'R 'c N) ) )
-(de -i9-idx-get ("Var" N)
-   (let K (char (hash N))
-      (if (idx "Var" K) (val (car @)) 0) ) )
-(de -i9-idx-set ("Var" N V)
-   (let K (char (hash N))
-      (if (idx "Var" K)
-         (set (car @) V)
-         (set K V)
-         (idx "Var" K T) ) ) )
 (de i9-get-first ("Var" M N)
    (i9-mode-get "Var" M N 100) )
 (de i9-get-second ("Var" M N)
@@ -493,8 +467,6 @@
       (loop
          (set 'Op (% (car L) 100))
          (T (= 99 Op) (flip I))
-         #(println (less L))
-         #(wait 100)
          (case Op
             (1
                (i9-put-third
@@ -568,9 +540,7 @@
             (9
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (do 2
-                  (++ L) ) )
- ) ) ) )
-
+                  (++ L) ) ) ) ) ) )
 (test
    (109 1 204 -1 1001 100 1 100 1008 100 16 101 1006 101 0 99)
    (i9-1 (read-code "data/9-test-1.txt")) )

@@ -563,9 +563,24 @@
 }#
 
 # --- Day 11: Space Police ---
+# 0 - north, 1 - south, 2 - west, 3 - east
+# inc dc; (put 'R 'dc (inc (get 'R 'dc)))
+#
+(de c11 ("Var" Lst)
+   (put "Var" 'c Lst)
+   (put "Var" 'b 0)
+   (put "Var" 'd (cons))
+   (put "Var" 'dc 0)
+   (put "Var" 'l (length (get "Var" 'c))) )
+(de i11-rotate (Cur Next)
+   (cond
+      ((=0 Cur) (if (=0 Next) 2 3))
+      ((=1 Cur) (if (=0 Next) 3 2))
+      ((= 2 Cur) (if (=0 Next) 1 0))
+      ((= 3 Cur) (if (=0 Next) 0 1)) ) )
 (de i11-1 (Lst I)
    (let (L NIL  R NIL  Op NIL)
-      (c9 'R (copy Lst))
+      (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))

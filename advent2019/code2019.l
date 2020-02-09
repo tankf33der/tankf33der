@@ -649,16 +649,16 @@
                      ((= 2 Cur)
                         (if (=0 Trn)
                            (prog
-                              (dec 'Y)
+                              (inc 'Y)
                               (setq Cur 1) )
-                           (inc 'Y)
-                           (setq Cur 1) ) )
+                           (dec 'Y)
+                           (setq Cur 0) ) )
                      ((= 3 Cur)
                         (if (=0 Trn)
                            (prog
-                              (inc 'Y)
+                              (dec 'Y)
                               (setq Cur 0) )
-                           (dec 'Y)
+                           (inc 'Y)
                            (setq Cur 1) ) )
                   )
                   (setq K (cons (char (hash (cons X Y))) (cons X Y)))
@@ -712,5 +712,6 @@
 (println (i11-1 (read-code "data/11.txt")))
 
 (msg 'OK-AoC19)
-(bye)
+
+#(bye)
 

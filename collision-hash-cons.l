@@ -1,12 +1,17 @@
 (off R)
 
-(for A (range -10000 10000)
-   (for B (range -10000 10000)
-      (let K (char (hash (cons A B)))
-         (set K (cons A B))
+(zero C)
+(for A (range -1000 1000)
+   (for B (range -300 300)
+      (inc 'C)
+      (let (X (cons A B)  K (cons (char (hash X)) X))
          (if (idx 'R K)
-            (println A B (val (car @)))
+            (prog
+               (println A B)
+               (quit) )
             (idx 'R K T) ) ) ) )
+(println (length (idx 'R)))
+(println 'C C)
 (msg 'ok)
 (bye)
 

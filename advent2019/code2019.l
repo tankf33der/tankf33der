@@ -569,7 +569,6 @@
 (de c11 ("Var" Lst)
    (put "Var" 'c Lst)
    (put "Var" 'b 0)
-   (put "Var" 'd (cons))
    (put "Var" 'dc 0)
    (put "Var" 'l (length (get "Var" 'c))) )
 (de i11-rotate (Cur Next)
@@ -579,16 +578,12 @@
       ((= 2 Cur) (if (=0 Next) 1 0))
       ((= 3 Cur) (if (=0 Next) 0 1)) ) )
 (de i11-1 (Lst)
-   (let (L NIL  R NIL  Op NIL  X 1000  Y 1000  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
+   (let (L NIL  Cnt 0 R NIL  D NIL Op NIL  X 1000  Y 1000  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))
-         (T (= 99 Op))
-
-         #(wait 100)
-         #(println (less L))
-
+         (T (= 99 Op) Cnt)
          (case Op
             (1
                (i9-put-third
@@ -632,13 +627,13 @@
                   # got full pair: new color and turn
                   (setq K (char (hash (cons X Y))))
                   (set K C)
-                  # idx
-                  (if (idx (get 'R 'd) K)
-                     # exists
+                  (if (idx 'D K)
                      (set (car @) C)
-                     #(put 'R 'dc (inc (get 'R 'dc)))
-                     (idx (get 'R 'd) K T)
-                  )
+                     (inc 'Cnt)
+                     (idx 'D K T) )
+                  #(show 'D)
+
+
 
                   # now turn
                   (cond
@@ -671,12 +666,13 @@
                            (dec 'Y)
                            (setq Cur 1) ) )
                   )
-                  (println 'X X 'Y Y)
-                  #(setq Cur Trn)
                   (setq K (char (hash (cons X Y))))
-                  (if (idx (get 'R 'd) K)
+                  (if (idx 'D K)
                      (setq C (val (car @)))
                      (zero C) )
+
+
+
                ) #ifn
 
                (do 2

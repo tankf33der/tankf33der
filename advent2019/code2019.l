@@ -570,11 +570,6 @@
    (put "Var" 'c Lst)
    (put "Var" 'b 0)
    (put "Var" 'l (length (get "Var" 'c))) )
-(de i11-finder ("Var" Z)
-   (find
-      '((L)
-         (= (head 2 L) Z))
-      (val "Var") ) )
 (de i11-1 (Lst)
    (let
       (L NIL
@@ -732,7 +727,103 @@ Valid Result: EGZCRKGK
 }#
 
 # --- Day 13: Care Package ---
+(de c13 ("Var" Lst)
+   (put "Var" 'c Lst)
+   (put "Var" 'b 0)
+   (put "Var" 'l (length (get "Var" 'c))) )
+(de i13-1 (Lst)
+   (let
+      (L NIL
+         Cnt 0
+         R NIL
+         D NIL
+         Op NIL )
+      (c11 'R (copy Lst))
+      (setq L (get 'R 'c))
+      (loop
+         (set 'Op (% (car L) 100))
+         (T (= 99 Op) (flip D))
+         (case Op
+            (1
+               (i9-put-third
+                  'R
+                  (car L)
+                  (cadddr L)
+                  (+
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (2
+               (i9-put-third
+                  'R
+                  (car L)
+                  (cadddr L)
+                  (*
+                     (i9-get-first 'R (car L) (cadr L))
+                     (i9-get-second 'R (car L) (caddr L)) ) )
+               (do 4
+                  (++ L) ) )
+            (3
+               (i9-put-first 'R (car L) (cadr L) C)
+               (do 2
+                  (++ L) ) )
+            (4
+               (push 'D (i9-get-first 'R (car L) (cadr L)))
+               (do 2
+                  (++ L) ) )
+            (5
+               (if (n0 (i9-get-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (6
+               (if (=0 (i9-get-first 'R (car L) (cadr L)))
+                  (set
+                     'L
+                     (nth
+                        (get 'R 'c)
+                        (inc (i9-get-second 'R (car L) (caddr L))) ) )
+                  (do 3
+                     (++ L)) ) )
+            (7
+               (if
+                  (>
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
+               (do 4
+                  (++ L) ) )
+            (8
+               (if
+                  (=
+                     (i9-get-second 'R (car L) (caddr L))
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (i9-put-third 'R (car L) (cadddr L) 1)
+                  (i9-put-third 'R (car L) (cadddr L) 0) )
+               (do 4
+                  (++ L) ) )
+            (9
+               (put
+                  'R
+                  'b
+                  (+
+                     (get 'R 'b)
+                     (i9-get-first 'R (car L) (cadr L)) ) )
+               (do 2
+                  (++ L) ) ) ) ) ) )
+(setq D (i13-1 (read-code "data/13.txt")))
+(setq *C13 0)
+(while (cut 3 'D)
+   (when (= 2 (caddr @))
+      (inc '*C13) ) )
+(test 247 *C13)
 
 (msg 'OK-AoC19)
-(bye)
+#(bye)
 

@@ -579,14 +579,14 @@
       ((= 2 Cur) (if (=0 Next) 1 0))
       ((= 3 Cur) (if (=0 Next) 0 1)) ) )
 (de i11-1 (Lst)
-   (let (L NIL  R NIL  Op NIL  I NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
+   (let (L NIL  R NIL  Op NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))
          (T (= 99 Op) (get 'R 'dc))
 
-         #(wait 100)
+         (wait 100)
          #(println (less L))
 
          (case Op
@@ -622,10 +622,12 @@
                (ifn Fl
                   # get new color
                   (prog
+                     (msg 'C)
                      (setq C
                         (i9-get-first 'R (car L) (cadr L)) )
                      (on Fl) )
                   # else
+                  (msg 'Trn)
                   (setq Trn
                      (i9-get-first 'R (car L) (cadr L)) )
                   (off Fl)    # reset
@@ -652,6 +654,10 @@
                         (if (=0 Trn) (dec 'Y) (dec 'Y)) )
                   )
                   (setq Cur Trn)
+                  (setq K (char (hash (cons X Y))))
+                  (if (idx (get 'R 'd) K)
+                     (setq C (val (car @)))
+                     (zero C) )
                   (off Fl)
                ) #ifn
 

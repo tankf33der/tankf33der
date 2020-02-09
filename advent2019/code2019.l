@@ -576,7 +576,19 @@
          (= (head 2 L) Z))
       (val "Var") ) )
 (de i11-1 (Lst)
-   (let (L NIL  Cnt 0  R NIL  D NIL  Op NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
+   (let
+      (L NIL
+         Cnt 0
+         R NIL
+         D NIL
+         Op NIL
+         X 0
+         Y 0
+         C 0
+         Cur 0
+         Trn 0
+         Fl NIL
+         K NIL )
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
@@ -604,24 +616,18 @@
                (do 4
                   (++ L) ) )
             (3
-               (i9-put-first
-                  'R
-                  (car L)
-                  (cadr L)
-                  C )
+               (i9-put-first 'R (car L) (cadr L) C)
                (do 2
                   (++ L) ) )
             (4
                (ifn Fl
                   # get new color
                   (prog
-                     (setq C
-                        (i9-get-first 'R (car L) (cadr L)) )
+                     (setq C (i9-get-first 'R (car L) (cadr L)))
                      (on Fl) )
                   # else
                   (off Fl)
-                  (setq Trn
-                     (i9-get-first 'R (car L) (cadr L)) )
+                  (setq Trn (i9-get-first 'R (car L) (cadr L)))
                   # got full pair: new color and turn
                   (setq K (cons (char (hash (cons X Y))) (cons X Y)))
                   (set (car K) C)
@@ -629,44 +635,36 @@
                      (set (caar @) C)
                      (inc 'Cnt)
                      (idx 'D K T) )
-
                   # now turn
                   (cond
                      ((=0 Cur)
                         (if (=0 Trn)
-                           (prog
-                              (dec 'X)
-                              (setq Cur 2) )
+                           (prog (dec 'X) (setq Cur 2))
                            (inc 'X)
                            (setq Cur 3) ) )
                      ((=1 Cur)
                         (if (=0 Trn)
-                           (prog
-                              (inc 'X)
-                              (setq Cur 3) )
+                           (prog (inc 'X) (setq Cur 3))
                            (dec 'X)
                            (setq Cur 2) ) )
                      ((= 2 Cur)
                         (if (=0 Trn)
-                           (prog
-                              (inc 'Y)
-                              (setq Cur 1) )
+                           (prog (inc 'Y) (setq Cur 1))
                            (dec 'Y)
                            (setq Cur 0) ) )
                      ((= 3 Cur)
                         (if (=0 Trn)
-                           (prog
-                              (dec 'Y)
-                              (setq Cur 0) )
+                           (prog (dec 'Y) (setq Cur 0))
                            (inc 'Y)
                            (setq Cur 1) ) )
                   )
-                  (setq K (cons (char (hash (cons X Y))) (cons X Y)))
+                  (setq K
+                     (cons
+                        (char (hash (cons X Y)))
+                        (cons X Y) ) )
                   (if (idx 'D K)
                      (setq C (val (caar @)))
-                     (zero C) )
-               ) #ifn
-
+                     (zero C) ) )
                (do 2
                   (++ L) ) )
             (5
@@ -706,12 +704,17 @@
                (do 4
                   (++ L) ) )
             (9
-               (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
+               (put
+                  'R
+                  'b
+                  (+
+                     (get 'R 'b)
+                     (i9-get-first 'R (car L) (cadr L)) ) )
                (do 2
                   (++ L) ) ) ) ) ) )
-(println (i11-1 (read-code "data/11.txt")))
+(test 1681 (i11-1 (read-code "data/11.txt")))
+
 
 (msg 'OK-AoC19)
-
-#(bye)
+(bye)
 

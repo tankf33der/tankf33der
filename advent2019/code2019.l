@@ -9,8 +9,6 @@
             (link (read))
             (char) ) ) ) )
 
-#{
-
 # set
 (de s ("Var" I V F)
    (let K (char (hash I))
@@ -417,8 +415,6 @@
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
 
-}#
-
 # --- Day 9: Sensor Boost ---
 (de c9 ("Var" Lst)
    (put "Var" 'c Lst)
@@ -543,7 +539,6 @@
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (do 2
                   (++ L) ) ) ) ) ) )
-#{
 (test
    (109 1 204 -1 1001 100 1 100 1008 100 16 101 1006 101 0 99)
    (i9-1 (read-code "data/9-test-1.txt")) )
@@ -559,8 +554,6 @@
 
 # part 2
 (test (69256) (i9-1 (read-code "data/9.txt") (list 2)))
-
-}#
 
 # --- Day 11: Space Police ---
 # 0 - north, 1 - south, 2 - west, 3 - east
@@ -734,7 +727,6 @@ Valid Result: EGZCRKGK
 (de i13-1 (Lst)
    (let
       (L NIL
-         Cnt 0
          R NIL
          D NIL
          Op NIL )
@@ -763,10 +755,6 @@ Valid Result: EGZCRKGK
                      (i9-get-first 'R (car L) (cadr L))
                      (i9-get-second 'R (car L) (caddr L)) ) )
                (do 4
-                  (++ L) ) )
-            (3
-               (i9-put-first 'R (car L) (cadr L) C)
-               (do 2
                   (++ L) ) )
             (4
                (push 'D (i9-get-first 'R (car L) (cadr L)))
@@ -825,5 +813,3 @@ Valid Result: EGZCRKGK
 (test 247 *C13)
 
 (msg 'OK-AoC19)
-#(bye)
-

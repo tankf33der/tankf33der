@@ -582,13 +582,9 @@
    (let (L NIL  R NIL  Op NIL  X 1000  Y 1000  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
-
-      #(setq K (char (hash (cons X Y))))
-      #(set K 0)
-      #(idx (get 'R 'dc) K T)
       (loop
          (set 'Op (% (car L) 100))
-         (T (= 99 Op) (length (get 'R 'd)))
+         (T (= 99 Op))
 
          #(wait 100)
          #(println (less L))

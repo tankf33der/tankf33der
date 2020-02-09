@@ -578,16 +578,16 @@
       ((=1 Cur) (if (=0 Next) 3 2))
       ((= 2 Cur) (if (=0 Next) 1 0))
       ((= 3 Cur) (if (=0 Next) 0 1)) ) )
-(de i11-1 (Lst I)
-   (let (L NIL  R NIL  Op NIL)
+(de i11-1 (Lst)
+   (let (L NIL  R NIL  Op NIL  I NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))
-         (T (= 99 Op) (flip I))
+         (T (= 99 Op) (get 'R 'dc))
 
-         (wait 1000)
-         (println (less L))
+         #(wait 100)
+         #(println (less L))
 
          (case Op
             (1
@@ -615,12 +615,46 @@
                   'R
                   (car L)
                   (cadr L)
-                  (++ I) )
+                  C )
                (do 2
                   (++ L) ) )
             (4
-               (println 'out
-                  (i9-get-first 'R (car L) (cadr L)) )
+               (ifn Fl
+                  # get new color
+                  (prog
+                     (setq C
+                        (i9-get-first 'R (car L) (cadr L)) )
+                     (on Fl) )
+                  # else
+                  (setq Trn
+                     (i9-get-first 'R (car L) (cadr L)) )
+                  (off Fl)    # reset
+                  # got full pair: new color and turn
+                  (setq K (char (hash (cons X Y))))
+                  (set K C)
+                  # idx
+                  (if (idx (get 'R 'd) K)
+                     # exists
+                     (set (car @) C)
+                     (put 'R 'dc (inc (get 'R 'dc)))
+                     (idx (get 'R 'd) K T)
+                  )
+
+                  # now turn
+                  (cond
+                     ((=0 Cur)
+                        (if (=0 Trn) (inc 'X) (dec 'X)) )
+                     ((=1 Cur)
+                        (if (=0 Trn) (dec 'X) (inc 'X)) )
+                     ((= 2 Cur)
+                        (if (=0 Trn) (inc 'Y) (dec 'Y)) )
+                     ((= 3 Cur)
+                        (if (=0 Trn) (dec 'Y) (dec 'Y)) )
+                  )
+                  (setq Cur Trn)
+                  (off Fl)
+               ) #ifn
+
                (do 2
                   (++ L) ) )
             (5
@@ -663,7 +697,7 @@
                (put 'R 'b (+ (get 'R 'b) (i9-get-first 'R (car L) (cadr L))))
                (do 2
                   (++ L) ) ) ) ) ) )
-(i11-1 (read-code "data/11.txt") (list 0))
+(println (i11-1 (read-code "data/11.txt")))
 
 (msg 'OK-AoC19)
 (bye)

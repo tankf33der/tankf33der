@@ -569,7 +569,6 @@
 (de c11 ("Var" Lst)
    (put "Var" 'c Lst)
    (put "Var" 'b 0)
-   (put "Var" 'dc 0)
    (put "Var" 'l (length (get "Var" 'c))) )
 (de i11-finder ("Var" Z)
    (find
@@ -577,14 +576,12 @@
          (= (head 2 L) Z))
       (val "Var") ) )
 (de i11-1 (Lst)
-   (let (L NIL  Cnt 0 R NIL  D NIL Op NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
+   (let (L NIL  Cnt 0  R NIL  D NIL  Op NIL  X 0  Y 0  C 0  Cur 0  Trn 0  Fl NIL  K NIL)
       (c11 'R (copy Lst))
       (setq L (get 'R 'c))
       (loop
          (set 'Op (% (car L) 100))
-         (T (= 99 Op) (cons Cnt (length D)))
-         #(wait 100)
-         #(println (less L))
+         (T (= 99 Op) Cnt)
          (case Op
             (1
                (i9-put-third
@@ -626,7 +623,48 @@
                   (setq Trn
                      (i9-get-first 'R (car L) (cadr L)) )
                   # got full pair: new color and turn
-                  (println C Trn)
+                  (setq K (cons (char (hash (cons X Y))) (cons X Y)))
+                  (set (car K) C)
+                  (if (idx 'D K)
+                     (set (caar @) C)
+                     (inc 'Cnt)
+                     (idx 'D K T) )
+
+                  # now turn
+                  (cond
+                     ((=0 Cur)
+                        (if (=0 Trn)
+                           (prog
+                              (dec 'X)
+                              (setq Cur 2) )
+                           (inc 'X)
+                           (setq Cur 3) ) )
+                     ((=1 Cur)
+                        (if (=0 Trn)
+                           (prog
+                              (inc 'X)
+                              (setq Cur 3) )
+                           (dec 'X)
+                           (setq Cur 2) ) )
+                     ((= 2 Cur)
+                        (if (=0 Trn)
+                           (prog
+                              (dec 'Y)
+                              (setq Cur 1) )
+                           (inc 'Y)
+                           (setq Cur 1) ) )
+                     ((= 3 Cur)
+                        (if (=0 Trn)
+                           (prog
+                              (inc 'Y)
+                              (setq Cur 0) )
+                           (dec 'Y)
+                           (setq Cur 1) ) )
+                  )
+                  (setq K (cons (char (hash (cons X Y))) (cons X Y)))
+                  (if (idx 'D K)
+                     (setq C (val (caar @)))
+                     (zero C) )
                ) #ifn
 
                (do 2

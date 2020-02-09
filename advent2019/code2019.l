@@ -714,6 +714,24 @@
                   (++ L) ) ) ) ) ) )
 (test 1681 (i11-1 (read-code "data/11.txt")))
 
+# part 2
+
+#{
+o) change C in let in function from 0 to 1
+o) change return from Cnt to D
+Valid Result: EGZCRKGK
+(setq D (i11-1 (read-code "data/11.txt")))
+(setq Lst
+   (make
+      (do 6
+         (link (need 45 '.)) ) ) )
+(for L (filter '((L) (=1 (val (car L)))) (idx 'D))
+   (put Lst (inc (fin L)) (inc (cadr L)) 'X) )
+(for L Lst
+   (prinl L) )
+}#
+
+# --- Day 13: Care Package ---
 
 (msg 'OK-AoC19)
 (bye)

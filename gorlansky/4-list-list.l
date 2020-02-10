@@ -49,7 +49,7 @@
 (test
    (6 5 0)
    (f4-5 '((34 73 9 6) (5) (67 8 4 0))) )
- 
+
 #4.6
 (de bubbleSort (Lst) # rosetta
    (use Chg
@@ -94,7 +94,7 @@
 (test
    (1 2)
    (f4-9 (1 2 3 4 5)) )
-  
+
 #4.10
 (de f4-10 (L)
    (reverse L) )
@@ -198,7 +198,7 @@
 #4.19
 (de f4-19 (L)
    (find
-      '((I) (pair (car I)))
+      '((I) (and (pair I) (pair (car @))))
       L ) )
 (test
    '((a) (b))
@@ -223,7 +223,7 @@
       (get L 1)
       (get L 2)
       (get L 6)
-      (list 
+      (list
          'inc
          (lit (get L 8))
          (get L 2) ) ) )
@@ -339,9 +339,9 @@
       (for (I L I (cdr I))
          (or
             (member (car I) (cdr I))
-            (link (car I)) ) ) ) ) 
+            (link (car I)) ) ) ) )
 (let L '((a b) c d (a b) c e)
-   (test 
+   (test
       NIL
       (diff (uniq L) (f4-30 L)) ) )
 
@@ -429,7 +429,7 @@
          '((L)
             (let P (cddr L)
                (mapc
-                  '((I) (accuL 'R (car I) (cadr I))) 
+                  '((I) (accuL 'R (car I) (cadr I)))
                   P ) ) )
          L )
       (car
@@ -452,10 +452,10 @@
       '((I)
          (and
             (not
-               (find 
+               (find
                   '((J) (subsetp (car I) J))
                   (cdr I) ) )
-            (cons (car I)) ) ) 
+            (cons (car I)) ) )
       L ) )
 (test
    '((a b c) (d e) (f g h))
@@ -468,7 +468,7 @@
    (f4-41 (1 2 3)) )
 
 #4.42
-(de f4-42 (L) 
+(de f4-42 (L)
    (remove (dec (length L)) L) )
 (test
    (1 2 4)
@@ -570,7 +570,7 @@
    (cond
       ((not L))
       ((atom (car L))
-         (cons 
+         (cons
             (list (car L) C) # @
             (f4-52 (cdr L) C) ) )
       (T
@@ -616,7 +616,7 @@
 (de f4-56 (L) # without length art
    (filter
       '((I)
-         (or 
+         (or
             (atom I)
             (nand (cdr I) (not (cddr I))) ) )
       L ) )
@@ -635,9 +635,9 @@
       (f4-57
          (quote
             (6 x) (6 y) (6 u) (6 z) (7 x) (7 y) (7 u) (7 z)
-            (8 x) (8 y) (8 u) (8 z) (9 x) (9 y) (9 u) (9 z) 
-            (10 x) (10 y) (10 u) (10 z) (11 x) (11 y) (11 u) 
-            (11 z) (12 x) (12 y) (12 u) (12 z) (13 x) (13 y) 
+            (8 x) (8 y) (8 u) (8 z) (9 x) (9 y) (9 u) (9 z)
+            (10 x) (10 y) (10 u) (10 z) (11 x) (11 y) (11 u)
+            (11 z) (12 x) (12 y) (12 u) (12 z) (13 x) (13 y)
             (13 u) (13 z) (14 x) (14 y) (14 u) (14 z) ) ) ) )
 
 #4.58
@@ -773,7 +773,7 @@
 (test
    '(1 A 0 1 A)
    (f4-71 (1 -2 0 1 -3)) )
- 
+
 #4.72
 (de f4-72 (L)
    (let R NIL
@@ -947,7 +947,7 @@
    (2 4 6)
    (f4-87 (1 2 3)) )
 
-#4.88 
+#4.88
 (def 'f4-88 reverse) # ??? let it be
 (test
    (3 2 1)
@@ -1117,11 +1117,11 @@
       ((0 0 1) (10 H)) ((1 1 2) (11 H)) ((2 2 0) (12 H)) ) )
 (setq *Steps
    (quote
-      ((1 4 7 10) (3 6 9 12)) 
+      ((1 4 7 10) (3 6 9 12))
       ((3 6 9 10) (2 5 8 12))
       ((3 4 8 12) (2 6 7 11)) ) )
 (de f4-102 (Coins)
-   (cadr 
+   (cadr
       (assoc
          (mapcar
             '((L)
@@ -1240,10 +1240,10 @@
             (for I (chop L)
                (accu 'R I 1) )
             (intern
-               (pack 
+               (pack
                   (mapcan
-                     '((I) 
-                        (list 
+                     '((I)
+                        (list
                            (car I)
                            (and (< 1 (cdr I)) (cdr I)) ) )
                      (flip R) ) ) ) ) ) ) )
@@ -1267,7 +1267,7 @@
    '(a b d)
    (f4-110 '(a b c d)) )
 
-#4.111 
+#4.111
 (de f4-111 @
    (mapcar
       '((N)
@@ -1282,7 +1282,7 @@
    (let V '(a e i o u)
       (by
          '((W) (cnt '((C) (member C V)) (chop W)))
-         sort 
+         sort
          L ) ) )
 (test
    '(red green abrakadabra)
@@ -1408,7 +1408,7 @@
 (de f4-127 (L) # Rosetta
    (if (cdr L)
       (let Pivot (car L)
-         (append 
+         (append
             (f4-127
                (filter '((A) (< A Pivot)) (cdr L)) )
             (filter '((A) (= A Pivot)) L)
@@ -1464,7 +1464,7 @@
          (Petrova Anna Ivanovna F 20 2)
          (Petrova Inna Ivanovna F 20 2)
          (Ivanova Anna Ivanovna F 20 2) ) ) )
- 
+
 #4.131
 (de f4-131 (L)
    (mapcar
@@ -1474,7 +1474,7 @@
 (test
    '((Name Ann) (Age 20) (Height 160cm))
    (f4-131 '(Ann 20 160cm)) )
- 
+
 #4.132 - ignored
 
 #4.133
@@ -1634,7 +1634,7 @@
          (link I) ) ) )
 (de f4-144-2 (F L) # mapcan
    (mapcan
-      '((N) 
+      '((N)
          (conc
             (and (F N) (cons '*))
             (cons N) ) )
@@ -1699,7 +1699,7 @@
       (for I L
          (accu 'R I 1) )
       (extract
-         '((I) (and (=1 (cdr I)) (car I))) 
+         '((I) (and (=1 (cdr I)) (car I)))
          R ) ) )
 (test
    '(c b)
@@ -1926,7 +1926,7 @@
             (dec 'N 2) ) )
       Lst ) )
 (test
-   (2 0 4 2 6 4 8 6 10) 
+   (2 0 4 2 6 4 8 6 10)
    (f4-166 (range 1 9)) )
 
 #4.167 = 4.65
@@ -2280,14 +2280,14 @@
             (intern
                (pack
                   S
-                  "_" 
+                  "_"
                   (extract
                      '((J) (and (not (format J)) (char J)))
                      (chop I) ) ) ) )
          Lst ) ) )
 (test
    '(7_100 7_114 7_115)
-   (f4-194 '(2d 4r 1s)) )     
+   (f4-194 '(2d 4r 1s)) )
 (test
    '(124_109105107101 124_98)
    (f4-194 '(123mike 1b)) )
@@ -2322,7 +2322,7 @@
             (if2 (= X L) (atom L)
                NIL
                NIL
-               (cons L) 
+               (cons L)
                (cons (mapcan recurse L)) ) ) )
       Lst ) )
 (let Lst '(1 ((1 2 (2)) 1) (2) 1 2)
@@ -2334,7 +2334,7 @@
       (f4-197 1 Lst) ) )
 
 #4.198
-(de f4-198 (L) 
+(de f4-198 (L)
    (uniq (fish atom L)) )
 (test
    '(a b c)
@@ -2383,7 +2383,7 @@
 #4.202
 (de f4-202 (Lst)
    (maxi
-      '((L) (sum caddr L))      
+      '((L) (sum caddr L))
       (make
          (for I Lst
             (let (X (cadr I)  Lst (copy Lst))
@@ -2477,7 +2477,7 @@
 (test
    '(T T NIL T NIL T NIL NIL NIL T)
    (f4-209 (range 2 11)) )
-  
+
 #4.210
 (de f4-210-1 (Lst)
    (make
@@ -2601,7 +2601,7 @@
       (cons C S) ) )
 (let L (-1 0 1 2 3)
    (test
-      (f4-217-2 L) 
+      (f4-217-2 L)
       (f4-217-1 L) ) )
 
 #4.218
@@ -2614,7 +2614,7 @@
    (3 6 9)
    (f4-218 (range 1 10)) )
 
-#4.219 
+#4.219
 (de f4-219 (Lst X)
    (mapcan
       '((N)
@@ -2749,12 +2749,12 @@
       (cond
          ((num? (car L)) (pop 'L))
          ((num? (cadr L)) (setq L (cddr L)))
-         (T 
+         (T
             (set L
                (if (== (car L) (cadr L))
                   '+
                   '- ) )
-            (con L (cddr L)) ) ) ) 
+            (con L (cddr L)) ) ) )
       Lst )
 (test
    (f4-229-1 '(1 + - + + - 1 - - - + 1 + + - 1))
@@ -2775,7 +2775,7 @@
    (let
       (C (filter sym? (fish atom Lst))
          N (filter num? (fish atom Lst)) )
-      (uniq 
+      (uniq
          (if (> (apply + (mapcar char C)) (apply + N))
             C
             N ) ) ) )
@@ -2910,7 +2910,7 @@
 (test
    '(4 3 A B)
    (f4-237 '(A B 4 3)) )
- 
+
 #4.238
 (de f4-238 (Lst)
    (mapcar
@@ -3176,7 +3176,7 @@
    (mapcar
       '((L)
          (let (S (sum gt0 L)  N (cnt gt0 L))
-            
+
             (list
                S
                N
@@ -3289,11 +3289,11 @@
 (de f4-275 (Lst N)
    (default N 0)
    (mapcan
-      '((X) 
+      '((X)
          (if (atom X)
-            (list (cons X N)) 
+            (list (cons X N))
             (f4-275 X (inc N)) ) )
-      Lst ) ) 
+      Lst ) )
 (test
    '((a . 0) (s . 0) (d . 1) (f . 1) (g . 2) (h . 2) (j . 3) (q . 2))
    (f4-275 '(a s (d f (g h (j) q)))) )
@@ -3317,7 +3317,7 @@
             (for (J . Y) X
                (link (list Y I J)) ) ) ) ) )
 (test
-   (15 2 1) 
+   (15 2 1)
    (f4-277 '((1 2 3) (15 2 6) (7 8 9))) )
 
 #4.278
@@ -3367,7 +3367,7 @@
 
 #4.282
 (de f4-282 (Lst)
-   (fully 
+   (fully
       '((L) (apply <= L))
       (list Lst (apply mapcar Lst list)) ) )
 (test
@@ -3397,7 +3397,7 @@
          (for X Lst
             (and
                (pair X)
-               (link X) 
+               (link X)
                (recurse X) ) ) ) ) )
 (de f4-284-2 (Lst)
    (mapcan
@@ -3421,7 +3421,7 @@
 
 #4.285
 (de f4-285 (Lst)
-   (cdr 
+   (cdr
       (last
          (sort
             (group
@@ -3521,7 +3521,7 @@
       (push Var (cons 1 Key)) ) )
 (de f4-293 (Lst)
    (let R NIL
-      (for I Lst 
+      (for I Lst
          (accuR 'R I) )
       (mapcan
          '((L)
@@ -3594,7 +3594,7 @@
    '(a (b) c)
    (f4-298 '(a 1 (b 2) c)) )
 
-#4.299 
+#4.299
 (def 'f4-299 f4-243)
 (test
    '(a (b (c (d (e (f))))))
@@ -3703,7 +3703,7 @@
 (de f4-307 (Lst)
    (mapcon
       '((L)
-         (or 
+         (or
             (= (car L) (cadr L))
             (cons (car L)) ) )
       Lst ) )
@@ -3723,7 +3723,7 @@
    (let R NIL
       (for I Lst
          (accu 'R I 1) )
-      (sort 
+      (sort
          (mapcar
             car
             (last (by cdar sort (by cdr group R))) ) ) ) )
@@ -3799,7 +3799,7 @@
 (de f4-316 (Lst) # first only
    (maxi
       '((L) (apply * L))
-      (mapcon '((L) (maplist reverse (reverse L))) 
+      (mapcon '((L) (maplist reverse (reverse L)))
          Lst) ) )
 (test
    (1 3 4 8 -4 -6)
@@ -3881,7 +3881,7 @@
       X
       (mapcon
          '((L)
-            (cons 
+            (cons
                (f4-324 (car L))
                (and (cdr L) (cons (car X))) ) )
          (cdr X) ) ) )

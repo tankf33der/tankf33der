@@ -2,6 +2,7 @@
 (cd "utf8")
 (load "test.l")
 (cd "..")
+
 (load "test-math.l")
 (load "forth.l")
 (load "parse2list.l")

@@ -71,7 +71,7 @@
          "crypto_poly1305_update"
          NIL
          M
-         (cons NIL (cons Len) L)
+         (if L (cons NIL (cons Len) L) 0)
          Len ) ) )
 (de mono_fin (M)
    (let R NIL
@@ -124,6 +124,8 @@
    (let K (randL 32)
       (mono_init M K)
       (sodium_init S K)
+      # zero call
+      (mono_update M)
       (test
          (mono_fin M)
          (sodium_fin S) ) ) )
@@ -164,7 +166,7 @@
 (let D (conc (range 15 0) (range 0 15))
    (do 241
       (test (mono_poly NIL D) (sodium_poly NIL D))
-      (map inc D) ) )  
+      (map inc D) ) )
 (let D (conc (range 0 15) (range 15 0))
    (do 241
       (test (mono_poly D D) (sodium_poly D D))
@@ -182,7 +184,7 @@
 (let D (conc (range 0 15) (range 15 0))
    (do 241
       (test (mono_poly NIL D) (sodium_poly NIL D))
-      (map inc D) ) )  
+      (map inc D) ) )
 
 (msg 'ok-poly1305)
 (bye)

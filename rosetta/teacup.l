@@ -1,6 +1,6 @@
 (de rotw (W)
    (let W (chop W)
-      (unless (or (apply = W) (< (length W) 3))
+      (unless (or (apply = W) (not (cddr W)))
          (make
             (do (length W)
                (link (pack (copy W)))

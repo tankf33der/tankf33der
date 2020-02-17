@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# convert from sage to python-native
+
 import sys
 #from sage.all import *
 

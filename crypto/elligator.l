@@ -138,14 +138,14 @@
       (cons U V) ) )
 (de private_to_hash (S)
    (let
-      (XY (scalarmult *Edwards_base *Private)
+      (XY (scalarbase *Private)
          UV (from_edwards XY) )
       (if (can_curve_to_hash UV)
          (curve_to_hash UV)
          NIL ) ) )
 (de full_cycle_check (S)
    (let
-      (XY (scalarmult *Edwards_base *Private)
+      (XY (scalarbase *Private)
          UV (from_edwards XY)
          H (private_to_hash S)
          C (hash_to_curve H) )

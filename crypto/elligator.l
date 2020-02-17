@@ -3,6 +3,10 @@
    *P (- (** 2 255) 19)
    *A 486662
    *SQRT1 NIL
+   *D NIL
+   *Eby NIL
+   *Ebx NIL
+   *Edwards_base NIL
 )
 (de %% (X Y)
    (% (+ Y (% X Y)) Y) )
@@ -70,18 +74,114 @@
                      U ) ) )
             *P ) )
       (cons U V) ) )
-(de can_curve_to_hash(P)
+(de can_curve_to_hash (P)
    (let X (car P)
       (and
          (<> X (- A))
          (is_square (* -2 X (+ X *A))) ) ) )
-(de curve_to_hash(P)
+(de curve_to_hash (P)
    (let
       (U (car P)
          V (cdr P)
          Sq1 (sqrt+ (* (- U) (invert (* 2 (+ U *A)))))
          Sq2 (sqrt+ (* (- (+ U *A)) (invert (* 2 U)))) )
       (if (>= (/ (dec *P) 2) (%% V *P)) Sq1 Sq2) ) )
+(setq *D (%% (* -121665 (invert 121666)) *P))
+(de point_add (A B)
+   (let
+      (X1 (car A)
+         Y1 (cdr A)
+         X2 (car B)
+         Y2 (cdr B)
+         X
+         (%%
+            (* (+ (* X1 Y2) (* X2 Y1)) (invert (+ 1 (* *D X1 X2 Y1 Y2))))
+            *P )
+         Y
+         (%%
+            (* (+ (* Y1 Y2) (* X1 X2)) (invert (- 1 (* *D X1 X2 Y1 Y2))))
+            *P ) )
+      (cons X Y) ) )
+(de trim+ (S)
+   (let
+      (Tr (- S (%% S 8))
+         Tr (%% Tr `(** 2 254))
+         Tr (+ Tr `(** 2 254)) )
+      Tr ) )
+(de scalarmult (P S)
+   # X
+   # Y
+   (let Acc (cons 0 1)
+      (for I (chop (bin (trim+ S)))
+         (setq Acc (point_add Acc Acc))
+         (and
+            (= "1" I)
+            (setq Acc (point_add Acc P)) ) )
+      Acc ) )
+(setq
+   *Eby (%% (* 4 (invert 5)) *P)
+   *Ebx
+   (sqrt+
+      (*
+         (dec (** *Eby 2))
+         (invert (inc (* *D (** *Eby 2)))) ) )
+   *Edwards_base (cons *Ebx *Eby) )
+(de scalarbase (S)
+   (scalarmult *Edwards_base S) )
+(de from_edwards (P)
+   (let
+      (X (car P)
+         Y (cdr P)
+         U (%% (* (inc Y) (invert (- 1 Y))) *P)
+         V (m_abs (* (sqrt+ -486664) U (invert X))) )
+      (cons U V) ) )
+(de private_to_hash (S)
+   (let
+      (XY (scalarmult *Edwards_base *Private)
+         UV (from_edwards XY) )
+      (if (can_curve_to_hash UV)
+         (curve_to_hash UV)
+         NIL ) ) )
+(de full_cycle_check (S)
+   (let
+      (XY (scalarmult *Edwards_base *Private)
+         UV (from_edwards XY)
+         H (private_to_hash S)
+         C (hash_to_curve H) )
+      (list UV H C) ) )
+(setq *Private 14074904626401341155369551180448584754667373453244490859944217516317499064576)
+(test NIL (private_to_hash *Private))
+(test
+   '((43040781892050427594145608265502699427324224701665063692814682666944625459343 . 20838055236844828317575985397902694430763502413180418884364445753767930375480) NIL (NIL))
+   (full_cycle_check *Private) )
+
+(setq *Private 43586973752584214000503606306153847297570002532270420392061565301986769307139)
+(test
+   12497659117957793031302988335747524371618773842828966866468312343571701090671
+   (private_to_hash *Private) )
+
+
+(test
+   (cons 19403065823481287390508016278028958188341268092489446700427911021026036183835 24588128153701835924826673683334879159563383529419655147704411948633510854994)
+   (from_edwards
+      (cons
+         4545684578946458454576768457684
+         56567895678568795656565678956785678956789 ) ) )
+(test
+   (cons 51317351682257545568938247189885276749437966092370638705105957344068157476134 23671080247213926015351343222066699513530060636187689431672265081444357855217)
+   (scalarbase 45456845789464584545767684576845768434879347893478934) )
+(test
+   (cons 15112221349535400772501151409588531511454012693041857206046113283949847762202 46316835694926478169428394003475163141307993866256225615783033603165251855960)
+   *Edwards_base )
+(test
+   28948022309329048855892791709017766427902041934094717855632830881326175888912
+   (trim+ 45456845789464584545767684576845768434879347893478934) )
+(test
+   (24830403138231796681703477740190921587135258449342575326264716819494114086238 . 45669596180081425621318719439797074897382411705717653100730339592855422843195)
+   (point_add
+      (cons 4545684578946 45845)
+      (cons 45767684576845768 434879347893478934) ) )
+(test *D 37095705934669439343138083508754565189542113879843219016388785533085940283555)
 (test
    21759831350752055415818935551262588374444830638733243484187888061142886508723
    (curve_to_hash (cons 4545684578946 45845)))

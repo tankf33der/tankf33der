@@ -10,14 +10,14 @@
 )
 (de %% (X Y)
    (% (+ Y (% X Y)) Y) )
-(de exp (A, B)
-   (let D 1
-      (for I (chop (bin B))
-         (setq D (%% (* D D) *P))
-         (and
-            (= "1" I)
-            (setq D (%% (* D A) *P)) ) )
-      D ) )
+(de exp (X Y)
+   (let M 1
+      (loop
+         (when (bit? 1 Y)
+            (setq M (%% (* M X) *P)) )
+         (T (=0 (setq Y (>> 1 Y)))
+            M )
+         (setq X (%% (* X X) *P)) ) ) )
 (de invert (N)
    (exp N (- *P 2)) )
 (de m_abs (N)

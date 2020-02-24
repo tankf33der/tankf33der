@@ -1,0 +1,3 @@
+all:
+	gcc elligator-signal.c -lsignal-protocol-c
+	./a.out

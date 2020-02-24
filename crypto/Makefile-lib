@@ -1,0 +1,3 @@
+all:
+	gcc elligator-lib.c -lelligator-2-curve25519
+	./a.out

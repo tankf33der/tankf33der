@@ -27,8 +27,12 @@
          (%% (- M) *P) ) ) )
 (de chi (N)
    (exp N (/ (dec *P) 2)) )
+(println (chi -1))
+(bye)
 (de is_square (N)
    (or (=0 (%% N *P)) (=1 (chi N))) )
+(println (is_square (- (** *A 2) 4)))
+(bye)
 (setq *SQRT1
    (m_abs
       (*

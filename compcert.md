@@ -26,5 +26,6 @@ $ cd CompCert-3.6
 $ ./configure -prefix /home/mpech/ccomp36 x86_64-linux
 $ make -j 8 all
 $ make install
+$ export PATH=$PATH:/home/mpech/ccomp36/bin
 ```
 

@@ -13,14 +13,14 @@ Compcert 3.6
 $ opam update
 $ opam upgrade
 $ eval $(opam env)
-```
-
-### back to installation instuction of comp
-```
 $ opam switch 4.07.1 # or 'opam switch create 4.07.1'
 $ eval `opam env`
 $ opam install coq=8.9.1
 $ opam install menhir=20190626
+```
+
+### compile and install
+```
 $ cd
 $ wget http://compcert.inria.fr/release/compcert-3.6.tgz
 $ tar zxvf compcert-3.6.tgz

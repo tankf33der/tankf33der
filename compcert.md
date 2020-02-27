@@ -21,6 +21,7 @@ $ opam install menhir=20190626
 $ cd
 $ wget http://compcert.inria.fr/release/compcert-3.6.tgz
 $ tar zxvf compcert-3.6.tgz
+$ mkdir -p /home/mpech/ccomp36
 $ cd CompCert-3.6
 $ ./configure -prefix /home/mpech/ccomp36 x86_64-linux
 $ make -j 8 all

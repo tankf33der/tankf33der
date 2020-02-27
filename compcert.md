@@ -11,7 +11,7 @@ $ opam update
 $ opam upgrade
 $ eval $(opam env)
 $ opam switch 4.07.1 # or 'opam switch create 4.07.1'
-$ eval `opam env`
+$ eval $(opam env)
 $ opam install coq=8.9.1
 $ opam install menhir=20190626
 ```

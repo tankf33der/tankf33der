@@ -85,8 +85,9 @@ memcmp (const void *str1, const void *str2, size_t count)
 }
 $ function main() is last in file mike.c
 $ comment all TEST calls
-$ uncomment one by one and run
+$ uncomment one by one and run:
 $ ccomp -interp -quiet mike.c
+$ for every test.
 $ Elliptic is very fat. Create vectors.h for 1 test only.
 ```
 

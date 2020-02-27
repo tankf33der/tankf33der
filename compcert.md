@@ -49,7 +49,7 @@ $ cat monocypher.c >> mike.c
 $ cat monocypher-ed25519.c >> mike.c
 $ cat utils.c >> mike.c
 $ cat test.c >> mike.c
-$ $ ccomp -interp mike.c
+$ ccomp -interp mike.c
 mike.c:2310: warning: "FOR" redefined
  2310 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)
       |
@@ -67,9 +67,23 @@ mike.c:2705: error: redefinition of 'store64_le'
 mike.c:2717: error: redefinition of 'load32_le'
 mike.c:2725: error: redefinition of 'load64_le'
 3 errors detected.
-
 $ fix errors by comment them
-$ XXX
+$ comment free() call in vector_test(). Helps for: Stuck state: calling free(0LL)
+$ add code to the end of mike.c file
+int
+memcmp (const void *str1, const void *str2, size_t count)
+{
+  register const unsigned char *s1 = (const unsigned char*)str1;
+  register const unsigned char *s2 = (const unsigned char*)str2;
+
+  while (count-- > 0)
+    {
+      if (*s1++ != *s2++)
+	  return s1[-1] < s2[-1] ? -1 : 1;
+    }
+  return 0;
+}
+$ ccomp -interp -quiet mike.c
 $ function main is last in file mike.c
 $ comment all TEST calls
 $ uncomment one by one

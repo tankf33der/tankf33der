@@ -5,10 +5,7 @@ Lets write notes how to check Monocypher by compcert
 Monocypher 3.0.0
 Compcert 3.6
 ```
-
-
-# get ready opam and libraries
-### update before installed opam infrastructure
+### get opam ready
 ```
 $ opam update
 $ opam upgrade

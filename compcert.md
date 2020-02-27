@@ -29,3 +29,11 @@ $ make install
 $ export PATH=$PATH:/home/mpech/ccomp36/bin
 ```
 
+### try compile mode
+```
+$ cd Monocypher
+$ ccomp -o test.out -Wall -fall -O3 -Isrc -Isrc/optional tests/test.c tests/utils.c src/monocypher.c src/optional/monocypher-ed25519.c
+$ ./test.out
+<All tests OK!>
+$ make clean
+```

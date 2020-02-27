@@ -1,6 +1,6 @@
 ### february 2020
 
-Lets write notes how to check Monocypher by compcert
+Lets write notes how to check Monocypher by CompCert
 ```
 Monocypher 3.0.0
 Compcert 3.6

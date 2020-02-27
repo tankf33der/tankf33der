@@ -83,7 +83,7 @@ memcmp (const void *str1, const void *str2, size_t count)
     }
   return 0;
 }
-$ function main() is last in file mike.c
+$ function main() in the end of file
 $ comment all TEST calls
 $ uncomment one by one and run:
 $ ccomp -interp -quiet mike.c

@@ -37,3 +37,7 @@ $ ./test.out
 <All tests OK!>
 $ make clean
 ```
+
+### try interp mode
+```
+```

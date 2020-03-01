@@ -83,6 +83,13 @@ memcmp (const void *str1, const void *str2, size_t count)
     }
   return 0;
 }
+void *memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n)
+{
+   char *csrc = (char *)__src;
+   char *cdest = (char *)__dest;
+   for (int i=0; i<__n; i++)
+       cdest[i] = csrc[i];
+}
 $ function main() in the end of file
 $ comment all TEST calls
 $ uncomment one by one and run:

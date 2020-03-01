@@ -90,12 +90,12 @@ void *memcpy(void *__restrict __dest, const void *__restrict __src, size_t __n)
    for (int i=0; i<__n; i++)
        cdest[i] = csrc[i];
 }
-$ function main() in the end of file
-$ comment all TEST calls
+$ function main() in the end of file, comment all TEST() calls
 $ uncomment one by one and run:
 $ ccomp -interp -quiet mike.c
 $ for every test.
-$ Elliptic is very fat. Create vectors.h for 1 test only.
+$ Elliptic is very fat (one key ~1GB RAM). Create vectors.h for 1 test only.
+$ rm -rf Monocypher/tests/formal-analysis
 ```
 
 Mike, you are cool.

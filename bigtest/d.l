@@ -57,7 +57,7 @@
             N3 (read) )
          (test2 '+ N1 N2)
          (test2 '- N1 N2)
-         #(test2 '* N1 N2)
+         (test2 '* N1 N2)
          (test2 '% N1 N2)
          (test2 '/ N1 N2)
          (cmp2 '> N1 N2)

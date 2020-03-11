@@ -33,7 +33,7 @@
          (prinl N3)
          (prinl N1 " + " N2)
          (prinl N1 " - " N2)
-         #(prinl N1 " * " N2)
+         (prinl N1 " * " N2)
          (prinl N1 " % " N2)
          (prinl N1 " / " N2)
          (prinl N1 " > " N2)

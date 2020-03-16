@@ -30,7 +30,7 @@
    (let B
       (format
          (make
-            (do (rand 2048 4192)
+            (do (rand 100 200)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -48,7 +48,7 @@
       (unless (== N X)
          (prinl "^J" N ": (" S " " N1 " " N2 ") -> " X)
          (bye) ) ) )
-(sys "BC_LINE_LENGTH" "89000")
+(sys "BC_LINE_LENGTH" "512")
 (pipe
    (out '(/usr/local/bin/bc)
       (do 10000

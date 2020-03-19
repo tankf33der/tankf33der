@@ -11,13 +11,9 @@
          (prin "dispense->") )
       (refund 'ready
          (prin "refund->") )
-      (quit 'ready)
-         (prin "quit")
-
-   )
-)
-
-(do 10 (atm))
-
+      (quit 'ready
+         (nil (prinl "quit")) ) ) )
+(do 3
+   (while (atm)) )
 (msg 'ok)
 (bye)

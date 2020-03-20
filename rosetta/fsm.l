@@ -1,6 +1,5 @@
 # http://rosettacode.org/wiki/Finite_state_machine
 (seed (in "/dev/urandom" (rd 8)))
-
 (de atm NIL
    (state '(ready)
       (ready (if (rand T) 'waiting 'quit)

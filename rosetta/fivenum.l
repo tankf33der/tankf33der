@@ -5,7 +5,7 @@
          (get Lst (/ (inc N) 2))
          (setq Lst (nth Lst (/ N 2)))
          (/ (+ (car Lst) (cadr Lst)) 2) ) ) )
-(de fivenum (Lst)
+(de fivenum (Lst)   # destructive
    (let
       (Len (length Lst)
          M (/ Len 2)

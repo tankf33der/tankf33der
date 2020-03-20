@@ -2,14 +2,19 @@
 (de median (Lst)
    (let N (length Lst)
       (if (bit? 1 N)
-         (get (sort Lst) (/ (inc N) 2))
-         (setq Lst (nth (sort Lst) (/ N 2)))
+         (get Lst (/ (inc N) 2))
+         (setq Lst (nth Lst (/ N 2)))
          (/ (+ (car Lst) (cadr Lst)) 2) ) ) )
 (de fivenum (Lst)
-   (let (Len (length Lst)  M (/ Len 2)  S (sort Lst))
+   (let
+      (Len (length Lst)
+         M (/ Len 2)
+         S (sort Lst) )
       (list
          (format (car S) *Scl)
-         (format (median (head (+ M (% Len 2))  S)) *Scl)
+         (format
+            (median (head (+ M (% Len 2)) S))
+            *Scl )
          (format (median S) *Scl)
          (format (median (tail M S)) *Scl)
          (format (last S) *Scl) ) ) )

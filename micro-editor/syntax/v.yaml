@@ -1,0 +1,36 @@
+filetype: vlang
+
+detect:
+    filename: "\\.v$"
+
+rules:
+    - type: "\\b(void|bool|char|byte)\\b"
+    - type: "\\b(u?int(8|16|32|64)?|float(32|64))\\b"
+    - statement: "\\b(break|const|continue|defer|else|enum|fn|for|go|goto|if|import|in|interface|match|module|mut|none|or|pub|return|struct|type)\\b"
+    - special: "(struct|break|continue|\\-\\>)"
+    - constant.bool: "(true|false)"
+    - constant.number: "\\b([0-9]+|0x[0-9a-fA-F]*)\\b|'.'"
+#    - symbol.brackets: "(\\{|\\})"
+#    - symbol.brackets: "(\\(|\\))"
+#    - symbol.brackets: "(\\[|\\])"
+
+    - constant.string:
+        start: "\""
+        end: "\""
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\."
+    - constant.string:
+        start: "\'"
+        end: "\'"
+        skip: "\\\\."
+        rules:
+            - constant.specialChar: "\\\\."
+    - comment:
+        start: "//"
+        end: "$"
+        rules: []
+    - comment:
+        start: "/\\*"
+        end: "\\*/"
+        rules: []

@@ -13,10 +13,19 @@ while true do
 end while
 */
 
+/*
 object line
 puts(1, "What is your name?\n")
 line = gets(0)  -- read standard input (keyboard)
 line = line[1..length(line)-1] -- get rid of \n character at end
 puts(1, '\n')   -- necessary
 puts(1, line & " is a nice name.\n")
+*/
+
+while true do
+    integer ch = wait_key()
+    if ch=#1B then exit end if
+    puts(1,ch)
+end while
+
 

@@ -29,9 +29,10 @@
    (println 'fin L) )
 
 (msg 'destr)
-(let (N 1  L (range 1 5))
+(let (N 3  L (range 1 5))
+   (println 'L L)
    (deldestr N 'L)
-   (println 'destr 'L L) )
+   (println 'fin 'L L) )
 
 (msg 'ok)
 (bye)

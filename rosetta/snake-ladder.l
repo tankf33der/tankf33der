@@ -11,28 +11,30 @@
             (set P 1)
             (link P) ) ) ) )
 (de turn (P)
-   (let D (rand 1 6)
-      (show P)
-      (prin P " on square " (val P) ", rolls a " D)
-      (if (> (+ (val P) D) 100)
-         (prinl " but cannot move.")
-         (set P (+ (val P) D))
-         (prinl " and move to square " (val P) ".")
-
-      )
-   )
-)
-
-#{
-(setq Ps (players 3))
-
-(println 'Ps Ps)
-(println (mapcar val Ps))
-}#
-
-(setq P (pack "Player" 1))
-(set P 1)
-(turn P)
+   (let D NIL
+      (loop
+         (setq D (rand 1 6))
+         (prin P " on square " (val P) ", rolls a " D)
+         (if (> (+ (val P) D) 100)
+            (prinl " but cannot move")
+            (set P (+ (val P) D))
+            (prinl " and move to square " (val P))
+            (when (= (val P) 100)
+               (prinl P " wins!")
+               (throw 'win) )
+            (when (assoc (val P) *D)
+               (set P (cadr @))
+               (if (cddr @)
+                  (prinl "Yay! Landed on ladder. Climb up to " (val P))
+                  (prinl "Ooops! Landed on snake. Slither down to " (val P)) ) ) )
+         (T (> 6 D))
+         (prinl "Rolled a 6 so roll again") ) ) )
+(de main (N)
+   (let P (players N)
+      (catch 'win
+         (loop
+            (mapc turn P) ) ) ) )
+(main 10)
 
 (msg 'ok)
 (bye)

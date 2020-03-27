@@ -8,7 +8,7 @@
    (use R
       (native
          "libmonocypher.so"
-         "crypto_elligator2_direct"
+         "crypto_hidden_to_curve"
          NIL
          '(R (32 B . 32))
          (cons NIL (32) S) )

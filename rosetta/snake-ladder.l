@@ -11,7 +11,7 @@
             (set P 1)
             (link P) ) ) ) )
 (de turn (P)
-   (let D NIL
+   (use D
       (loop
          (setq D (rand 1 6))
          (prin P " on square " (val P) ", rolls a " D)

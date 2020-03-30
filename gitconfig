@@ -3,4 +3,4 @@
 	name = Mike
 	email = mpech@tuta.io
 [alias]
-	st = status
+	st = status -b

@@ -1,28 +1,26 @@
+(de burn (Lst)
+   (by
+      '((A)
+         (put A 'P (inc 'P))
+         (set A (char A)) )
+      group
+      Lst ) )
+(de first (Lst)
+   (mini
+      '((L)
+         (nand
+            (cdr L)
+            (apply
+               min
+               (mapcar '((A) (get A 'P)) L) ) ) )
+      Lst ) )
 (de uniq? (Str)
-   (let
-      (P 0
-         Lst
-         (by
-            '((A)
-               (put A 'P (inc 'P))
-               (set A (char A)) )
-            group
-            (chop Str) )
-      )
-      (println 'Lst Lst)
-      (println 'mini
-         (mini
-            '((L)
-               (println 'L 'L (mapcar '((A) (get A 'P)) L) (cdr L))
-               (nand
-                  (cdr L)
-                  (mini '((A) (get A 'P)) L)
-                  @@ )
-            )
-            Lst ) )
-      (println '@@ @@)
+   (let (P 0  Lst (burn (chop Str))  M (first Lst))
+      (println 'mini M)
+      (println (apply min (mapcar '((A) (get A 'P)) M)))
    )
 )
+(pp 'uniq?)
 (uniq? "aaamikem")
 
 (msg 'ok)

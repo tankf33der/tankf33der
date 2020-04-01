@@ -4,3 +4,7 @@ alias runme 'run -p pil $FILE'
 bind F2 'save -p'
 bind F4 runme
 ft lisp l
+option lisp expand-tab true
+option lisp indent-width 3
+option lisp tab-width 3
+

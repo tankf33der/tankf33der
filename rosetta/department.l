@@ -16,6 +16,5 @@
             (<> 12 (apply + L))
             (println L) ) ) ) )
 (departments)
-
 (msg 'ok)
-# (bye)
+(bye)

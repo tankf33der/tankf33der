@@ -56,25 +56,24 @@ $ cat monocypher-ed25519.c >> mike.c
 $ cat utils.c >> mike.c
 $ cat test.c >> mike.c
 $ ccomp -interp mike.c
-mike.c:2310: warning: "FOR" redefined
- 2310 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)
+mike.c:2884: warning: "FOR" redefined
+ 2884 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)
       |
 mike.c:60: note: this is the location of the previous definition
    60 | #define FOR(i, start, end)         FOR_T(size_t, i, start, end)
       |
-In file included from mike.c:2699:
+In file included from mike.c:3280:
 utils.h:65: warning: "FOR" redefined
    65 | #define FOR(i, start, end) for (size_t i = (start); i < (end); i++)
       |
-mike.c:2310: note: this is the location of the previous definition
- 2310 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)
+mike.c:2884: note: this is the location of the previous definition
+ 2884 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)
       |
-mike.c:2705: error: redefinition of 'store64_le'
-mike.c:2717: error: redefinition of 'load32_le'
-mike.c:2725: error: redefinition of 'load64_le'
+mike.c:3286: error: redefinition of 'store64_le'
+mike.c:3298: error: redefinition of 'load32_le'
+mike.c:3306: error: redefinition of 'load64_le'
 3 errors detected.
 $ fix errors by comment them
-$ comment free() call in vector_test(). Helps for: Stuck state: calling free(0LL)
 $ add code to the end of mike.c file
 int
 memcmp (const void *str1, const void *str2, size_t count)

@@ -31,6 +31,8 @@ $ ./configure -prefix /home/mpech/ccomp37 x86_64-linux
 $ make -j 8 all
 $ make install
 $ export PATH=$PATH:/home/mpech/ccomp37/bin
+$ ccomp --version
+The CompCert C verified compiler, version 3.7
 ```
 
 ### try compile mode

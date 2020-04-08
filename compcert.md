@@ -1,9 +1,9 @@
-### february 2020
+### March 2020
 
 Lets write notes how to check Monocypher by CompCert
 ```
-Monocypher 3.0.0
-Compcert 3.6
+Monocypher 3.1.0
+Compcert 3.7
 ```
 ### get opam ready
 ```
@@ -17,6 +17,10 @@ $ opam install menhir=20190626
 ```
 
 ### compile and install
+If you already have ocamp-opam ecosystem installed and updated above then only:
+```
+$ eval $(opam env)
+```
 ```
 $ cd
 $ wget http://compcert.inria.fr/release/compcert-3.7.tgz

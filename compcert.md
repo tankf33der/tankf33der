@@ -51,10 +51,7 @@ $ cd Monocypher
 $ make clean
 $ bash tests/formal-analysis.sh
 $ cd tests/formal-analysis
-$ cat monocypher.c >> mike.c
-$ cat monocypher-ed25519.c >> mike.c
-$ cat utils.c >> mike.c
-$ cat test.c >> mike.c
+$ cat monocypher.c monocypher-ed25519.c utils.c test.c > mike.c
 $ ccomp -interp mike.c
 mike.c:2884: warning: "FOR" redefined
  2884 | #define FOR(i, min, max)     for (size_t i = min; i < max; i++)

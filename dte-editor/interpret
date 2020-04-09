@@ -1,0 +1,10 @@
+#!/bin/sh
+case "$1" in
+python) cmd=python3 ;;
+lua) cmd=lua ;;
+lisp) cmd=pil ;;
+ruby) cmd="ruby --jit" ;;
+*) echo "run -p echo 'Error: unknown interpretter \"$1\"'" && exit ;;
+esac
+
+echo "run -p $cmd \$FILE"

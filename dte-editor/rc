@@ -2,7 +2,7 @@ include -b color/darkgray
 
 set file-history false
 
-set statusline-left "%f %m   %y,%X (%Y)"
+set statusline-left "%f %m %s %y,%X (%Y)"
 set statusline-right "%t"
 
 set expand-tab true

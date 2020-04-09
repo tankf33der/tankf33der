@@ -1,11 +1,23 @@
 include -b color/darkgray
+
 set file-history false
-set statusline-left "%f   %y,%X (%Y)"
+
+set statusline-left "%f %m   %y,%X (%Y)"
 set statusline-right "%t"
+
+set expand-tab true
+set indent-width 4
+set tab-width 4
+
 alias runme 'eval $DTE_HOME/interpret $FILETYPE'
 bind F2 'save -p'
 bind F4 runme
+bind M-l "run -p curl -F f:1=@$FILE ix.io"
+
 ft lisp l
 option lisp expand-tab true
 option lisp indent-width 3
 option lisp tab-width 3
+option ruby indent-width 2
+option ruby tab-width 2
+

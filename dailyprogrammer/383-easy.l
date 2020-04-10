@@ -20,6 +20,7 @@
 (test NIL (necklace "x" ""))
 (test T (necklace "" ""))
 
+# optional bonus 2
 
 
 

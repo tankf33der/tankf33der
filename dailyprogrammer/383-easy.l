@@ -1,5 +1,3 @@
-
-
 (de rotn (A)
    (let A (chop A)
       (make

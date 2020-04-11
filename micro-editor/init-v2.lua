@@ -22,7 +22,7 @@ end
 function ixio(bp)
     local buf = bp.Buf
     buf:Save()
-    shell.RunInteractiveShell("curl -F 'f:1=@" .. buf.Path .. "' ix.io", true, false)
+    shell.RunInteractiveShell("curl -F 'file=@" .. buf.Path .. "' https://envs.sh", true, false)
 end
 
 function init()

@@ -11,7 +11,7 @@ end
 function ixio()
 	local buf = CurView().Buf
 	buf:Save()
-	HandleShellCommand("curl -F 'f:1=@" .. buf.Path .. "' ix.io", true, true)
+	HandleShellCommand("curl -F 'file=@" .. buf.Path .. "' https://envs.sh", true, true)
 	end
 BindKey("AltL", "init.ixio") -- AltShift+L
 BindKey("CtrlR", "init.runme")

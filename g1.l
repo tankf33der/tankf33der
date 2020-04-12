@@ -14,3 +14,6 @@
       (randsym)
       " && git push -q" ) )
 (bye)
+
+
+# alias g1='git commit -aqm . && git push -q'

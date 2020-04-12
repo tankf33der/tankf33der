@@ -1,3 +1,4 @@
+```
 https://preshing.com/20141119/how-to-build-a-gcc-cross-compiler/
 https://wiki.osdev.org/GCC_Cross-Compiler#The_Build
 https://rtime.felk.cvut.cz/hw/index.php/How_to_build_GNU_cross-compilers
@@ -5,9 +6,12 @@ https://gcc-renesas.com/wiki/index.php?title=Building_the_RL78_Toolchain_under_U
 Linux from scratch
 gentoo link on wiki
 archlinux
+```
 
+```
 copy from
 https://gist.github.com/resetnow/1b55beed32f3eb3f90513896565ef5c0
+```
 
 ## Set environment variables
 

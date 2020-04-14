@@ -1,6 +1,10 @@
-(load "@lib/http.l" @lib/xhtml.l")
-
+(load "@lib/http.l" "@lib/xhtml.l" "@lib/form.l")
+(allowed ("app/") "!mike1")
 (de mike1 (N)
-   (msg N)
+   (ht:Prin *Url "mike")
+)
+(de k (N)
+   (ht:Prin *Url "k")
 )
 (server 8080 "!mike1")
+(wait)

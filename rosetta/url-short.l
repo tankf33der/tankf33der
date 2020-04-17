@@ -10,3 +10,4 @@
          (commit 'upd)
          (respond (pack "http://127.0.0.1:8080/?" K "\n")) ) ) )
 (server 8080 "!short")
+(wait)

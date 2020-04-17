@@ -1,6 +1,6 @@
 (load "@lib/http.l")
 (allowed NIL "!short" u)
-(pool "urls.db")
+(pool "urls.db" (6))
 (de short (R)
    (ifn *Post
       (redirect (fetch NIL (format R)))

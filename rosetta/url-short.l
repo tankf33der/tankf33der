@@ -1,4 +1,4 @@
-(load "@lib/http.l" "@lib/xhtml.l")
+(load "@lib/http.l")
 (allowed NIL "!short" u)
 (pool "urls.db")
 (de short (R)

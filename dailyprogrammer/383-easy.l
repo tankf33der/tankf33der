@@ -1,4 +1,5 @@
 (gc 36)
+
 (de rotn (A)
    (make
       (do (length A)
@@ -23,32 +24,39 @@
 
 # optional bonus 2
 (let D NIL
+   #(in "383-test1.txt"
    (in "enable1.txt"
       (until (eof)
          (let
             (L (sort (mapcar char (line)))
-               K (cons (char (hash L)) L) )
+               K (cons (char (hash L)) L)
+               R (idx 'D K) )
+
+            (println 'R R 'L L 'K K)
+            (wait 50)
+            (if R
+               (inc (caar @))
+
+               (set (car K) 1)
+               (idx 'D K T) )
+
+
+            #{
             #(println 'L L 'K K)
-            #(wait 1000)
+            #(wait 500)
             (if (idx 'D K)
                (inc (caar @))
                (set (car K) 1)
                (idx 'D K T) )
+            }#
          )
 
       )
    )
-   #{
-   (for L (idx 'D)
-      (println 'L L (val (car L)))
-      (wait 10)
-   )
-   }#
-   (println
-      (filter
-         '((L) (= 8 (val (car L))))
-         (idx 'D) ) )
 
+   (for L (idx 'D)
+      (println 'L L (val (car L)) (length (cdr L)) (pack (mapcar char (cdr L))))
+   )
 )
 
 

@@ -1,3 +1,4 @@
+(gc 36)
 (de rotn (A)
    (make
       (do (length A)
@@ -21,7 +22,34 @@
 (test T (necklace "" ""))
 
 # optional bonus 2
+(let D NIL
+   (in "enable1.txt"
+      (until (eof)
+         (let
+            (L (sort (mapcar char (line)))
+               K (cons (char (hash L)) L) )
+            #(println 'L L 'K K)
+            #(wait 1000)
+            (if (idx 'D K)
+               (inc (caar @))
+               (set (car K) 1)
+               (idx 'D K T) )
+         )
 
+      )
+   )
+   #{
+   (for L (idx 'D)
+      (println 'L L (val (car L)))
+      (wait 10)
+   )
+   }#
+   (println
+      (filter
+         '((L) (= 8 (val (car L))))
+         (idx 'D) ) )
+
+)
 
 
 (msg '383-easy-ok)

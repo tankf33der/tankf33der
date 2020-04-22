@@ -6,14 +6,17 @@
          K (cons (char (hash N)) N)
          R (idx 'D K) )
       (if R
-         (inc (caar K))
+         (inc (caar R))
          (prog
             (set (car K) 1)
             (idx 'D K T) )
-
-
+      )
 
    )
 )
+(println
+   (filter
+      '((L) (> (val (car L)) 2))
+      (idx 'D) ) )
 (msg 'ok)
 (bye)

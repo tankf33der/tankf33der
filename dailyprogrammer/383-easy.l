@@ -25,6 +25,7 @@
 # optional bonus 2
 (let D NIL
    #(in "383-test1.txt"
+   #(in "383-test2.txt"
    (in "enable1.txt"
       (until (eof)
          (let
@@ -32,8 +33,8 @@
                K (cons (char (hash L)) L)
                R (idx 'D K) )
 
-            (println 'R R 'L L 'K K)
-            (wait 50)
+            #(println 'R R 'L L 'K K)
+            #(wait 50)
             (if R
                (inc (caar @))
 
@@ -41,22 +42,25 @@
                (idx 'D K T) )
 
 
-            #{
-            #(println 'L L 'K K)
-            #(wait 500)
-            (if (idx 'D K)
-               (inc (caar @))
-               (set (car K) 1)
-               (idx 'D K T) )
-            }#
          )
 
       )
    )
 
+   #{
    (for L (idx 'D)
       (println 'L L (val (car L)) (length (cdr L)) (pack (mapcar char (cdr L))))
    )
+   }#
+
+   (for L (idx 'D)
+      (when (> (car (val L)) 4)
+         (println 'L L (val (car L)))
+      )
+   )
+
+
+
 )
 
 

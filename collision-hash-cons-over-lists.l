@@ -2,11 +2,11 @@
 (seed (in "/dev/urandom" (rd 8)))
 (de randL NIL
    (make
-      (do 2
+      (do 1
          (link (rand 0 255)) ) ) )
 (off D)
 (zero C)
-(do 1000
+(do 100
    (let (L (randL)  K (cons (char (hash L)) L)  R (idx 'D K))
       #(println 'L L 'K K)
       (ifn R
@@ -32,7 +32,7 @@
       '((L)
          (and
             (> (val (car L)) 1)
-            (println 'L L (val (car L)))
+            (println 'L L (val (car L)) (cdr L))
          )
       )
       (idx 'D) )

@@ -47,7 +47,7 @@
    )
 
    (for L (idx 'D)
-      (when (= (val (car L)) 4)
+      (when (= (val (car L)) 12)
          (println 'L L (val (car L)) (getl (car L)))
       )
    )

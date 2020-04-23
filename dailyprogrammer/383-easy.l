@@ -1,5 +1,6 @@
 # https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
-#
+# https://www.morewords.com/
+
 (gc 64)
 
 (de rotn (A)
@@ -26,9 +27,10 @@
 
 # optional bonus 2
 (let D NIL
+   (in "10k.txt"
    #(in "383-test1.txt"
    #(in "383-test2.txt"
-   (in "enable1.txt"
+   #(in "enable1.txt"
       (until (eof)
          (let
             (L (sort (line))
@@ -52,7 +54,7 @@
    }#
 
    (for L (idx 'D)
-      (when (= 4 (val (car L)))
+      (when (= (val (car L)) 3)
          (println 'L L (val (car L)))
       )
    )

@@ -1,7 +1,6 @@
 # https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
 # https://www.morewords.com/
-
-(gc 64)
+(gc 72)
 
 (de rotn (A)
    (make
@@ -27,42 +26,35 @@
 
 # optional bonus 2
 (let D NIL
-   (in "10k.txt"
+   # (in "10k.txt"
    #(in "383-test1.txt"
    #(in "383-test2.txt"
-   #(in "enable1.txt"
+   (in "enable1.txt"
       (until (eof)
          (let
-            (L (sort (line))
-               K (cons (char (hash L)) L)
-               R (idx 'D K) )
-            (if R
+            (W (line T)
+               L (sort (chop W))
+               K (cons (char (hash L)) L) )
+            (set (car K) 1)
+            (put (car K) 1 W)
+            (when (idx 'D K T)
                (inc (caar @))
-               (set (car K) 1)
-               (idx 'D K T) )
-
-
+               (put (caar @) (val (caar @)) W)
+            )
          )
 
       )
    )
 
-   #{
    (for L (idx 'D)
-      (println 'L L (val (car L)) (length (cdr L)) (pack (mapcar char (cdr L))))
-   )
-   }#
-
-   (for L (idx 'D)
-      (when (= (val (car L)) 3)
-         (println 'L L (val (car L)))
+      (when (= (val (car L)) 4)
+         (println 'L L (val (car L)) (getl (car L)))
       )
    )
 
 
 
 )
-
 
 (msg '383-easy-ok)
 (bye)

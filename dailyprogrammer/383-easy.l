@@ -1,4 +1,6 @@
-(gc 36)
+# https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
+#
+(gc 64)
 
 (de rotn (A)
    (make
@@ -29,15 +31,11 @@
    (in "enable1.txt"
       (until (eof)
          (let
-            (L (sort (mapcar char (line)))
+            (L (sort (line))
                K (cons (char (hash L)) L)
                R (idx 'D K) )
-
-            #(println 'R R 'L L 'K K)
-            #(wait 50)
             (if R
                (inc (caar @))
-
                (set (car K) 1)
                (idx 'D K T) )
 
@@ -54,7 +52,7 @@
    }#
 
    (for L (idx 'D)
-      (when (> (car (val L)) 4)
+      (when (= 4 (val (car L)))
          (println 'L L (val (car L)))
       )
    )

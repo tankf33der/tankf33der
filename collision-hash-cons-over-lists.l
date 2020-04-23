@@ -1,13 +1,13 @@
-(gc 128)
+(gc 1500)
 (seed (in "/dev/urandom" (rd 8)))
 (de randL NIL
    (make
-      (do 1
+      (do (rand 4 7)
          (link (rand 0 255)) ) ) )
 (off D)
 (zero C)
-(do 100
-   (let (L (randL)  K (cons (char (hash L)) L)  R (idx 'D K))
+(do 10000000
+   (let (L (sort (randL))  K (cons (char (hash L)) L)  R (idx 'D K))
       #(println 'L L 'K K)
       (ifn R
          (prog
@@ -31,7 +31,7 @@
    (filter
       '((L)
          (and
-            (> (val (car L)) 1)
+            (> (val (car L)) 2)
             (println 'L L (val (car L)) (cdr L))
          )
       )
@@ -40,6 +40,7 @@
 
 (println 'C C)
 (println (length (idx 'D)))
+(println (heap))
 
 (msg 'ok)
 (bye)

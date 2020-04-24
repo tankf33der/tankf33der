@@ -59,7 +59,7 @@
 }#
 
 (println (rotn (chop "mike")))
-(println (rotn (chop "alert")))
+(println (rotn (chop "pesto")))
 
 (msg '383-easy-ok)
 (bye)

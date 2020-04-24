@@ -24,43 +24,6 @@
 (test NIL (necklace "x" ""))
 (test T (necklace "" ""))
 
-#{
-# optional bonus 2
-(let D NIL
-   # (in "10k.txt"
-   #(in "383-test1.txt"
-   #(in "383-test2.txt"
-   (in "enable1.txt"
-      (until (eof)
-         (let
-            (W (line T)
-               L (sort (chop W))
-               K (cons (char (hash L)) L) )
-            (set (car K) 1)
-            (put (car K) 1 W)
-            (when (idx 'D K T)
-               (inc (caar @))
-               (put (caar @) (val (caar @)) W)
-            )
-         )
-
-      )
-   )
-
-   (for L (idx 'D)
-      (when (= (val (car L)) 12)
-         (println 'L L (val (car L)) (getl (car L)))
-      )
-   )
-
-
-
-)
-}#
-
-(println (rotn (chop "mike")))
-(println (rotn (chop "pesto")))
-
 (msg '383-easy-ok)
 (bye)
 

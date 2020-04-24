@@ -1,4 +1,4 @@
-# https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
+# https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
 # https://www.morewords.com/
 (gc 72)
 
@@ -24,6 +24,7 @@
 (test NIL (necklace "x" ""))
 (test T (necklace "" ""))
 
+#{
 # optional bonus 2
 (let D NIL
    # (in "10k.txt"
@@ -55,6 +56,10 @@
 
 
 )
+}#
+
+(println (rotn (chop "mike")))
+(println (rotn (chop "alert")))
 
 (msg '383-easy-ok)
 (bye)

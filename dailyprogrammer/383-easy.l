@@ -24,6 +24,21 @@
 (test NIL (necklace "x" ""))
 (test T (necklace "" ""))
 
+# optional bonus #2
+(off D)
+(setq Lst
+   (make (in "enable1.txt" (while (line) (link @)))) )
+(for L Lst
+   (idx 'D (cons (char (hash L)) L) T) )
+(println
+   (filter
+      '((L)
+         (=
+            4
+            (cnt
+               '((A) (idx 'D (cons (char (hash A)) A)))
+               (rotn L) ) ) )
+      Lst ) )
 (msg '383-easy-ok)
 (bye)
 

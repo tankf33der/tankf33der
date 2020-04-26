@@ -6,7 +6,7 @@
    (let Len (length L)
       (use R
          (native
-            "libmonocypher.so.2"
+            "libmonocypher.so"
             "crypto_blake2b"
             NIL
             '(R (64 B . 64))

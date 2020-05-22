@@ -1,6 +1,6 @@
 (load "crypto/aes-sbox.l")
 
-(setq 
+(setq
    A (21 33 44 51)
    B (44 65 76 99)
    C (32 45 66 91)
@@ -36,12 +36,12 @@
 
 (setq L1 (colmn-get Key 1))
 (do 3 (rot L1))
-(test (44 32 11 21) L1) 
+(test (44 32 11 21) L1)
 
 (subbytes L1)
 (test (113 183 43 89) L1)
 
-(test 
+(test
    (21 44 32 11)
    (colmn-get Key 1) )
 
@@ -52,7 +52,7 @@
 
 (colmn-set
    Key
-   3 
+   3
    (mapcar
       x|
       (colmn-get Key 2)

@@ -1,14 +1,14 @@
 (setq *CODE
    (quote
       (+ (push 'S (+ (++ S) (++ S))))
-      (- 
+      (-
          (let @@ (++ S)
             (push 'S (- (++ S) @@)) ) )
       (drop (++ S))
       (dup (push 'S (car S))) ) )
 (setq *USER
    (quote
-      (dec (1 inc 1 - -)) 
+      (dec (1 inc 1 - -))
       (inc (1 dup drop +)) ) )
 (de inner (A)
    (cond
@@ -16,7 +16,7 @@
       ((num? A) (push 'S A))
       ((setq @@ (assoc A *CODE)) (run (cdr @@)))
       ((setq @@ (assoc A *USER)) (inner (cdr @@)))
-      (T (inner (car A)) (inner (cdr A))) ) ) 
+      (T (inner (car A)) (inner (cdr A))) ) )
 (de outter (A)
    (let S NIL
       (for I A

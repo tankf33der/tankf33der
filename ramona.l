@@ -38,7 +38,7 @@
    (let (L1 (cdr Lst1)  L2 (cdr Lst2))
       (do 4
          (xchg L1 L2)
-         (cut 2 'L1) 
+         (cut 2 'L1)
          (cut 2 'L2) ) )
    (println Lst1 Lst2) )
 
@@ -52,7 +52,7 @@
    (nn
       (nth Lst 1)
       (nth Lst 3) )
-   (println 'Lst Lst) ) 
+   (println 'Lst Lst) )
 
 (msg 'new)
 (de xor64 (N)
@@ -63,7 +63,7 @@
          (nth L 7) (xor64 (get L 7))
          (nth L 8) (xor64 (get L 8))
          (nth L 1)
-         (x| 
+         (x|
             (get L 1)
             (& (xor64 (get L 5)) C0) )
          (nth L 2)
@@ -73,52 +73,52 @@
          'T0 (x| C0 (& (get L 1) (get L 3)))
          'T1 (x| C1 (& (get L 2) (get L 4)))
          (nth L 1)
-         (x| 
+         (x|
             (get L 1)
             (& (get L 5) (get L 7)) )
          (nth L 2)
-         (x| 
+         (x|
             (get L 2)
             (& (get L 6) (get L 8)) )
          (nth L 7)
-         (x| 
+         (x|
             (get L 7)
             (& (xor64 (get L 3)) (get L 5)) )
          (nth L 8)
-         (x| 
+         (x|
             (get L 8)
             (& (xor64 (get L 4)) (get L 6)) )
          (nth L 3)
          (x|
-            (get L 3) 
+            (get L 3)
             (& (get L 1) (get L 5)) )
          (nth L 4)
          (x|
-            (get L 4) 
+            (get L 4)
             (& (get L 2) (get L 6)) )
          (nth L 5)
-         (x| 
+         (x|
             (get L 5)
             (& (get L 1) (xor64 (get L 7))) )
          (nth L 6)
-         (x| 
+         (x|
             (get L 6)
             (& (get L 2) (xor64 (get L 8))) )
          (nth L 1)
-         (x| 
-            (get L 1) 
+         (x|
+            (get L 1)
             (| (get L 3) (get L 7)) )
          (nth L 2)
-         (x| 
-            (get L 2) 
+         (x|
+            (get L 2)
             (| (get L 4) (get L 8)) )
          (nth L 7)
-         (x| 
-            (get L 7) 
+         (x|
+            (get L 7)
             (& (get L 3) (get L 5)) )
          (nth L 8)
-         (x| 
-            (get L 8) 
+         (x|
+            (get L 8)
             (& (get L 4) (get L 6)) )
          (nth L 3) (x| (get L 3) (& T0 (get L 1)))
          (nth L 4) (x| (get L 4) (& T1 (get L 2)))
@@ -130,23 +130,23 @@
       (nth L 4) (x| (get L 4) (get L 5))
       (nth L 6)
       (x|
-         (get L 6) 
+         (get L 6)
          (get L 1)
          (get L 7) )
       (nth L 8) (x| (get L 8) (get L 1))
       (nth L 1) (x| (get L 1) (get L 4))
       (nth L 3) (x| (get L 3) (get L 6))
       (nth L 5)
-      (x| 
-         (get L 5) 
-         (get L 2) 
+      (x|
+         (get L 5)
+         (get L 2)
          (get L 8) )
       (nth L 7) (x| (get L 7) (get L 2)) ) )
 (let L1 (111 221 331 441 551 661 771 881)
    (println 'L1 L1)
    (SS L1 1177 2277)
    (println 'L1 L1) )
-      
 
-   
+
+
 (bye)

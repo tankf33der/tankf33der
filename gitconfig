@@ -3,3 +3,5 @@
 	email = tankf33der@disroot.org
 [alias]
 	st = status -sb
+[pull]
+	rebase = false

@@ -1,11 +1,10 @@
 (load "sha512.l")
+
 (de hex2L (H)
-   (println H)
    (make
       (for (L (chop H) L (cddr L))
          (link (hex (pack (car L) (cadr L)))) ) ) )
 (de createL (Lst)
-   (println Lst)
    (let Lst (split Lst "\*" "\,")
       (conc
          (need (setq @ (format (car Lst))) 0)
@@ -18,16 +17,22 @@
             (from "string: ")
             (setq K (createL (clip (line))))
             (from "hash=")
-            (setq C
+            (setq C 
                (conc
                   (hex2L (line T))
                   (hex2L (pack (clip (line))))
-                  #(hex2L (pack (clip (line))))
-                  #(hex2L (pack (clip (line))))
-                  ) )
-            #(println C)
-            #(test C (sha512 K))
-    ) ) )
-)
-(msg 'ok)
-(bye)
+                  (hex2L (pack (clip (line))))
+                  (hex2L (pack (clip (line)))) ) )
+            #(println K C)
+            (test C (sha512 K)) ) ) ) 
+   (for F '("tests/SHA512ShortMsg.rsp" "tests/SHA512LongMsg.rsp")
+      (in F
+         (until (eof)
+            (and
+               (from "Msg = ")
+               (setq K (hex2L (line T)))
+               (from "MD = ")
+               (setq C (hex2L (line T)))
+               (test C (sha512 K)) ) ) ) ) )
+(msg 'OK-test-SHA512)
+

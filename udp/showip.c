@@ -29,6 +29,14 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
 		return 2;
 	}
+    printf("%d\n", res->ai_flags);
+    printf("%d\n", res->ai_family);
+    printf("%d\n", res->ai_socktype);
+    printf("%d\n", res->ai_protocol);
+    printf("%u\n", res->ai_addrlen);
+    printf("%p\n", res->ai_canonname);
+    printf("%p\n", res->ai_addr);
+    printf("%p\n", res->ai_next);
 
 	printf("IP addresses for %s:\n\n", argv[1]);
 

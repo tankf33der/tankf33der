@@ -1,40 +1,43 @@
 `(== 64 64)
 
 (setq Hints (native "@" "calloc" 'N 1 48))
-(struct Hints 'I -1 (0 . 4) -1)
+(struct Hints 'I (0 . 4) (0 . 4) -1)
 #{
-   PF_UNSPEC  0
-   PF_INET    2
-   PF_INET6  10
+   AF_UNSPEC   0
+   SOCK_STREAM 1
+
+	memset(&hints, 0, sizeof hints);
+	hints.ai_family = AF_UNSPEC; // AF_INET or AF_INET6 to force version
+	hints.ai_socktype = SOCK_STREAM;
 }#
 
-(native 
-   "@" 
-   "getaddrinfo" 
+(native
+   "@"
+   "getaddrinfo"
    NIL # checkme
-   (car (argv)) 
-   NIL 
-   Hints 
-   '(R (8 . N) . 0) )
+   (car (argv))
+   0
+   Hints
+   '(R (8 . N)) )
 (use (A P S)
    (loop
       (setq @@
-         (struct 
-            R 
-            '(I I I I I I N N N) ) )
-      (setq A 
-         (+ 
-            (get @@ 7) # struct sockaddr *ai_addr
-            (if (= 2 (setq P (get @@ 2))) 
-               4 
+         (struct
+            R
+            '(I I I I N N N N) ) )
+      (setq A
+         (+
+            (get @@ 6) # struct sockaddr *ai_addr
+            (if (= 2 (setq P (get @@ 2)))
+               4
                8 ) ) )
-      (native 
-         "@" 
-         "inet_ntop" 
-         NIL 
-         P 
-         A 
-         '(S (46 C . 46)) 
+      (native
+         "@"
+         "inet_ntop"
+         NIL
+         P
+         A
+         '(S (46 C . 46))
          46 )
       (println 'Addr-> (pack S))
       (T (=0 (last @@)))

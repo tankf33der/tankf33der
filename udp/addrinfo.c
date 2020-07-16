@@ -6,11 +6,14 @@
 
 int main (void) {
     struct addrinfo hints;
+    size_t i;
 
 	// memset(&hints, 0, sizeof hints);
 	// hints.ai_family = AF_UNSPEC; // AF_INET or AF_INET6 to force version
 	// hints.ai_socktype = SOCK_STREAM;
 
+    printf("%lu\n", sizeof(i));
+    printf("%lu\n", sizeof(hints));
     printf("%p\n", &hints.ai_flags);
     printf("%p\n", &hints.ai_family);
     printf("%p\n", &hints.ai_socktype);

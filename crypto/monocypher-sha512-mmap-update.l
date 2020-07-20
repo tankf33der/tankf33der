@@ -2,13 +2,13 @@
 (load "sodium-ed25519.l")
 (de sha512_init (M)
    (native
-      "libmonocypher.so.2"
+      "libmonocypher.so"
       "crypto_sha512_init"
       NIL
       M ) )
 (de sha512_update (M D S)
    (native
-      "libmonocypher.so.2"
+      "libmonocypher.so"
       "crypto_sha512_update"
       NIL
       M
@@ -17,7 +17,7 @@
 (de sha512_fin (M)
    (let R NIL
       (native
-         "libmonocypher.so.2"
+         "libmonocypher.so"
          "crypto_sha512_final"
          NIL
          M
@@ -27,13 +27,13 @@
    (native "@" "mmap" 'N 0 L 1 2 F 0) )
 (de munmap (A L)
    (native "@" "munmap" 'N A L) )
-(let 
+(let
    (F (car (argv))
       Size (car (info F))
       Map (mmap Size (open F T))
       Sha512Mem (native "@" "malloc" 'N 856)
       Sha512_SodaMem (native "@" "malloc" 'N 208) )
-      
+
       (soda_start)
       (sha512_init Sha512Mem)
       (sodium_sha512_init Sha512_SodaMem)

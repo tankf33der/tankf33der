@@ -4,7 +4,7 @@
    (let B
       (format
          (make
-            (do (rand 24000 32000)
+            (do (rand 1024 2048)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -40,6 +40,7 @@
          (prinl N1 " >= " N2)
          (prinl N1 " < " N2)
          (prinl N1 " <= " N2)
+         (prinl N1 " = " N2)
          (prinl (abs N1) " & " (abs N2))
          (prinl (abs N3) " & " (abs N1))
          (prinl (abs N1) " | " (abs N2))
@@ -64,6 +65,7 @@
          (cmp2 '>= N1 N2)
          (cmp2 '< N1 N2)
          (cmp2 '<= N1 N2)
+         (cmp2 '= N1 N2)
          (test2 '& (abs N1) (abs N2))
          (test2 '& (abs N3) (abs N1))
          (test2 '| (abs N1) (abs N2))

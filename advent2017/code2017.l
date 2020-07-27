@@ -6,7 +6,7 @@
    (let Lst (append Lst (cons (car Lst)))
       (sum
          prog
-         (mapcon 
+         (mapcon
             '((L)
                (and
                   (= (car L) (cadr L))
@@ -44,8 +44,8 @@
 (de f2-1 (Lst)
    (sum
       '((L) (- (apply max L) (apply min L)))
-      Lst ) ) 
-(test 
+      Lst ) )
+(test
    18
    (f2-1 '((5 1 9 5) (7 5 3) (2 4 6 8))) )
 
@@ -54,7 +54,7 @@
       53460
       (f2-1
          (make
-            (do 16 
+            (do 16
                (link (make (do 16 (link (read))))) ) ) ) ) )
 
 (de f2-2 (Lst)
@@ -87,7 +87,7 @@
 # o) find last rightest bottom corner (** 515 2) = 265225
 # o) so matrix 515x515
 # o) find position of end point (center of matrix) (258, 258)
-# o) find position in matrix of start point 
+# o) find position in matrix of start point
 #    (515, (- 265225 265149)) = (515, 439)
 # o) calculate steps: (+ (- 515 258) (- 439 258)) = 438
 
@@ -130,7 +130,7 @@
                   (char) ) ) ) )
       C ) )
 (test 451 (f4-1 "data/4.txt"))
-         
+
 (de f4-2 (F)
    (let C 0
       (in F
@@ -245,7 +245,7 @@
    '(cqmvs . 1)
    (rassoc 1 (f7-1 "data/7.txt") ) )
 
-(setq 
+(setq
    F7D
    (make
       (in "data/7.txt"
@@ -289,13 +289,13 @@
    '(("vmttcwe" 2318) . -8)
    (f7-2) )
 
-# --- Day 8: I Heard You Like Registers ---                  
+# --- Day 8: I Heard You Like Registers ---
 (de f8-1-2 (F) # both parts
    (let (Dir NIL  M 0)
       (in F
          (until (eof)
             (use (D DC DC S SC SN)
-               (setq 
+               (setq
                   D (read)
                   DC (read)
                   DN (read) )
@@ -312,7 +312,7 @@
                   ("=" (setq SC "=") (read))
                   ("!" (setq SC "<>") (read))
                   (T (setq SC (read))) )
-               (setq SN (read)) 
+               (setq SN (read))
                (and
                   ((intern SC) (cadr (assoc S Dir)) SN)
                   (setq @@ ((intern DC) (cdr (assoc D Dir)) DN))
@@ -331,7 +331,7 @@
             (case (char)
                ("{" (if G (inc 'C) (inc 'B)))
                ("}"
-                  (if G 
+                  (if G
                      (inc 'C)
                      (inc 'S B)
                      (dec 'B) ) )
@@ -370,9 +370,9 @@
                (nth Lst Y) ) ) )
       (* (car Lst) (cadr Lst)) ) )
 (test 12 (f10-1 4 (3 4 1 5)))
-(test 
+(test
    38415
-   (f10-1 
+   (f10-1
       255
       (189 1 111 246 254 2 0 120 215 93 255 50 84 15 94 62) ) )
 
@@ -429,7 +429,7 @@
          (until (eof)
             (case (till ",^J" T)
                ("nw" (dec B))
-               ("n"  (dec (cdr B))) 
+               ("n"  (dec (cdr B)))
                ("ne" (inc B) (dec (cdr B)))
                ("sw" (dec B) (inc (cdr B)))
                ("s"  (inc (cdr B)))
@@ -462,7 +462,7 @@
                         (f12-kids (car B) D V)
                         (f12-kids (cdr B) D V) ) ) ) ) ) )
       (T
-         (conc 
+         (conc
             (f12-kids (car L) D V)
             (f12-kids (cdr L) D V) ) ) ) )
 (test (f12-kids 0 F12D) (f12-kids 3 F12D))
@@ -472,7 +472,7 @@
       ((not L))
       ((atom L)
          (unless (member L V)
-            (let 
+            (let
                (V (append V (cons L))
                   B (cdr (assoc L D)) )
                (or
@@ -496,7 +496,7 @@
       (C 1
          G 1
          GS NIL
-         D 
+         D
          (make
             (in F
                (until (eof)
@@ -518,7 +518,7 @@
 
 # --- Day 13: Packet Scanners ---
 (de f13-1-2 (F) # stolen
-   (let 
+   (let
       (I 1
          D
          (make
@@ -533,7 +533,7 @@
       (cons
          (sum
             '((L)
-               (and 
+               (and
                   (=0 (% (car L) (caddr L)))
                   (* (car L) (cadr L)) ) )
             D )
@@ -564,7 +564,7 @@
 (test 8230 (f14-1 "hfdlxzhv"))
 
 (de f14-2 (Str)
-   (let 
+   (let
       (Lst
          (make
             (for (I 0 (>= 127 I) (inc I))
@@ -607,7 +607,7 @@
                (&
                   (swap 'A (% (* A 16807) 2147483647))
                   `(hex "FFFF") )
-               (& 
+               (&
                   (swap 'B (% (* B 48271) 2147483647))
                   `(hex "FFFF") ) )
             (inc 'C) ) )
@@ -714,7 +714,7 @@
 
 # --- Day 18: Duet ---
 (de f18-1 (F)
-   (let 
+   (let
       (P
          (make
             (in F
@@ -742,16 +742,16 @@
    (f18-init (cdr L))
    (prog1
       (case (car L)
-         ("set" 
+         ("set"
             (set (cdr (assoc (cadr L) R))
                (f18-eval (caddr L)) ) )
          ("add"
             (inc
                (cdr (assoc (cadr L) R))
                (f18-eval (caddr L)) ) )
-         ("mul" 
+         ("mul"
             (set (cdr (assoc (cadr L) R))
-               (* 
+               (*
                   (cadr (assoc (cadr L) R))
                   (f18-eval (caddr L)) ) ) )
          ("mod"
@@ -763,7 +763,7 @@
          ("rcv" (or (gt0 (f18-eval (cadr L)))))
          ("jgz"
             (if (gt0 (f18-eval (cadr L)))
-               (inc 'I (caddr L)) 
+               (inc 'I (caddr L))
                (inc 'I) ) ) )
       (or (= "jgz" (car L)) (inc 'I)) ) )
 (test 4 (f18-1 "data/18-test.txt"))
@@ -780,9 +780,9 @@
          (inc
             (cdr (assoc (cadr L) R))
             (f18-eval (caddr L)) ) )
-      ("mul" 
+      ("mul"
          (set (cdr (assoc (cadr L) R))
-            (* 
+            (*
                (cadr (assoc (cadr L) R))
                (f18-eval (caddr L)) ) ) )
       ("mod"
@@ -798,7 +798,7 @@
    (f18-init (cdr L))
    (prog1
       (case (car L)
-         ("snd" 
+         ("snd"
             (yield (list (car L) (f18-eval (cadr L)))) )
          ("rcv"
             (set (cdr (assoc (cadr L) R)) (yield L)) )
@@ -851,7 +851,7 @@
          (case (car @@)
             ("snd"
                (fifo 'PB (cadr @@))
-               (yield T 'child) ) 
+               (yield T 'child) )
             ("rcv" (yield (fifo 'CB) 'child)) ) )
       C ) )
 (test 6858 (f18-2 "data/18.txt"))
@@ -912,7 +912,7 @@
          (f20-1-add (caddr L) (cadddr L))
          (f20-1-add (cadr L) (caddr L)) ) ) )
 (de f20-1 (F)
-   (let 
+   (let
       (I -1
          Lst
          (make
@@ -930,7 +930,7 @@
                                  (char)
                                  (link (format (till ">" T))) ) ) ) ) )
                   (line) ) ) ) )
-      (do 512 # long term 
+      (do 512 # long term
          (f20-1-tick Lst) )
       (car (mini f20-1-sum Lst)) ) )
 (test 0 (f20-1 "data/20-test.txt"))
@@ -980,17 +980,22 @@
 
 # --- Day 22: Sporifica Virus ---
 (de f22-left (D)
-   (case D
-      ((0 1) (-1 0))
-      ((1 0) (0 1))
-      ((0 -1) (1 0))
-      (T (0 -1)) ) )
+   (cadr
+      (assoc
+         D
+         '(
+            ((0 1) (-1 0))
+            ((1 0) (0 1))
+            ((0 -1) (1 0))
+            ((-1 0) (0 -1)) ) ) ) )
 (de f22-right (D)
-   (case D
-      ((-1 0) (0 1))
-      ((0 1) (1 0))
-      ((1 0) (0 -1))
-      (T (-1 0)) ) )
+   (cadr
+      (assoc
+         D
+         '(((-1 0) (0 1))
+            ((0 1) (1 0))
+            ((1 0) (0 -1))
+            ((0 -1) (-1 0)) ) ) ) )
 (de f22-add ("Dst" Src)
    (inc "Dst" (car Src))
    (inc (cdr "Dst") (cadr Src)) )
@@ -999,7 +1004,7 @@
       (Lst (make (in F (until (eof) (link (line)))))
          D NIL
          C 0
-         XY 
+         XY
          (list
             (inc (/ (length (car Lst)) 2))
             (inc (/ (length Lst) 2)) )
@@ -1026,7 +1031,7 @@
 # 0 - clean
 # 1 - weakened
 # 2 - infected
-# 3 - Flagged 
+# 3 - Flagged
 (de f22-2 (F)
    (let
       (Lst (make (in F (until (eof) (link (line)))))
@@ -1043,9 +1048,9 @@
                (= "#" B)
                (idx
                   'D
-                  (list (list I J) 2) 
+                  (list (list I J) 2)
                   T ) ) ) )
-      (do 10000000 
+      (do 10000000
          (let I (lup D XY)
             (case (cadr I)
                (1 (set (cdr I) 2) (inc 'C))
@@ -1087,10 +1092,10 @@
          (dec
             (cdr (assoc (cadr L) R))
             (f18-eval (caddr L)) ) )
-      ("mul" 
+      ("mul"
          (inc 'M)
          (set (cdr (assoc (cadr L) R))
-            (* 
+            (*
                (cadr (assoc (cadr L) R))
                (f18-eval (caddr L)) ) ) )
       ("jnz"
@@ -1109,7 +1114,7 @@
             (T (=0 (% N D)) NIL) ) ) ) )
 (de f23-2 (A B)
    (cnt '((N) (not (f23-2-prime? N))) (range A B 17)) )
-(test 911 (f23-2 109300 126300)) 
+(test 911 (f23-2 109300 126300))
 
 # --- Day 24: Electromagnetic Moat ---
 (de f24-1 (Lst I)
@@ -1207,7 +1212,7 @@
 
 (de f25-1 (NIL)
    (let (D '((0 NIL) 0 NIL)  L (car D)  C 0)
-      (do 12134527 
+      (do 12134527
          (state '(A)
             (A (if (=0 (car L)) 'B 'C)
                (case @

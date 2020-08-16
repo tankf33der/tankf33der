@@ -53,7 +53,7 @@
       (while (ge0 (dec 'N))
          (and
             (>
-               (setq @@ (sum prog (mapcar get Lst Z))) 
+               (setq @@ (sum prog (mapcar get Lst Z)))
                Max )
             (setq Max @@) )
          (off Flg)
@@ -69,7 +69,7 @@
 
 
 
-(setq L 
+(setq L
    (list
       (range 1 10)
       (range 10 20)
@@ -88,7 +88,7 @@
 # prev iter finished.
 (setq L '((1 2) (3 4 5)))
 (product L)                   # set new iter on smaller lists.
-(test 
+(test
    (1 3)
    (product 'cartesian) )     # take one number
 (co 'cartesian)               # oops, i need bigger list, stop it
@@ -99,7 +99,7 @@
 (product L)                   # define bigger list, start again
 (zero S)
 (while (product 'cartesian)   # sum over every list
-   (inc 'S (sum prog @)) )   
+   (inc 'S (sum prog @)) )
 (test
    S
    (sum '((L) (sum prog L)) (apply cartesian L)) )
@@ -110,7 +110,7 @@
 (product L)
 (zero S)
 (while (product 'cartesian)
-   (inc 'S (sum prog @)) ) 
+   (inc 'S (sum prog @)) )
 (test
    S
    (cartesian-sum L) )
@@ -120,7 +120,7 @@
 # Find max sum of items in cartesian product
 (setq L '((-25 52 -81) (76 20 -70) (-2 -7 115) (39 87 34)))
 (test
-   330 
+   330
    (cartesian-maxi L) )
 
 

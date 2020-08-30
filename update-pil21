@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+rm -rf pil21/*
+rm -rf pil21.tgz
+wget -q http://software-lab.de/pil21.tgz
+tar zxf pil21.tgz
+cd pil21
+git add .
+git commit -aqm "." > /dev/null
+git push -q

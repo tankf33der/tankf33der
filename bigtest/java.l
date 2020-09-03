@@ -4,16 +4,9 @@
    (let B
       (format
          (make
-            (do (rand 16000 32000)
+            (do (rand 5000 10000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
-#{
-(de test1 (S N1)
-   (let (N (read)  X (eval (list S N1)))
-      (unless (= N X)
-         (prinl "^J" N ": (" S " " N1 ") -> " X)
-         (bye) ) ) )
-}#
 (de test2 (S N1 N2)
    (let (N (read)  X (eval (list S N1 N2)))
       (unless (= N X)
@@ -24,7 +17,7 @@
       (do 1000
          (setq N1 (rnd))
          (while (=0 (setq N2 (rnd))))
-         (setq N3 (rand 64 2048))
+         (setq N3 (rand 48 2048))
          (prinl N1)
          (prinl N2)
          (prinl N3)

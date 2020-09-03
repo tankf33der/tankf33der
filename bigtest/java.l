@@ -4,7 +4,7 @@
    (let B
       (format
          (make
-            (do (rand 10 20)
+            (do (rand 1000 2000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 #{

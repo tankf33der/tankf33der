@@ -38,7 +38,17 @@
             (bin
                (pack (mapcar '((N) (getL L N)) *PC2)) ) )
          PP ) ) )
-(println (subkeys (hex2L (chop "133457799BBCDFF1"))))
+(test
+   223465186400245
+   (last (subkeys (hex2L (chop "133457799BBCDFF1")))) )
+
+(setq
+   Da (hex2L (chop "0123456789ABCDEF"))
+   B (bin64 Da)
+   KK (mapcar '((I) (get B I)) *IP) )
+(println (pack KK))
+
+
 
 (msg 'ok)
 (bye)

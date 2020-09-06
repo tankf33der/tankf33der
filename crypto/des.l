@@ -11,28 +11,34 @@
       L ) )
 (de rotate (L N)
    (append (nth L (inc N)) (head N L)) )
-
-(setq K (bin64 (hex2L (chop "133457799BBCDFF1"))))
-(setq KK
-   (mapcar
-      '((I) (get K I))
-      *PC1 ) )
-
-(setq
-   C (head 28 KK)
-   D (tail 28 KK) )
-(println 'C C)
-(println 'D D)
-(setq C1
-   (make
-      (mapc
-         '((S)
-            (link (pack (setq C (rotate C S)))) )
-         *SHIFTS ) ) )
-(mapc
-   println
-   C1 )
-
+(de getL (Lst N)
+   (let (X 1  Y N)
+      (when (> N 28)
+         (setq X 2  Y (- N 28)) )
+      (get Lst X Y) ) )
+(de subkeys (K)
+   (let
+      (B (bin64 K)
+         KK (mapcar '((I) (get B I)) *PC1)
+         C0 (head 28 KK)
+         D0 (tail 28 KK)
+         # pairs
+         PP
+         (make
+            (mapc
+               '((S)
+                  (link
+                     (make
+                        (link
+                           (setq C0 (rotate C0 S))
+                           (setq D0 (rotate D0 S)) ) ) ) )
+               *SHIFTS ) ) )
+      (mapcar
+         '((L)
+            (bin
+               (pack (mapcar '((N) (getL L N)) *PC2)) ) )
+         PP ) ) )
+(println (subkeys (hex2L (chop "133457799BBCDFF1"))))
 
 (msg 'ok)
 (bye)

@@ -1,3 +1,4 @@
+(load "test-des.l")
 (load "test-hkdf.l")
 (load "test-pbkdf2.l")
 (load "test-hmac.l")
@@ -56,7 +57,7 @@
       R ) )
 
 (de bigFromL (L)
-   (apply 
+   (apply
       |
       (mapcar >> (-56 -48 -40 -32 -24 -16 -8 0) L) ) )
 
@@ -101,7 +102,7 @@
    "2AAB1484E8C158F2BFB8C5FF41B57A525129131C957B5F93"
    (tiger192_hex (mapcar char (chop "abc"))) )
 (test
-   "F71C8583902AFB879EDFE610F82C0D4786A3A534504486B5" 
+   "F71C8583902AFB879EDFE610F82C0D4786A3A534504486B5"
    (tiger192_hex (mapcar char (chop "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-"))) )
 (test
    "48CEEB6308B87D46E95D656112CDF18D97915F9765658957"
@@ -125,7 +126,7 @@
    (grostl256_hex (mapcar char (chop "abc"))) )
 (test
    "8C7AD62EB26A21297BC39C2D7293B4BD4D3399FA8AFAB29E970471739E28B301"
-   (grostl256_hex 
+   (grostl256_hex
       (mapcar char (chop "The quick brown fox jumps over the lazy dog")) ) )
 (test
    "F48290B1BCACEE406A0429B993ADB8FB3D065F4B09CBCDB464A631D4A0080AAF"
@@ -291,7 +292,7 @@
    "249CE61E13BF8A3ECCA7F88BE7DD5E27BBD2BA9156260EF844DE5B4672E8E8A2"
    (blake256_hex (mapcar char (chop "1234567890123456789012345678901234567890123456789012345678901234"))) )
 (test
-   "85A7F5A19C5CE63CB4457F248AF0689D90D09D9130D12103D42B73AF6A8ECAC4" 
+   "85A7F5A19C5CE63CB4457F248AF0689D90D09D9130D12103D42B73AF6A8ECAC4"
    (blake256_hex (mapcar char (chop "12345678901234567890123456789012345678901234567890123456789012345"))) )
 (test
    "71FF0ACEC76E2BF9A5A2A770B9A0F1DDD41A7D6DBE2EB2F7FE2CA354843B5977"
@@ -473,9 +474,9 @@
    (shake256) )
 (test
    (150 107 192 206 149 76 106 136)
-   (head 
+   (head
       8
-      (shake128 (need 2048 48)) ) ) 
+      (shake128 (need 2048 48)) ) )
 (test
    (33 238 165 104 73 54 77 7)
    (head
@@ -491,7 +492,7 @@
 (test
    'T
    (bool
-      (and 
+      (and
          (>= *B 10)
          # 8 * len H "hash input"
          (=
@@ -501,7 +502,7 @@
             (expmod 2 (dec *L) *L) )
          (>= *L (** 2 (- *B 4)))
          (<= *L (** 2 (- *B 3)))
-         (= 
+         (=
             (dec *Q)
             (expmod *D (/ (dec *Q) 2) *Q)
             (expmod *I 2 *Q) )
@@ -532,5 +533,5 @@
          L
          (need 32 0) ) ) )
 
-(msg 'crypto-ALL-OK)   
+(msg 'crypto-ALL-OK)
 

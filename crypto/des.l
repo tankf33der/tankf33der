@@ -1,13 +1,4 @@
 (load "des-const.l")
-(de hex2L (L)
-   (make
-      (while (cut 2 'L)
-         (link (hex (pack @))) ) ) )
-(de bin64 (L)
-   (mapcan
-      '((N)
-         (chop (pad 8 (bin N))) )
-      L ) )
 (de rotate (L N)
    (append (nth L (inc N)) (head N L)) )
 (de getL (Lst N)
@@ -19,7 +10,7 @@
       (get Lst X Y) ) )
 (de subkeys (K)
    (let
-      (B (bin64 K)
+      (B (chop (pad 64 (bin K)))
          KK (mapcar '((I) (get B I)) *PC1)
          # split
          C0 (head 28 KK)
@@ -68,7 +59,7 @@
       (bin (mapcar '((I) (get A1 I)) *P)) ) )
 (de encrypt (Key Msg)
    (let
-      (Msg (bin64 Msg)
+      (Msg (chop (pad 64 (bin Msg)))
          Msg (mapcar '((I) (get Msg I)) *IP)
          # split
          Lo (bin (head 32 Msg))

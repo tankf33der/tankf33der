@@ -39,9 +39,6 @@
          '((L)
             (bin (mapcar '((N) (getL L N)) *PC2)) )
          PP ) ) )
-(test
-   223465186400245
-   (last (subkeys (hex2L (chop "133457799BBCDFF1")))) )
 (de rF (A B)
    (let
       (A1 (chop (pad 32 (bin A)))
@@ -69,25 +66,27 @@
             *S
             (make (while (cut 6 'A1) (link @))) ) )
       (bin (mapcar '((I) (get A1 I)) *P)) ) )
-(test
-   473342384
-   (rF 123456789 987654321) )
-(test
-   1507189517
-   (rF 12345678 87654321) )
-(test
-   3639529468
-   (rF 0 87654321) )
-
-
-#{
-(setq
-   Da (hex2L (chop "0123456789ABCDEF"))
-   B (bin64 Da)
-   KK (mapcar '((I) (get B I)) *IP) )
-(println (pack KK))
-}#
-
-
-(msg 'ok)
-(bye)
+(de encrypt (Key Msg)
+   (let
+      (Msg (bin64 Msg)
+         Msg (mapcar '((I) (get Msg I)) *IP)
+         # split
+         Lo (bin (head 32 Msg))
+         Ro (bin (tail 32 Msg))
+         L NIL
+         R NIL )
+      (mapc
+         '((Key)
+            (setq
+               L Ro
+               R (x| Lo (rF Ro Key))
+               Lo L
+               Ro R ) )
+         (subkeys Key) )
+      (setq R
+         (chop
+            (pad 64 (bin (x| (>> -32 R) L))) ) )
+      (pad
+         16
+         (hex
+            (bin (mapcar '((I) (get R I)) *IP_INV)))) ) )

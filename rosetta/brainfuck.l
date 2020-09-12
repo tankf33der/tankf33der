@@ -4,11 +4,11 @@
          (for (I . X) Lst
             (case X
                ("[" (push 'S I))
-               ("]" 
+               ("]"
                   (unless S (quit "Unbalanced '['"))
                   (link (list (pop 'S) I)) ) ) )
          (when S (quit "Unbalanced ']'")) ) ) )
-            
+
 (de lupbra (Lst N)
    (find
       '((I)
@@ -16,13 +16,13 @@
             (= (car I) N)
             (= (cadr I) N) ) )
       Lst ) )
-      
+
 (de brain (L)
    (let
       (D (0)
          DH 1
-         DL 1  
-         CH 1 
+         DL 1
+         CH 1
          CL (length L)
          B (brackets L) )
       (loop
@@ -40,7 +40,7 @@
                   (one DH) ) )
             (+ (inc (nth D DH)))
             (- (dec (nth D DH)))
-            (. (prin (char (get D DH)))) 
+            (. (prin (char (get D DH))))
             ("," (set (nth D DH) (char (key))))
             ("["
                (when (=0 (get D DH))

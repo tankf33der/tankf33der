@@ -18,8 +18,8 @@
             '((N A)
                (setq T1 (/ P N))
                (* A (modinv T1 N) T1) )
-            N  
-            A )   
+            N
+            A )
          P ) ) )
 
 (println

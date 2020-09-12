@@ -3,11 +3,11 @@
       (con @ (inc (cdr @)))
       (push Var (cons Key 1)) )
    Key )
-(de **sum (L)                                                                   
-   (let S 1                                                                     
-      (for I (cdr L)                                                            
-         (inc 'S (** (car L) I)) )                                              
-      S ) )        
+(de **sum (L)
+   (let S 1
+      (for I (cdr L)
+         (inc 'S (** (car L) I)) )
+      S ) )
 (de factor-sum (N)
    (if (=1 N)
       0

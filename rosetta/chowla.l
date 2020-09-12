@@ -25,7 +25,7 @@
    (let F (factor N)
       (-
          (sum
-            prog 
+            prog
             (make
                (link 1)
                (mapc
@@ -37,7 +37,7 @@
                            A ) ) )
                   F ) ) )
          N
-         1 ) ) ) 
+         1 ) ) )
 (de prime (N)
    (and (> N 1) (=0 (chowla N))) )
 (de perfect (N)

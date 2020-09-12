@@ -10,23 +10,23 @@
 (setq K21
    (mapcar
       '((N)
-         (| 
-            (>> -4 (get K2 (inc (>> 4 N)))) 
+         (|
+            (>> -4 (get K2 (inc (>> 4 N))))
             (get K1 (inc (& N 15))) ) )
       (range 0 255) ) )
 
 (setq K43
    (mapcar
       '((N)
-         (| 
-            (>> -4 (get K4 (inc (>> 4 N)))) 
+         (|
+            (>> -4 (get K4 (inc (>> 4 N))))
             (get K3 (inc (& N 15))) ) )
       (range 0 255) ) )
 
 (setq K65
    (mapcar
       '((N)
-         (| 
+         (|
             (>> -4 (get K6 (inc (>> 4 N))))
             (get K5 (inc (& N 15))) ) )
       (range 0 255) ) )
@@ -34,29 +34,29 @@
 (setq K87
    (mapcar
       '((N)
-         (| 
+         (|
             (>> -4 (get K8 (inc (>> 4 N))))
             (get K7 (inc (& N 15))) ) )
       (range 0 255) ) )
-      
+
 (de leftRotate (X C)
-   (| 
+   (|
       (& `(hex "FFFFFFFF") (>> (- C) X))
       (>> (- 32 C) X) ) )
 
 (de f (X)
    (leftRotate
-      (apply 
+      (apply
          |
          (mapcar
             '((Lst N)
-               (>> 
+               (>>
                   N
                   (get
                      (val Lst)
                      (inc (& 255 (>> (abs N) X))) ) ) )
-            '(K87 K65 K43 K21) 
+            '(K87 K65 K43 K21)
             (-24 -16 -8 0) ) )
       11 ) )
-         
+
 (bye)

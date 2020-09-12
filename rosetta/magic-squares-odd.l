@@ -23,7 +23,7 @@
             (prinl) )
          Grid )
       # clean
-      (mapc '((L) (mapc zap L)) Grid) ) )      
+      (mapc '((L) (mapc zap L)) Grid) ) )
 (magic 5)
 (prinl)
 (magic 7)

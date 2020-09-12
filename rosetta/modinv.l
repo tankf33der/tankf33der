@@ -3,7 +3,7 @@
       (while (< 1 A)
          (setq
             Q (/ A B)
-            T1 B 
+            T1 B
             B (% A B)
             A T1
             T1 X0

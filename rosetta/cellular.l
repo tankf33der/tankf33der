@@ -1,8 +1,8 @@
 (de dictionary (N)
    (extract
-      '((A B) 
+      '((A B)
          (and
-            (= "1" B) 
+            (= "1" B)
             (mapcar
                '((L) (if (= "1" L) "#" "."))
                A ) ) )
@@ -17,15 +17,15 @@
          (setq Lst
             (make
                (map
-                  '((L) 
+                  '((L)
                      (let Y (head 3 L)
                         (and
                            (cddr Y)
                            (link (if (member Y D) "#" ".")) ) ) )
                   (conc (cons (last Lst)) Lst (cons (car Lst))) ) ) ) ) ) )
 (cellular
-   ".........#........." 
+   ".........#........."
    90 )
-   
+
 (msg 'ok)
 (bye)

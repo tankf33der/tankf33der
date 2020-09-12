@@ -1,7 +1,7 @@
 (load "ripemd160.l")
 (load "sha256.l")
 
-(setq *B58Alpha 
+(setq *B58Alpha
    (chop "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz") )
 (de hex2L (H)
    (make
@@ -11,8 +11,8 @@
    (let
       (P 1
          Z 0
-         A 
-         (sum 
+         A
+         (sum
             '((X)
                (* X (swap 'P (>> -8 P))) )
             (reverse Lst) ) )

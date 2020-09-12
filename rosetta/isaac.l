@@ -2,7 +2,7 @@
    (mod32 (pass +)) )
 
 (de mod32 (N)
-   (& N `(hex "FFFFFFFF")) ) 
+   (& N `(hex "FFFFFFFF")) )
 
 (de isaac()
    (let (Y 0  S (-13 6 -2 16 .))
@@ -22,7 +22,7 @@
             (setq *BB
                (add32
                   (get *MM (inc (% (>> 10 Y) 256)))
-                  X ) ) ) ) ) ) 
+                  X ) ) ) ) ) )
 
 (de mixA()
    (let S (-11 2 -8 16 -10 4 -8 9 .)
@@ -55,7 +55,7 @@
                (get *RR J) ) ) )
       (mixA)
       (for (J I (> (+ 8 I) J) (inc J))
-         (set (nth *MM J) 
+         (set (nth *MM J)
             (get *A (inc (% (dec J) 8))) ) ) )
    (for (I 1 (> 256 I) (inc 'I 8))
       (for (J I (> (+ 8 I) J) (inc J))
@@ -65,20 +65,20 @@
                (get *MM J) ) ) )
       (mixA)
       (for (J I (> (+ 8 I) J) (inc J))
-         (set (nth *MM J) 
+         (set (nth *MM J)
             (get *A (inc (% (dec J) 8))) ) ) )
    (isaac) )
 
-(let 
-   (*AA 0 
-      *BB 0 
+(let
+   (*AA 0
+      *BB 0
       *CC 0
       *MM (need 256 0)
-      *RC 0 
-      *RR (need 
-            -256 
-            (mapcar 
-               char 
+      *RC 0
+      *RR (need
+            -256
+            (mapcar
+               char
                (head 256 (chop "this is my secret key")) ) 0 )
       *A (need 8 `(hex "9E3779B9")) )
    (iseed)
@@ -88,13 +88,13 @@
             '((B) (pad 2 (hex B)))
             (make
                (for I (mapcar char (chop "a Top Secret secret"))
-                  (link 
+                  (link
                      (x|
                         I
-                        (+ 
+                        (+
                            32
-                           (% 
-                              (get 
+                           (%
+                              (get
                                  *RR
                                  (if (>= 256 (inc '*RC))
                                     *RC

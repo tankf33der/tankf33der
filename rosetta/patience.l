@@ -27,9 +27,9 @@
                      (setq M (cons I S)) ) ) )
             (T (=T (cdr M)))
             (link (pop (nth L (car M)))) ) ) ) )
-         
+
 (println
    (patience (4 65 2 -31 0 99 83 782 1)) )
-   
+
 (bye)
 

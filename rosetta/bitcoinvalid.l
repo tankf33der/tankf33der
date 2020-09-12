@@ -1,12 +1,12 @@
 (load "sha256.l")
 
-(setq *Alphabet 
+(setq *Alphabet
    (chop "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz") )
 (de unbase58 (Str)
    (let (Str (chop Str)  Lst (need 25 0)  C)
       (while (setq C (dec (index (pop 'Str) *Alphabet)))
          (for (L Lst L)
-            (set 
+            (set
                L (& (inc 'C (* 58 (car L))) 255)
                'C (/ C 256) )
             (pop 'L) ) )

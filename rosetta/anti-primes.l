@@ -16,7 +16,7 @@
                   (setq M R)
                   (inc 'I) ) ) ) ) ) )
 (println (anti 20))
-          
-      
+
+
 (msg 'ok)
 (bye)

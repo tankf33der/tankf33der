@@ -8,7 +8,7 @@
 
 (for (X 0 (> 10 X) (inc X))
    (println X '-> (pascal X) ) )
-   
+
 (println
    (filter
       '((X)
@@ -16,5 +16,5 @@
             '((Y) (=0 (% Y X)))
             (cdr (head -1 (pascal X))) ) )
       (range 2 50) ) )
-      
+
 (bye)

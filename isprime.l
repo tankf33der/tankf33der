@@ -60,12 +60,44 @@
    (and
       (> N 1)
       (bit? 1 N)
-      (let (Q (dec N) K 0)
+      (let (Q (dec N) K 0  X 0  N1 (dec N))
          (until (bit? 1 Q)
             (setq
                Q (>> 1 Q)
                K (inc K) ) )
+         (println 'Q Q 'K K)
+         (do 8
+            (println 'do8)
+            (NIL
+               (loop
+                  (setq
+                     A (rand 2 N1)
+                     X (**Mod (/ N A) Q N) )
+                  (println 'X1 X)
+                  (T
+                     (or
+                        (=1 X)
+                        (= X N1) )
+                     T )
+                  (T
+                     (do K
+                        (setq X (**Mod X 2 N))
+                        (println 'doK 'X2 X 'N1 N1)
+                        (T (=1 X) T)
+                        (T (= X N1))
+                     )
+                     NIL )
+                  (NIL NIL)
+               )
+            )
+         )
 
+      )
+   )
+)
+
+(println (prime? 2207))
+(println (prime? 2209))
 
 
 (msg 'ok)

@@ -1,3 +1,5 @@
+(seed (in "/dev/urandom" (rd 8)))
+
 # first prime? ecosystem from PicoLisp lib/rsa.l
 #
 # Generate long random number
@@ -20,7 +22,7 @@
          (setq X (% (* X X) N)) ) ) )
 
 # Probabilistic prime check
-(de prime? (N)
+(de rsa-prime? (N)
    (and
       (> N 1)
       (bit? 1 N)
@@ -54,7 +56,17 @@
          (setq Y (% (* Y Y) N)) ) ) )
 # ^^^ done
 
-(prime? 19)
+(de prime? (N)
+   (and
+      (> N 1)
+      (bit? 1 N)
+      (let (Q (dec N) K 0)
+         (until (bit? 1 Q)
+            (setq
+               Q (>> 1 Q)
+               K (inc K) ) )
+
+
 
 (msg 'ok)
 (bye)

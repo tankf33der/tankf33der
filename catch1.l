@@ -7,6 +7,5 @@
                (let L (range 1 3)
                   (throw 'boom T) ) ) # 123 or any
             (dec 'N) ) ) ) )
-(test 123 R)
 (msg 'ok)
 (bye)

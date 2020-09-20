@@ -60,19 +60,32 @@
    (and
       (> N 1)
       (bit? 1 N)
-      (let (Q (dec N) K 0  X 0  N1 (dec N))
+      (let (Q (dec N)  N1 (dec N)  K 0  X)
          (until (bit? 1 Q)
             (setq
                Q (>> 1 Q)
                K (inc K) ) )
-         (println 'Q Q 'K K)
-
-      )
-   )
-)
-
-(println (prime? 2207))
-(println (prime? 2209))
+         (catch 'composite
+            (do 8
+               (loop
+                  (setq X
+                     (**Mod
+                        (if (> 1000000 X)
+                           (rand 2 N1)
+                           (/ N1 (rand 2 1024)) )
+                        Q
+                        N ) )
+                  (T (or (=1 X) (= X N1)))
+                  (T
+                     (do K
+                        (setq X (**Mod X 2 N))
+                        (when (=1 X) (throw 'composite))
+                        (T (= X N1) T) ) )
+                  (throw 'composite T) ) ) ) ) ) )
+(test NIL (prime? 2207))
+(test T (prime? 2209))
+(test NIL (prime? 999727))
+(test T (prime? 999999))
 
 
 (msg 'ok)

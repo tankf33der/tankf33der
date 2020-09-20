@@ -66,31 +66,6 @@
                Q (>> 1 Q)
                K (inc K) ) )
          (println 'Q Q 'K K)
-         (do 8
-            (println 'do8)
-            (NIL
-               (loop
-                  (setq
-                     A (rand 2 N1)
-                     X (**Mod (/ N A) Q N) )
-                  (println 'X1 X)
-                  (T
-                     (or
-                        (=1 X)
-                        (= X N1) )
-                     T )
-                  (T
-                     (do K
-                        (setq X (**Mod X 2 N))
-                        (println 'doK 'X2 X 'N1 N1)
-                        (T (=1 X) T)
-                        (T (= X N1))
-                     )
-                     NIL )
-                  (NIL NIL)
-               )
-            )
-         )
 
       )
    )

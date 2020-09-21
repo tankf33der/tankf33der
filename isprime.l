@@ -71,7 +71,7 @@
                   (setq X
                      (**Mod
                         (if (> 1000000 N)
-                           (rand 2 N1)
+                           (rand 2 (- N 2))
                            (/ N (rand 2 1024)) )
                         Q
                         N ) )
@@ -120,7 +120,7 @@
             (do (dec L)
                (link (if (rand T) "1" "0")) )
             (link "1") ) ) ) )
-(for N (range 8 1024)
+(for N (range 8 128)
    (println 'N N)
       (let N (gen N)
          (test (rsa-prime? N) (prime? N)) ) )

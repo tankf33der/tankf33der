@@ -58,7 +58,7 @@
 
 (de prime? (N)
    (and
-      (> N 1)
+      (> N 3)
       (bit? 1 N)
       (let (Q (dec N)  N1 (dec N)  K 0  X)
          (until (bit? 1 Q)

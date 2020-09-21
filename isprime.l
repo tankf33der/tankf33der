@@ -113,7 +113,7 @@
       N ) )
 (for N (range 8 1024)
    (println 'N N)
-   (do 8192
+   (do 512
       (let N (gen N)
          (test T (prime? N)) ) ) )
 

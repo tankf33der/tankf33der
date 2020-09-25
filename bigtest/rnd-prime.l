@@ -48,5 +48,5 @@
          (inc 'N 2) )
       N ) )
 (de rnd NIL
-   (let B (gen (rand 16 128))
+   (let B (gen (rand 16 256))
       (if (rand T) B (- B)) ) )

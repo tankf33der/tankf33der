@@ -1,6 +1,7 @@
 ## dmd -release bigint.d
 (seed (in "/dev/urandom" (rd 8)))
-(de rnd NIL
+(load "rnd-prime.l")
+(de rnd- NIL
    (let B
       (format
          (make

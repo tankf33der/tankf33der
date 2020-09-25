@@ -5,7 +5,7 @@
    (let B
       (format
          (make
-            (do (rand 1024 2048)
+            (do (rand 102 204)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)

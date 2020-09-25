@@ -1,3 +1,12 @@
+# X power Y modulus N
+(de **Mod (X Y N)
+   (let M 1
+      (loop
+         (when (bit? 1 Y)
+            (setq M (% (* M X) N)) )
+         (T (=0 (setq Y (>> 1 Y)))
+            M )
+         (setq X (% (* X X) N)) ) ) )
 (de prime? (N)
    (and
       (> N 3)
@@ -35,9 +44,9 @@
                (do (dec L)
                   (link (if (rand T) "1" "0")) )
                (link "1") ) ) )
-      (until (rsa-prime? N)
+      (until (prime? N)
          (inc 'N 2) )
       N ) )
 (de rnd NIL
-   (let B (gen (rand 16 2048))
+   (let B (gen (rand 16 128))
       (if (rand T) B (- B)) ) )

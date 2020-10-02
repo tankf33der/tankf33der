@@ -21,12 +21,17 @@
             (x| Z (>> 27 Z)) ) )
       (x| Z (>> 31 Z)) ) )
 
-(setq *Split 1234567)
-(println (nextSplit))
-(println (nextSplit))
-(println (nextSplit))
-(println (nextSplit))
-(println (nextSplit))
+(scl 12)
+(setq *Split 987654321)
+(off R)
+(do 20
+   (set
+      'N
+      (*
+         5
+         (*/ (nextSplit) 1.0 18446744073709551616) ) )
+   (println N (round N 0))
+)
 
 (msg 'ok)
 (bye)

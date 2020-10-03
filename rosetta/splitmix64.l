@@ -1,37 +1,34 @@
+(zero *Split)     # global state
+
 (de mod64 (N)
    (& N `(hex "FFFFFFFFFFFFFFFF")) )
 (de mod64+ (A B)
    (mod64 (+ A B)) )
 (de mod64* (A B)
    (mod64 (* A B)) )
-
-(zero *Split)
+(de roundf (N)    # rounds down (floor)
+   (/ N (** 10 *Scl)) )
 (de nextSplit ()
-   (setq *Split
-      (mod64+ *Split `(hex "9e3779b97f4a7c15")) )
+   (setq *Split (mod64+ *Split `(hex "9e3779b97f4a7c15")))
    (let Z *Split
       (setq
-         Z
-         (mod64*
-            `(hex "bf58476d1ce4e5b9")
-            (x| Z (>> 30 Z)) )
-         Z
-         (mod64*
-            `(hex "94d049bb133111eb")
-            (x| Z (>> 27 Z)) ) )
+         Z (mod64* `(hex "bf58476d1ce4e5b9") (x| Z (>> 30 Z)))
+         Z (mod64* `(hex "94d049bb133111eb") (x| Z (>> 27 Z))) )
       (x| Z (>> 31 Z)) ) )
 
+(setq *Split 1234567)
+(do 5
+   (println (nextSplit)) )
+
 (scl 12)
-(setq *Split 987654321)
 (off R)
-(do 20
-   (set
-      'N
-      (*
-         5
-         (*/ (nextSplit) 1.0 18446744073709551616) ) )
-   (println N (round N 0))
-)
+(setq *Split 987654321)
+(do 100000
+   (accu
+      'R
+      (roundf (* 5 (*/ (nextSplit) 1.0 18446744073709551616)))
+      1 ) )
+(println 'R (by sort car R))
 
 (msg 'ok)
 (bye)

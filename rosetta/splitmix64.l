@@ -16,10 +16,12 @@
          Z (mod64* `(hex "94d049bb133111eb") (x| Z (>> 27 Z))) )
       (x| Z (>> 31 Z)) ) )
 
+(prinl "First 5 numbers:")
 (setq *Split 1234567)
 (do 5
    (println (nextSplit)) )
 
+(prinl "The counts for 100,000 repetitions are:")
 (scl 12)
 (off R)
 (setq *Split 987654321)
@@ -28,7 +30,8 @@
       'R
       (roundf (* 5 (*/ (nextSplit) 1.0 18446744073709551616)))
       1 ) )
-(println 'R (by sort car R))
+(for L (sort R)
+   (println L) )
 
 (msg 'ok)
 (bye)

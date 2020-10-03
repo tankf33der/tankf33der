@@ -30,8 +30,7 @@
       'R
       (roundf (* 5 (*/ (nextSplit) 1.0 18446744073709551616)))
       1 ) )
-(for L (sort R)
-   (println L) )
+(mapc println (sort R))
 
 (msg 'ok)
 (bye)

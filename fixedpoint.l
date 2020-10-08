@@ -7,7 +7,7 @@
    "15.3345"            # both fixedpoints
    (format (+ 11.2345 4.1) *Scl) )
 (test                   # fixedpoint "11.2345" and
-   "15.2345"            # human number "4" converted
+   "15.2345"            # number "4" converted
    (format (+ 11.2345 (* 4 1.0)) *Scl) )
 
 
@@ -16,7 +16,7 @@
 (test
    "49.2366"            # both fixedpoints
    (format (*/ 12.34 3.99 1.0) *Scl) )
-(test                   # human number "25" converted
+(test                   # number "25" converted
    "308.5000"           # and fixedpoint "12.34"
    (format (* 25 12.34) *Scl) )
 
@@ -26,8 +26,12 @@
 (test
    "3.2732"             # both fixedpoints
    (format (*/ 12.34 1.0 3.77) *Scl) )
-(println
-   (format (*/ 14 12.34) *Scl) )
+(test                   # number "14" converted
+   "1.1345"             # and fixedpoint "12.34".
+   (format (*/ 1.0 14 1.0 12.34) *Scl) )
+(test                   # fixedpoint "12.34"
+   "0.8814"             # and number "14"
+   (format (/ 12.34 14) *Scl) )
 
 
 (msg 'ok)

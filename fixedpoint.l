@@ -18,7 +18,7 @@
 (test
    "49.2366"            # both fixedpoints
    (format (*/ 12.34 3.99 1.0) *Scl) )
-(test                   # number "25" converted
+(test                   # number "25"
    "308.5000"           # and fixedpoint "12.34"
    (format (* 25 12.34) *Scl) )
 

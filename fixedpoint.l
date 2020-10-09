@@ -1,5 +1,7 @@
-(scl 4)
+# first read this:
+# https://the-m6.net/blog/fixed-point-arithmetic-in-picolisp/
 
+(scl 4)
 
 # plus or minus
 (test 7 (+ 4 3))        # for humans

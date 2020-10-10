@@ -1,18 +1,20 @@
 (scl 20)
 (setq *GBASE32 (chop "0123456789bcdefghjkmnpqrstuvwxyz"))
 (de encode (Lat Lng Prec)
-   (let Lst
-      (mapcar
-         '((A B C)
-            (let M (/ (sum prog B) 2)
-               (if (> C M)
-                  (prog (set B M) 1)
-                  (set (cdr B) M)
-                  0 ) ) )
-         (range 1 (* 5 Prec))
-         # Longitude, Latitude
-         (circ (list -180.0 180.0) (list -90.0 90.0))
-         (circ Lng Lat) )
+   (let
+      (Base (circ (list -180.0 180.0) (list -90.0 90.0))
+         Curr (circ Lng Lat)
+         Lst
+         (make
+            (do (* 5 Prec)
+               (let
+                  (B (++ Base)
+                     C (++ Curr)
+                     M (/ (sum prog B) 2) )
+                  (if (> C M)
+                     (prog (set B M) (link 1))
+                     (set (cdr B) M)
+                     (link 0) ) ) ) ) )
       (pack
          (make
             (for (L Lst L)

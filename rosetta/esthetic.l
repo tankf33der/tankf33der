@@ -1,28 +1,50 @@
-(de stringToNum (S Base)
-   (default Base 10)
-   (let N 0
-      (for C (chop S)
-         (when (> (setq C (- (char C) `(char "0"))) 9)
-            (dec 'C 39) )
-         (setq N (+ C (* N Base))) )
-      N ) )
-(de numL (N Base)
-   (let L NIL
-      (loop
-         (let C (% N Base)
-            #(and (> C 9) (inc 'C 39))
-            (push 'L C) )
-            #(push 'L (+ C 48) ) )
-            # (push 'L (char (+ C `(char "0")))) )
-         (T (=0 (setq N (/ N Base)))) )
-      L ) )
-
-(println (numL 2730 2))
-# (println (numL 1234 3))
-(println (numL 355 9))
-(println (numL 2985 16))
-(println (stringToNum "434" 9))
-
+(de esthetic (N Base)
+   (let Lst
+      (make
+         (loop
+            (yoke (% N Base))
+            (T (=0 (setq N (/ N Base)))) ) )
+      (and
+         (fully
+            =1
+            (make
+               (for (L Lst (cdr L) (cdr L))
+                  (link (abs (- (car L) (cadr L)))) ) ) )
+         (pack
+            (mapcar
+               '((C)
+                  (and (> C 9) (inc 'C 39))
+                  (char (+ C 48)) )
+               Lst ) ) ) ) )
+(de genCount (Num Base)
+   (let (C 0  N 0)
+      (tail
+         (inc (* 2 Base))
+         (make
+            (while (>= Num C)
+               (when (esthetic N Base) (link @) (inc 'C))
+               (inc 'N) ) ) ) ) )
+(de genRange (A B Base)
+   (make
+      (while (>= B A)
+         (when (esthetic A Base) (link @))
+         (inc 'A) ) ) )
+(for (N 2 (>= 16 N) (inc N))
+   (prin "Base " N ": ")
+   (mapc '((L) (prin L " ")) (genCount (* 6 N) N))
+   (prinl) )
+(prinl)
+(prinl "Base 10: 61 esthetic numbers between 1000 and 9999:")
+(let L (genRange 1000 9999 10)
+   (while (cut 16 'L)
+      (mapc '((L) (prin L " ")) @)
+      (prinl) ) )
+(prinl)
+(prinl "Base 10: 126 esthetic numbers between 100000000 and 130000000:")
+(let L (genRange 100000000 130000000 10)
+   (while (cut 9 'L)
+      (mapc '((L) (prin L " ")) @)
+      (prinl) ) )
 
 (msg 'ok)
 (bye)

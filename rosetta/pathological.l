@@ -1,9 +1,4 @@
-
-# >>> 111 - (1130 / -4.0)
-# 393.5
-
-(scl 50)
-
+(scl 150)
 (de task1 (N)
    (cache '(NIL) N
       (cond
@@ -19,21 +14,8 @@
                      (task1 (- N 2))
                      (task1 (- N 1))
                      1.0 ) ) ) ) ) ) )
-(for N 8
-   (println (round (task1 N) 6))
-)
-(println (format (task1 20) *Scl))
-
-
-
-
-(println
-   (- 111.0 (*/ 1.0 1130.0 -4.0))
-)
-
-
-
-
+(for N (list 3 4 5 6 7 8 20 30 50 100)
+   (println 'N: N (round (task1 N) 20)) )
 
 (msg 'ok)
 (bye)

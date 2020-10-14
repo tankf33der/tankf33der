@@ -21,7 +21,9 @@
 (test                   # number "25"
    "308.5000"           # and fixedpoint "12.34"
    (format (* 25 12.34) *Scl) )
-# TODO: add three numbers multiplication
+(test                   # three fixedpoints
+   "9.8387"
+   (format (*/ 1.234 2.345 3.4 (** 1.0 2)) *Scl) )
 
 
 # division
@@ -49,7 +51,7 @@
    "9.5686"
    (format
       (*/ 1.0 (** 2.123 3) (** 1.0 3))
-      *Scl ) )
+      *Scl ) )x
 
 
 (msg 'ok)

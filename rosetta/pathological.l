@@ -17,5 +17,14 @@
 (for N (list 3 4 5 6 7 8 20 30 50 100)
    (println 'N: N (round (task1 N) 20)) )
 
+# task2
+(setq B (- 2.7182818284590452353602874713526624977572470 1.0))
+(for N 25
+   (setq B
+      (-
+         (* N B)
+         1.0 ) ) )
+(prinl "bank balance after 25 years: "  (round B 20))
+
 (msg 'ok)
 (bye)

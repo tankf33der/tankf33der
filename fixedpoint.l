@@ -21,6 +21,7 @@
 (test                   # number "25"
    "308.5000"           # and fixedpoint "12.34"
    (format (* 25 12.34) *Scl) )
+# TODO: add three numbers multiplication
 
 
 # division
@@ -34,6 +35,13 @@
 (test                   # fixedpoint "12.34"
    "0.8814"             # and number "14"
    (format (/ 12.34 14) *Scl) )
+
+
+# square
+(test 8 (sqrt 64))      # for humans
+(test                   # fixedpoint
+   "8.0077"
+   (format (sqrt 64.123 1.0) *Scl) )
 
 
 (msg 'ok)

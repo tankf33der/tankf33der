@@ -43,6 +43,14 @@
    "8.0077"
    (format (sqrt 64.123 1.0) *Scl) )
 
+# exponentiation
+(test 8 (** 2 3))       # for humans
+(test                   # fixedpoint
+   "9.5686"
+   (format
+      (*/ 1.0 (** 2.123 3) (** 1.0 3))
+      *Scl ) )
+
 
 (msg 'ok)
 (bye)

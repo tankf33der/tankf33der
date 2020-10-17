@@ -26,20 +26,17 @@
    (if (is_zero P)
       P
       (let
-         # Y := (3 * p.x * p.x) / (2 * p.y)
          (Y
             (*/
                1.0
                (*/ 3.0 (car P) (car P) (** 1.0 2))
                (*/ 2.0 (cadr P) 1.0) )
-            # x := Y*Y - 2*p.x
             X
             (-
                (*/ Y Y 1.0)
                (*/ 2.0 (car P) 1.0) ) )
          (list
             X
-            #y: Y*(p.x-x) - p.y
             (-
                (*/ Y (- (car P) X) 1.0)
                (cadr P) ) ) ) ) )
@@ -62,34 +59,24 @@
                         (*/ Y (- (car A) X) 1.0)
                         (cadr A) ) ) ) ) ) ) ) )
 (de mul (P N)
-   (let R (list 1.0 1.0)
+   (let R (list T T)
       (for (I 1 (>= N I) (* I 2))
-         # (println 'I I)
          (when (gt0 (& I N))
-            # (println "odd?: " I)
             (setq R (add R P)) )
-         (setq P (dbl P))
-         (println 'P (prn P))
-         (println 'R (prn R))
-      )
-      R
-   )
-)
+         (setq P (dbl P)) )
+      R ) )
 (setq
    A (from_y 1)
    B (from_y 2) )
-# (prinl "A: " (prn A))
-# (prinl "B: " (prn B))
-# (setq C (add A B))
-# (prinl "C: " (prn C))
-# (test "10.375 -33.525" (prn C))
-# (setq D (neg C))
-# (prinl "D: " (prn D))
-# (prinl "D + C: " (prn (add C D)))
-# (prinl "A + B + D: " (prn (add A (add B D))))
-
-# (prinl "A * 12345: ", (mul A 12345))
-(mul A 12345)
+(prinl "A: " (prn A))
+(prinl "B: " (prn B))
+(setq C (add A B))
+(prinl "C: " (prn C))
+(setq D (neg C))
+(prinl "D: " (prn D))
+(prinl "D + C: " (prn (add C D)))
+(prinl "A + B + D: " (prn (add A (add B D))))
+(prinl "A * 12345: " (prn (mul A 12345)))
 
 (msg 'ok)
 (bye)

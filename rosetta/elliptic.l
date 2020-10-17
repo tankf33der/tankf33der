@@ -58,23 +58,38 @@
                      (- (*/ Y Y 1.0) (car A) (car B)) )
                   (list
                      X
-                     # y: Y*(p.x-x) - p.y
                      (-
                         (*/ Y (- (car A) X) 1.0)
                         (cadr A) ) ) ) ) ) ) ) )
+(de mul (P N)
+   (let R (list 1.0 1.0)
+      (for (I 1 (>= N I) (* I 2))
+         # (println 'I I)
+         (when (gt0 (& I N))
+            # (println "odd?: " I)
+            (setq R (add R P)) )
+         (setq P (dbl P))
+         (println 'P (prn P))
+         (println 'R (prn R))
+      )
+      R
+   )
+)
 (setq
    A (from_y 1)
    B (from_y 2) )
-(prinl "A: " (prn A))
-(prinl "B: " (prn B))
-(setq C (add A B))
-(prinl "C: " (prn C))
-(test "10.375 -33.525" (prn C))
-(setq D (neg C))
-(prinl "D: " (prn D))
-(setq E (add C D))
-(prinl "D + C: " (prn E))
+# (prinl "A: " (prn A))
+# (prinl "B: " (prn B))
+# (setq C (add A B))
+# (prinl "C: " (prn C))
+# (test "10.375 -33.525" (prn C))
+# (setq D (neg C))
+# (prinl "D: " (prn D))
+# (prinl "D + C: " (prn (add C D)))
+# (prinl "A + B + D: " (prn (add A (add B D))))
 
+# (prinl "A * 12345: ", (mul A 12345))
+(mul A 12345)
 
 (msg 'ok)
 (bye)

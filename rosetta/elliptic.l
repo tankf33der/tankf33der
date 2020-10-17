@@ -1,22 +1,27 @@
-(scl 6)
+(scl 16)
 (load "@lib/math.l")
 (setq *B 7)
 (de from_y (Y)
    (let
       (A (* 1.0 (- (* Y Y) *B))
-         B (pow (abs A) 0.3333) )
+         B (pow (abs A) (*/ 1.0 1.0 3.0)) )
       (list
          (if (gt0 A) B (- B))
          (* Y 1.0) ) ) )
 (de prn (P)
-   (pack
-      (format (car P) *Scl)
-      " "
-      (format (cadr P) *Scl) ) )
+   (if (is_zero P)
+      "Zero"
+      (pack
+         (round (car P) 3)
+         " "
+         (round (cadr P) 3) ) ) )
 (de neg (P)
    (list (car P) (*/ -1.0 (cadr P) 1.0)) )
 (de is_zero (P)
-   (> (length (car P)) 20) )
+   (or
+      (=T (car P))
+      (=T (cadr P))
+      (> (length (car P)) 20) ) )
 (de dbl (P)
    (if (is_zero P)
       P
@@ -44,33 +49,19 @@
       ((is_zero A) B)
       ((is_zero B) A)
       (T
-         (println "add: T: cond" A B)
-         (let
-            (Y
-               # Y := (q.y - p.y) / (q.x - p.x)
-               (*/
-                  1.0
-                  (- (cadr B) (cadr A))
-                  (- (car B) (car A)) )
-               # x := Y*Y - p.x - q.x
-               X
-               (-
-                  (*/ Y Y 1.0)
-                  (car A)
-                  (car B) ) )
-            (list
-               X
-               # y: Y*(p.x-x) - p.y
-               (-
-                  (*/
-                     Y
-                     (- (car A) X)
-                     1.0 )
-                  (cadr A) ) )
-         )
-      )
-   )
-)
+         (let Z (- (car B) (car A))
+            (if (=0 Z)
+               (list T T)
+               (let
+                  (Y (*/ 1.0 (- (cadr B) (cadr A)) Z)
+                     X
+                     (- (*/ Y Y 1.0) (car A) (car B)) )
+                  (list
+                     X
+                     # y: Y*(p.x-x) - p.y
+                     (-
+                        (*/ Y (- (car A) X) 1.0)
+                        (cadr A) ) ) ) ) ) ) ) )
 (setq
    A (from_y 1)
    B (from_y 2) )
@@ -78,11 +69,11 @@
 (prinl "B: " (prn B))
 (setq C (add A B))
 (prinl "C: " (prn C))
+(test "10.375 -33.525" (prn C))
 (setq D (neg C))
 (prinl "D: " (prn D))
-
 (setq E (add C D))
-(prinl "D + C: " (prn D))
+(prinl "D + C: " (prn E))
 
 
 (msg 'ok)

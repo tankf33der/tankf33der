@@ -4,5 +4,14 @@
    dont have tests.
 }#
 
+(in "../pil21/src/glob.l"
+   (from "symTab")
+   (line)
+   (from "(")
+   (println (peek))
+
+
+)
+
 (msg 'ok)
 (bye)

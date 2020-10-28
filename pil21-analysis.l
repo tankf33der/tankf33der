@@ -13,7 +13,6 @@
                   (when (pack L)
                      (and (assoc @ D) (inc (cdr @))) ) )
                (split @ " " "(" ")") ) ) ) ) )
-(pp 'analyze)
 (off D)
 (in "../pil21/src/glob.l"
    (let (T1 NIL  T2 NIL)

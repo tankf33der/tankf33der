@@ -17,7 +17,7 @@
       (for This L
          (prin
             "^[[0;"
-            (if (or (: F) (=0 (: N))) 100 (: C))
+            (if (or (=0 (: F)) (=0 (: N))) 100 (: C))
             "m"
             (if (=0 (: N)) "@" (: N))
             "^[[0m" ) )
@@ -32,7 +32,7 @@
                      (and
                         (do S
                            (setq This (D This)) )
-                        (list S D)
+                        (list S D This)
                      )
                   )
                )
@@ -43,8 +43,26 @@
                ((X) (simul~south (simul~east X)))
                ((X) (simul~north (simul~east X))) )
          ) # filter
-      )
+      ) # Z
       (println 'Z Z)
+      (mapc
+         '((L)
+            (with C
+               (do (car L)
+                  (setq This ((cadr L) This))
+                  (=: F 0) ) ) )
+         Z )
+      (for L G
+         (for This L
+            (prin
+               "^[[0;"
+               (if (or (=0 (: F)) (=0 (: N))) 100 (: C))
+               "m"
+               (if (=0 (: N)) "@" (: N))
+               "^[[0m" ) )
+         (prinl) )
+
+
    )
 
 

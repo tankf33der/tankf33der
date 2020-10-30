@@ -7,8 +7,8 @@
 # A - @ mark
 (de display ()
    (let P 0
-      (wait 500)
-      (call 'clear)
+      (wait 700)
+      (prin "^[[2J")
       (for L G
          (for This L
             # count cleared cells

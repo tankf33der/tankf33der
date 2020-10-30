@@ -7,8 +7,8 @@
 # A - @ mark
 (de display ()
    (let P 0
-      (wait 200)
-      # (call 'clear)
+      (wait 500)
+      (call 'clear)
       (for L G
          (for This L
             # count cleared cells

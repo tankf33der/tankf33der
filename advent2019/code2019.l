@@ -1,6 +1,34 @@
 `(== 64 64)
 (load "@lib/simul.l")
 
+#{
+
+# --- Day 1: The Tyranny of the Rocket Equation ---
+(de i1-1 (F)
+   (let S 0
+      (in F
+         (while (read)
+            (inc 'S (- (/ @ 3) 2)) ) )
+      S ) )
+(test 3408471 (i1-1 "data/1.txt"))
+
+(de i1-2-worker (N)
+   (let N (- (/ N 3) 2)
+      (if (gt0 N)
+         (+ N (i1-2-worker N))
+         0 ) ) )
+(test 966 (i1-2-worker 1969))
+(test 50346 (i1-2-worker 100756))
+
+# part 2
+(de i1-2 (F)
+   (let S 0
+      (in F
+         (while (read)
+            (inc 'S (i1-2-worker @)) ) )
+      S ) )
+(test 5109803 (i1-2 "data/1.txt"))
+
 # --- Day 2: 1202 Program Alarm ---
 (de read-code (F)
    (make
@@ -80,6 +108,49 @@
             (i2-1 (copy *I2-Lst) (car @@) (cdr @@)) ) ) )
    (+ (cdr @@) (* 100 (car @@))) )
 (test 4967 (i2-2))
+
+# --- Day 3: Crossed Wires ---
+# --- Day 4: Secure Container ---
+(de i4-splitter (N)
+   (mapcon
+      '((A)
+         (and
+            (cdr A)
+            (cons (- (car A) (cadr A))) ) )
+      (mapcar format (chop N)) ) )
+(de i4-1 (A B)
+   (let C 0
+      (for (N A (>= B N) (inc N))
+         (let L (i4-splitter N)
+            (and
+               (fully le0 L)
+               (gt0 (cnt =0 L))
+               (inc 'C) ) ) )
+      C ) )
+(test 1610 (i4-1 183564 657474))
+
+# part 2
+# from 99 PicoLisp problems (P09)
+(de i4-2-consecDups (Lst)
+   (make
+      (let Last NIL
+         (for X Lst
+            (if (= X (car Last))
+               (conc Last (cons X))
+               (link (setq Last (cons X))) ) ) ) ) )
+(de i4-2 (A B)
+   (let C 0
+      (for (N A (>= B N) (inc N))
+         (let L (i4-splitter N)
+            (and
+               (fully le0 L)
+               (find
+                  '((L) (and (=0 (car L)) (not (cdr L))))
+                  (i4-2-consecDups L) )
+               (inc 'C) ) ) )
+      C ) )
+(test 1104 (i4-2 183564 657474))
+
 
 # --- Day 5: Sunny with a Chance of Asteroids ---
 # Legend:
@@ -277,6 +348,45 @@
                (do 4
                   (++ L) ) ) ) ) ) )
 (test 10376124 (i55 (read-code "data/5.txt") (list 5)))
+
+}#
+
+# --- Day 6: Universal Orbit Map ---
+(de i6-reader (F)
+   (make
+      (in F
+         (until (eof)
+            (link
+               (cons
+                  (prog1
+                     (till "\)" T)
+                     (char) )
+                  (line T) ) ) ) ) ) )
+# orgasmic recursion with memoization
+(de i6-worker (N)
+   (cond
+      ((= N "COM") 0)
+      ((assoc N *I6-M) (cdr @))
+      (T
+         (let R (+ 1 (i6-worker (car (rassoc N *I6-D))))
+            (push '*I6-M (cons N R))
+            R ) ) ) )
+(setq *I6-D (i6-reader "data/6-test.txt"))
+(off *I6-M)
+(test 7 (i6-worker "L"))
+(test 3 (i6-worker "H"))
+(test 4 (i6-worker "E"))
+
+(de i6-1 (F)
+   (let (*I6-D (i6-reader F)  *I6-M)
+      (sum i6-worker (mapcar cdr *I6-D)) ) )
+(test 42 (i6-1 "data/6-test.txt"))
+(test 224901 (i6-1 "data/6.txt"))
+
+# part 2
+
+(msg 'ok)
+(bye)
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)

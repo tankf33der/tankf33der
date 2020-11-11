@@ -1,8 +1,6 @@
 `(== 64 64)
 (load "@lib/simul.l")
 
-#{
-
 # --- Day 1: The Tyranny of the Rocket Equation ---
 (de i1-1 (F)
    (let S 0
@@ -349,8 +347,6 @@
                   (++ L) ) ) ) ) ) )
 (test 10376124 (i55 (read-code "data/5.txt") (list 5)))
 
-}#
-
 # --- Day 6: Universal Orbit Map ---
 (de i6-reader (F)
    (make
@@ -399,9 +395,6 @@
       (i6-worker-2 "SAN")
       (- (cnt '((L) (=1 (cdr L))) Z) 2) ) )
 (test 334 (i6-2 "data/6.txt"))
-
-(msg 'ok)
-(bye)
 
 # --- Day 7: Amplification Circuit ---
 (de i7-wrap (Prg C)
@@ -539,6 +532,33 @@
 (setq *I77 (read-code "data/7-test-5.txt"))
 (test 18216 (i7-wagon *I77 (list 9 7 8 5 6)))
 (test 36384144 (i7-2 "data/7.txt"))
+
+# --- Day 8: Space Image Format ---
+(de i8-reader (F)
+   (make
+      (in F
+         (do 100
+            (link
+               (make
+                  (do 150
+                     (link (format (char))) ) ) ) ) ) ) )
+(de i8-1 (F)
+   (let Lst (mini '((L) (cnt =0 L)) (i8-reader F))
+      (*
+         (cnt =1 Lst)
+         (cnt '((N) (= 2 N)) Lst) ) ) )
+(test 2125 (i8-1 "data/8.txt"))
+
+# part 2
+(de i8-2 (F)
+   (let Lst
+      (mapcar
+         '((L) (find '((N) (> 2 N)) L))
+         (apply mapcar (i8-reader F) list) )
+      (while Lst
+         (prinl (cut 25 'Lst)) ) ) )
+# JYZHF
+#(i8-2 "data/8.txt")
 
 # --- Day 9: Sensor Boost ---
 (de c9 ("Var" Lst)

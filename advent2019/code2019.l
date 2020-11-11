@@ -384,6 +384,21 @@
 (test 224901 (i6-1 "data/6.txt"))
 
 # part 2
+(setq *I6-D (i6-reader "data/6.txt"))
+(de i6-worker-2 (N)
+   (cond
+      ((= N "COM") 0)
+      ((assoc N *I6-M) (cdr @))
+      (T
+         (let R (+ 1 (i6-worker-2 (car (rassoc N *I6-D))))
+            (accu 'Z (car N) 1)
+            R ) ) ) )
+(de i6-2 (F)
+   (let (*I6-D (i6-reader F)  Z)
+      (i6-worker-2 "YOU")
+      (i6-worker-2 "SAN")
+      (- (cnt '((L) (=1 (cdr L))) Z) 2) ) )
+(test 334 (i6-2 "data/6.txt"))
 
 (msg 'ok)
 (bye)

@@ -1,0 +1,62 @@
+// Monokex N
+// based on prev. work by Loup, Nadim and tankf33der
+// nov.2020
+// https://github.com/LoupVaillant/Monokex
+
+attacker [active]
+
+principal I[
+    knows public pid, zero
+    knows private p1
+]
+
+principal R[
+    knows public pid, zero
+    knows private R
+    RS = G^R
+]
+
+R -> I: [RS]
+
+principal I[
+    generates E
+    IE = G^E
+
+    H0 = HASH(pid)
+    H1 = HASH(H0, RS)
+    H2 = HASH(H1, H1)      // without prelude
+    H3 = HASH(H2, IE)
+    H4 = HASH(H3, RS^E)
+    K1 = MAC(H4, zero)
+    H5 = ENC(H4, zero)
+    S1 = ENC(K1, p1)
+    //H6, T1 = HKDF(H5, S1, nil)
+]
+
+I -> R: IE, S1
+// I -> R: IE, S1, T1
+
+principal R[
+    _H0 = HASH(pid)
+    _H1 = HASH(_H0, RS)
+    _H2 = HASH(_H1, _H1)    // without prelude
+    _H3 = HASH(_H2, IE)
+    _H4 = HASH(_H3, IE^R)
+    _K1 = MAC(_H4, zero)
+    _H5 = DEC(_H4, zero)
+    _S1 = DEC(_K1, S1)
+    //_H6, _T1 = HKDF(_H5, _S1, nil)
+    //_ = ASSERT(_T1, T1)?
+]
+
+queries[
+    confidentiality? _H1
+    confidentiality? p1
+
+]
+
+
+
+// XXX query
+// p1
+

@@ -27,8 +27,7 @@ principal I[
     H2 = HASH(H1, H1)      // without prelude
     H3 = HASH(H2, IE)
     H4 = HASH(H3, RS^E)
-    K1 = MAC(H4, zero)
-    H5 = ENC(H4, zero)
+    H5, K1 = HKDF(H4, zero nil)
     S1 = ENC(K1, p1)
     H6, T1 = HKDF(H5 , S1, nil)
 ]
@@ -41,7 +40,7 @@ principal R[
     _H2 = HASH(_H1, _H1)    // without prelude
     _H3 = HASH(_H2, IE)
     _H4 = HASH(_H3, IE^R)
-    _K1 = xMAC(_H4, zero)
+    _K1 = MAC(_H4, zero)
     _H5 = DEC(_H4, zero)
     _S1 = DEC(_K1, S1)
     _H6, _T1 = HKDF(_H5, _S1, nil)

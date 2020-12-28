@@ -33,6 +33,15 @@
                   (recurse Path) )
                ((match '`(chop "@.l") (chop F))
                   (analyze Path) ) ) ) ) ) )
+(let Dir "../pil21/test"
+   (recur (Dir)
+      (for F (dir Dir)
+         (let Path (pack Dir "/" F)
+            (cond
+               ((=T (car (info Path)))
+                  (recurse Path) )
+               ((match '`(chop "@.l") (chop F))
+                  (analyze Path) ) ) ) ) ) )
 (mapc
    println
    (flip
@@ -40,5 +49,8 @@
          cadr
          sort
          D ) ) )
+(println
+   (length D)
+   (cnt '((L) (=0 (cadr L))) D) )
 (msg 'ok)
 (bye)

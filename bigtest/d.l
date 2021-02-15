@@ -1,4 +1,4 @@
-## dmd -release bigint.d
+## dmd -O -release bigint.d
 (seed (in "/dev/urandom" (rd 8)))
 (load "rnd-prime.l")
 (de rnd- NIL

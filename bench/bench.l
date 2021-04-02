@@ -6,5 +6,5 @@
       1
       (+ (fibo (dec N)) (fibo (- N 2))) ) )
 
-(println (fibo 36))
+(bench (fibo 36))
 (bye)

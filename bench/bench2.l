@@ -9,5 +9,5 @@
             (reverse (delete (car X) (cdr X))) ) )
       '((a b c a b c) (b c d b c d) (c d e c d e) (d e f d e f)) ) )
 
-(do 1000000 (tst))
+(bench (do 1000000 (tst)))
 (bye)

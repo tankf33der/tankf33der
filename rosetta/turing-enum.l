@@ -30,7 +30,7 @@
          P 1
          State 'A
          Halt 'H
-         D '(((A . 1) 1 R A) ((A . B) 1 S H))
+         D '(((A . 1) 1 R A) ((A) 1 S H))
          Curr
       )
       (set (enum 'Tape 1) 1)

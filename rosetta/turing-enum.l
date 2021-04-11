@@ -16,7 +16,19 @@
          (T (= State Halt))
          (setq Curr
             (cdr
-               (assoc (cons State (val (enum 'Tape P))) D) ) )
+               (assoc
+                  (cons
+                     State
+                     (if (val (enum? Tape P)) @ 0) )
+                  D ) ) )
+         # (println 'State State 'P P 'if (if (val (enum? Tape P)) @ 0))
+         # (println 'assoc (assoc (cons State (if (val (enum? Tape P)) @ 0)) D))
+         # (println
+            # 'Curr
+            # (assoc (cons State (if (val (enum? Tape P)) @ 0)) D)
+            # 'P P
+            # 'State State )
+         # (wait 1000)
          (set (enum 'Tape P) (++ Curr))
          (case (++ Curr)
             (R (right 'P))
@@ -35,7 +47,7 @@
       Incr
       'A
       'H
-      '(((A . 1) 1 R A) ((A) 1 S H)) ) )
+      '(((A . 1) 1 R A) ((A . 0) 1 S H)) ) )
 # Three-state busy beaver
 (test
    14
@@ -43,11 +55,11 @@
       '(NIL)
       'A
       'H
-      '(((A) 1 R B)
+      '(((A . 0) 1 R B)
          ((A . 1) 1 L C)
-         ((B)     1 L A)
+         ((B . 0) 1 L A)
          ((B . 1) 1 R B)
-         ((C)     1 L B)
+         ((C . 0) 1 L B)
          ((C . 1) 1 S H) ) ) )
 # Five-state busy beaver
 (println
@@ -55,15 +67,15 @@
    '(NIL)
    'A
    'H
-   '(((A) 1 R B)
+   '(((A . 0) 1 R B)
      ((A . 1) 1 L C)
-     ((B)     1 R C)
+     ((B . 0)     1 R C)
      ((B . 1) 1 R B)
-     ((C)     1 R D)
+     ((C . 0)     1 R D)
      ((C . 1) 0 L E)
-     ((D)     1 L A)
+     ((D . 0)     1 L A)
      ((D . 1) 1 L D)
-     ((E)     1 S H)
+     ((E . 0)     1 S H)
      ((E . 1) 0 L A) ) )
 )
 (msg 'ok)

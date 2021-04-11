@@ -10,7 +10,7 @@
       (T (dec "N" 2)) ) )
 (de turing (Tape State Halt D)
    (let
-      (C 1  P 1  Curr)
+      (C 0  P 1  Curr)
       (loop
          (T (= State Halt))
          (inc 'C)
@@ -41,7 +41,7 @@
    (enum 'Incr 1) 1
    (enum 'Incr 2) 1
    (enum 'Incr 4) 1 )
-(test
+(println
    5
    (turing
       Incr
@@ -49,7 +49,7 @@
       'H
       '(((A . 1) 1 R A) ((A . 0) 1 S H)) ) )
 # Three-state busy beaver
-(test
+(println
    14
    (turing
       '(NIL)

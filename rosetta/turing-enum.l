@@ -21,62 +21,56 @@
                      State
                      (if (val (enum? Tape P)) @ 0) )
                   D ) ) )
-         # (println 'State State 'P P 'if (if (val (enum? Tape P)) @ 0))
-         # (println 'assoc (assoc (cons State (if (val (enum? Tape P)) @ 0)) D))
-         # (println
-            # 'Curr
-            # (assoc (cons State (if (val (enum? Tape P)) @ 0)) D)
-            # 'P P
-            # 'State State )
-         # (wait 1000)
          (set (enum 'Tape P) (++ Curr))
-         (case (++ Curr)
-            (R (right 'P))
-            (L (left 'P)) )
+         ((++ Curr) 'P)
          (setq State (++ Curr)) )
       C ) )
+      
 # Incrementer
 (set
    'Incr '(NIL)
    (enum 'Incr 1) 1
    (enum 'Incr 2) 1
    (enum 'Incr 4) 1 )
-(println
-   5
+(test
+   4
    (turing
       Incr
       'A
       'H
-      '(((A . 1) 1 R A) ((A . 0) 1 S H)) ) )
+      '(((A . 1) 1 right A)
+         ((A . 0) 1 prog H)) ) )
+
 # Three-state busy beaver
-(println
-   14
+(test 
+   13
    (turing
       '(NIL)
       'A
       'H
-      '(((A . 0) 1 R B)
-         ((A . 1) 1 L C)
-         ((B . 0) 1 L A)
-         ((B . 1) 1 R B)
-         ((C . 0) 1 L B)
-         ((C . 1) 1 S H) ) ) )
+      '(((A . 0) 1 right B)
+         ((A . 1) 1 left C)
+         ((B . 0) 1 left A)
+         ((B . 1) 1 right B)
+         ((C . 0) 1 left B)
+         ((C . 1) 1 prog H) ) ) )
+
 # Five-state busy beaver
-(println
-(turing
-   '(NIL)
-   'A
-   'H
-   '(((A . 0) 1 R B)
-     ((A . 1) 1 L C)
-     ((B . 0)     1 R C)
-     ((B . 1) 1 R B)
-     ((C . 0)     1 R D)
-     ((C . 1) 0 L E)
-     ((D . 0)     1 L A)
-     ((D . 1) 1 L D)
-     ((E . 0)     1 S H)
-     ((E . 1) 0 L A) ) )
-)
+(test
+   47176870
+   (turing
+      '(NIL)
+      'A
+      'H
+      '(((A . 0) 1 right B)
+         ((A . 1) 1 left C)
+         ((B . 0) 1 right C)
+         ((B . 1) 1 right B)
+         ((C . 0) 1 right D)
+         ((C . 1) 0 left E)
+         ((D . 0) 1 left A)
+         ((D . 1) 1 left D)
+         ((E . 0) 1 prog H)
+         ((E . 1) 0 left A) ) ) )
 (msg 'ok)
 (bye)

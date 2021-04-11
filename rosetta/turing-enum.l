@@ -10,10 +10,10 @@
       (T (dec "N" 2)) ) )
 (de turing (Tape State Halt D)
    (let
-      (P 1  C 0  Curr)
+      (C 0  P 1  Curr)
       (loop
-         (inc 'C)
          (T (= State Halt))
+         (inc 'C)
          (setq Curr
             (cdr
                (assoc

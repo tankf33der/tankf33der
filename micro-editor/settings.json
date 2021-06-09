@@ -1,21 +1,19 @@
-...
-...
-...
-	"tabmovement": false,
-    "tabsize": 4,
-    "tabstospaces": false,
-    "termtitle": false,
-    "useprimary": true,
-
-	"*.l": {
-		"autoclose": false,
-		"filetype": "picolisp",
-		"matchbrace": true,
-		"matchbraceleft": true,
-		"tabsize": 3,
-		"tabstospaces": true
-	},
-	"*.vp": {
-		"filetype": "verifpal"
-	}
+{
+    "*.l": {
+        "autoclose": false,
+        "autoident": true,
+        "filetype": "picolisp",
+        "matchbrace": true,
+        "matchbraceleft": true,
+        "tabsize": 3,
+        "tabstospaces": true
+    },
+    "*.vp": {
+        "commenttype": "// %s",
+        "filetype": "verifpal"
+    },
+    "autoclose": false,
+    "cursorline": false,
+    "rmtrailingws": true,
+    "ruler": false
 }

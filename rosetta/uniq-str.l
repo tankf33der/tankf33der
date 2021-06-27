@@ -1,6 +1,6 @@
 (de a (V K N)
    (if (assoc K (val V))
-      (push1 (cdr @) N)
+      (push (cdr @) N)
       (push V (list K (list N))) ) )
 (de un (Lst)
    (let (N (length Lst)  D)

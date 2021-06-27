@@ -1,21 +1,18 @@
-(de a (V K N)
+(de acc (V K N)
    (if (assoc K (val V))
-      (push (cdr @) N)
-      (push V (list K (list N))) ) )
+      (inc (nth (cadr @) N))
+      (push V (list K (list 1 0 0))) ) )
 (de un (Lst)
-   (let (N (length Lst)  D)
+   (let (Len (length Lst)  D)
       (for (I . Lst) (mapcar chop Lst)
          (for L Lst
-            (a 'D L I) ) )
-      (filter
-         '((L)
-            (let L (cadr L)
-               (println 'L L)
-               (and (cddr L) (caddr L))
-            ) )
-         D )
-   )
-)
+            (acc 'D L I) ) )
+      (mapcar
+         car
+         (by
+            car
+            sort
+            (filter '((L) (fully =1 (cadr L))) D) ) ) ) )
 (println
    (un
       (quote

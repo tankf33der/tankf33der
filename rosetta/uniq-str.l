@@ -1,3 +1,4 @@
+# http://rosettacode.org/wiki/Unique_characters_in_each_string#PicoLisp
 (de acc (V K N)
    (if (assoc K (val V))
       (inc (nth (cadr @) N))

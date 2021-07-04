@@ -15,6 +15,14 @@
 (setq *Deck (mkDeck))
 (println (length *Deck))
 (println *Deck)
+(off P1 P2)
+(while *Deck
+   (msg 'do)
+   (fifo 'P1 (++ *Deck))
+   (fifo 'P2 (++ *Deck)) )
+(println (length P1) (length P2))
+(println P1)
+(println P2)
 
 (msg 'ok)
 (bye)

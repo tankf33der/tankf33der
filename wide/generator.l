@@ -15,7 +15,6 @@
    (prin "  # " (hex (car L)) ".." (hex (cdr L)))
    (prinl) )
 (let Lst (ranges)
-   (test 225 (length Lst))
    (let X (car Lst)
       (for Y (cdr Lst)
          (if (>= (cdr X) (dec (car Y)))

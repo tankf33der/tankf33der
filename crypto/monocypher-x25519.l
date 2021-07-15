@@ -49,7 +49,6 @@
    (for X (range 0 255)
       (for Y (range 0 255)
          (for Z (range 0 255)
-            (println X Y Z)
             (set
                L1 Z
                (nth L1 32) X

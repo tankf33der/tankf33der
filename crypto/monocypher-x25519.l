@@ -15,7 +15,7 @@
          NIL
          '(R (32 B . 32))
          (cons NIL (32) S)
-         (cons NIL (32) P) ) 
+         (cons NIL (32) P) )
       R ) )
 (de crypto_x25519_public_key (S)
    (use P
@@ -35,6 +35,25 @@
          '(P (32 B . 32))
          (cons NIL (32) S))
       P ) )
+(de crypto_scalarmult (S P)
+   (use R
+      (native
+         "libmonocypher.so"
+         "crypto_x25519"
+         NIL
+         '(R (32 B . 32))
+         (cons NIL (32) S)
+         (cons NIL (32) P) )
+         R ) )
+(let (L1 (need 32 255)  L2 (need 32 255))
+   (for X (range 0 255)
+      (for Y (range 0 255)
+         (set
+            (nth L1 32) X
+            (nth L2 32) Y )
+         (test
+            (crypto_x25519 L1 L2)
+            (crypto_scalarmult L1 L2) ) ) ) )
 (let P (conc (range 15 0) (range 0 15))
    (do 241
       (test (crypto_x25519_public_key P) (crypto_scalarmult_base_soda P))
@@ -66,7 +85,7 @@
       '((N)
          (and (cdr N) (cons (hex (pack N)))) )
       (split (chop H) "," "x", "{", "}", " ") ) )
-(setq 
+(setq
    Sk
    (make
       (in "tests/precomp.txt"
@@ -89,7 +108,7 @@
 (mapc
    '((Prv)
       (set (nth Pub 32) (| (get Pub 32) 128))
-      (setq Pub (crypto_x25519 Prv Pub)) )     
+      (setq Pub (crypto_x25519 Prv Pub)) )
    Sk )
 (test
    (234 44 179 133 33 247 110 115 107 108 119 150 135 5 31 74 219 127 65 131 138 154 227 120 123 191 238 40 63 97 69 3)
@@ -103,7 +122,7 @@
 (set (nth S 32) (& `(hex "7f") (get U 32)))
 (test
    T
-   (= 
+   (=
       (crypto_x25519 S U)
       (prog
          (set (nth S 32) (| `(hex "80") (get U 32)))
@@ -117,7 +136,7 @@
    NIL
    (= (crypto_x25519 Scalar P1) (crypto_x25519 Scalar P2)) )
 # test-curve25519.c
-(setq 
+(setq
    E1 (need 32 0)
    E2 (need 32 0)
     K (need 32 0)
@@ -132,10 +151,10 @@
    (at (0 . 10000) (prin ".") (flush))
    (at (0 . 100000) (prin "!") (flush))
    (setq
-      R 
+      R
       (crypto_x25519
          E2
-         (setq R1 (crypto_x25519 E1 K)) ) 
+         (setq R1 (crypto_x25519 E1 K)) )
       R3
       (crypto_x25519
          E1
@@ -143,9 +162,9 @@
    (test R R3)
    (map xor! E1 R2)
    (map xor! E2 R1)
-   (map xor! K R3) ) 
-(test 
-   R3 
+   (map xor! K R3) )
+(test
+   R3
    (199 62 28 19 192 34 248 94 208 137 42 208 172 140 88 102 31 155 139 99 56 18 47 247 205 211 74 184 51 114 21 111) )
 (msg 'ok-x25519)
 (bye)

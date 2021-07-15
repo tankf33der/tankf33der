@@ -48,12 +48,16 @@
 (let (L1 (need 32 255)  L2 (need 32 255))
    (for X (range 0 255)
       (for Y (range 0 255)
-         (set
-            (nth L1 32) X
-            (nth L2 32) Y )
-         (test
-            (crypto_x25519 L1 L2)
-            (crypto_scalarmult L1 L2) ) ) ) )
+         (for Z (range 0 255)
+            (println X Y Z)
+            (set
+               L1 Z
+               (nth L1 32) X
+               (nth L2 32) Y )
+            (test
+               (crypto_x25519 L1 L2)
+               (crypto_scalarmult L1 L2) ) ) ) ) )
+(bye)
 (let P (conc (range 15 0) (range 0 15))
    (do 241
       (test (crypto_x25519_public_key P) (crypto_scalarmult_base_soda P))

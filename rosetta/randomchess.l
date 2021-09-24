@@ -5,20 +5,20 @@
       ("p" 8)
       ("q" 1)
       (T 2) ) )
-(de pieceset () 
+(de pieceset ()
    (let C 0
       (make
          (for P (conc (cons "p") (shuffle '("r" "n" "b" "q")))
             (let (X (pieceN P)  N (rand 0 (+ X C)))
                (do N
-                  (link P) ) 
+                  (link P) )
                (if (= P "p")
                   (and
                      (> X N)
-                     (inc 'C (- X N)) ) 
+                     (inc 'C (- X N)) )
                   (and
                      (> N X)
-                     (dec 'C (- N X)) ) ) ) ) ) ) ) 
+                     (dec 'C (- N X)) ) ) ) ) ) ) )
 (de neib (A)
    (let
       (X (/ (dec A) 8)
@@ -40,15 +40,15 @@
 (setq *P (conc (pieceset) (mapcar uppc (pieceset)) (cons "K")))
 (for P *P
    (loop
-      (T 
-         (= 
-            "." 
-            (car 
+      (T
+         (=
+            "."
+            (car
                (setq @@
-                  (nth 
+                  (nth
                      *B
                      (apply
-                        rand 
+                        rand
                         (if (or (= "p" P) (= "P" P))
                            (9 56)
                            (1 64) ) ) ) ) ) )
@@ -56,12 +56,12 @@
 (loop
    (T
       (and
-         (= 
+         (=
             "."
             (car
                (setq @@ (nth *B (setq @@@ (rand 1 64)))) ) )
          (fully
-            '((N) (<> "K" (get *B N))) 
+            '((N) (<> "K" (get *B N)))
             (neib @@@) ) )
       (set @@ "k") ) )
 (setq *FEN

@@ -44,14 +44,13 @@
                   (% N P) ) )
             (setq P (* P 10)) ) ) ) )
 (de ismagna (N)
-   (if (> 10 N)
-      T
+   (or
+      (> 10 N)
       (fully isprime (numbers N)) ) )
 (let (C 0  N 0 Lst)
    (setq Lst
       (make
-         (loop
-            (T (== C 401))
+         (until (== C 401)
             (when (ismagna N)
                (link N)
                (inc 'C) )

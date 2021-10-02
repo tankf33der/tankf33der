@@ -89,10 +89,10 @@
          (link N) ) ) )
 (de fermat (N)
    (inc (** 2 (** 2 N))) )
-(for (N 0 (>= 9 N) (inc N))
+(for (N 0 (>= 8 N) (inc N))
    (println N ': (fermat N)) )
 (prinl)
-(for (N 0 (>= 9 N) (inc N))
+(for (N 0 (>= 8 N) (inc N))
    (let N (fermat N)
       (println
          N

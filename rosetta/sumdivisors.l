@@ -3,11 +3,11 @@
       (for X N
          (and (=0 (% N X)) (inc 'S X)) )
       S ) )
-(let
-   (L (mapcar propdiv (range 1 100))
-      Fmt (need 10 5) )
-   (while (cut 10 'L)
-      (tab Fmt @) ) )
+(do 10
+   (do 10
+      (prin (align 4 (propdiv (inc (0))))) )
+      (prinl) )
+
 
 
 (msg 'ok)

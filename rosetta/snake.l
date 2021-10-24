@@ -1,4 +1,4 @@
- (load "@lib/simul.l")
+(load "@lib/simul.l")
 (symbols 'simul 'pico)
 (de display ()
    (for L G

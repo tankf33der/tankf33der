@@ -34,5 +34,42 @@
    1457
    (c1-2 "data/1.txt") )
 
+# --- Day 2: Dive! ---
+(de c2-1 (F)
+   (let (H 0  D 0)
+      (in F
+         (until (eof)
+            (case (read)
+               ("forward" (inc 'H (read)))
+               ("down" (inc 'D (read)))
+               ("up" (dec 'D (read))) )
+            (line) ) )
+      (* H D) ) )
+(test
+   150
+   (c2-1 "data/2-test.txt") )
+(test
+   1427868
+   (c2-1 "data/2.txt") )
+
+(de c2-2 (F)
+   (let (H 0  D 0  A 0)
+      (in F
+         (until (eof)
+            (case (read)
+               ("down" (inc 'A (read)))
+               ("up" (dec 'A (read)))
+               ("forward"
+                  (inc 'H (setq @@ (read)))
+                  (inc 'D (* A @@)) ) )
+            (line) ) )
+      (* H D) ) )
+(test
+   900
+   (c2-2 "data/2-test.txt") )
+(test
+   1568138742
+   (c2-2 "data/2.txt") )
+
 (msg 'ok)
 (bye)

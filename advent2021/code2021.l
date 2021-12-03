@@ -1,3 +1,4 @@
+
 # --- Day 1: Sonar Sweep ---
 (de c1-read (F)
    (make
@@ -84,15 +85,13 @@
       (by cdr sort R) ) )
 (de c3-1 (F)
    (let
-      (Lst (apply mapcar (c3-read F) list)
-         Lst (mapcar c3-worker Lst))
+      Lst (mapcar c3-worker (apply mapcar (c3-read F) list))
       (apply
          *
          (mapcar
             '((F)
                (bin
-                  (pack
-                     (mapcar '((L) (car (F cdr L))) Lst) ) ) )
+                  (mapcar '((L) (car (F cdr L))) Lst) ) )
             '(maxi mini) ) ) ) )
 (test
    198
@@ -109,21 +108,27 @@
    (filter
       '((L) (= Num (get L I)))
       Lst ) )
-(de c3-2 (File Fun)
-   (let Lst (c3-read File)
-      (println 'Lst Lst)
-      # (for I (length (car Lst))
-      (for I 5
-         (println 'I I)
-         (let (L (c3-get I)  L (c3-worker L))
-            (println 'L L (car (Fun cdr L)))
-            (setq Lst (c3-filter Lst I (car (Fun cdr L))))
-            (println 'Lst Lst)
-         )
-      )
-   )
+(de c3-select (Fun Lst Select)
+   (if (= (cdar Lst) (cdadr Lst))
+      Select
+      (car (Fun cdr Lst)) )
 )
-(c3-2 "data/3-test.txt" 'maxi)
+(de c3-glue (File Fun Select)
+   (let Lst (c3-read File)
+      (for I (length (car Lst))
+         (let L (c3-worker (c3-get I))
+            (setq Lst (c3-filter Lst I (c3-select Fun L Select))) ) )
+      (bin (car Lst)) ) )
+(de c3-2 (F)
+   (*
+      (c3-glue F 'maxi "1")
+      (c3-glue F 'mini "0") ) )
+(test
+   230
+   (c3-2 "data/3-test.txt") )
+(test
+   587895
+   (c3-2 "data/3.txt") )
 
 (msg 'ok)
 (bye)

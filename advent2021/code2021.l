@@ -101,5 +101,22 @@
    4001724
    (c3-1 "data/3.txt") )
 
+(de c3-get (I)
+   (make
+      (for A (length Lst)
+         (link (get Lst A I)) ) ) )
+(de c3-2 (File Fun)
+   (let Lst (c3-read File)
+      (println 'Lst Lst)
+      (for I (length (car Lst))
+         (println 'I I)
+         (let (L (c3-get I)  L (c3-worker L))
+            (println 'L L)
+         )
+      )
+   )
+)
+(c3-2 "data/3-test.txt" 'maxi)
+
 (msg 'ok)
 (bye)

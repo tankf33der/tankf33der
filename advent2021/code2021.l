@@ -105,13 +105,20 @@
    (make
       (for A (length Lst)
          (link (get Lst A I)) ) ) )
+(de c3-filter (Lst I Num)
+   (filter
+      '((L) (= Num (get L I)))
+      Lst ) )
 (de c3-2 (File Fun)
    (let Lst (c3-read File)
       (println 'Lst Lst)
-      (for I (length (car Lst))
+      # (for I (length (car Lst))
+      (for I 5
          (println 'I I)
          (let (L (c3-get I)  L (c3-worker L))
-            (println 'L L)
+            (println 'L L (car (Fun cdr L)))
+            (setq Lst (c3-filter Lst I (car (Fun cdr L))))
+            (println 'Lst Lst)
          )
       )
    )

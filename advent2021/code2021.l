@@ -77,12 +77,29 @@
       (make
          (while (line)
             (link @) ) ) ) )
+(de c3-worker (Lst)
+   (let R NIL
+      (for L Lst
+         (accu 'R L 1) )
+      (by cdr sort R) ) )
 (de c3-1 (F)
-   (let Lst (apply mapcar (c3-read F) list)
-      (println Lst)
-   )
-)
-(c3-1 "data/3-test.txt")
+   (let
+      (Lst (apply mapcar (c3-read F) list)
+         Lst (mapcar c3-worker Lst))
+      (apply
+         *
+         (mapcar
+            '((F)
+               (bin
+                  (pack
+                     (mapcar '((L) (car (F cdr L))) Lst) ) ) )
+            '(maxi mini) ) ) ) )
+(test
+   198
+   (c3-1 "data/3-test.txt") )
+(test
+   4001724
+   (c3-1 "data/3.txt") )
 
 (msg 'ok)
 (bye)

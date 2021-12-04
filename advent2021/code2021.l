@@ -137,12 +137,6 @@
    (make
       (until (eol)
          (link (read)) ) ) )
-(de c4-rows ()
-   (make
-      (until (eof)
-         (do 5
-            (link (read)) )
-         (line) ) ) )
 (de c4-grids ()
    (make
       (until (eof)
@@ -152,13 +146,28 @@
                   (link
                      (make
                         (do 5
-                           (link (read)) ) ) ) )
+                           (link (box (read))) ) ) ) )
                (line) ) ) ) ) )
-(in "data/4-test.txt"
-   (println (c4-header))
-   (setq Lst (c4-grids))
+(de c4-print ()
+   (for G C4-Grids
+      (for L G
+         (for This L
+            (prin (val This) " ")
+         )
+         (prinl)
+      )
+      (prinl)
+   )
 )
-(println (cadr Lst))
+(in "data/411.txt"
+   (println (c4-header))
+   (setq C4-Grids (c4-grids))
+   (c4-print)
+)
+
+
+
+
 
 (msg 'ok)
 (bye)

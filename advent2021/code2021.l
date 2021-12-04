@@ -1,3 +1,5 @@
+(load "@lib/simul.l")
+(symbols 'simul 'pico)
 
 # --- Day 1: Sonar Sweep ---
 (de c1-read (F)
@@ -129,6 +131,25 @@
 (test
    587895
    (c3-2 "data/3.txt") )
+
+# --- Day 4: Giant Squid ---
+(de c4-header ()
+   (make
+      (until (eol)
+         (link (read))
+         (char) ) ) )
+(de c4-rows ()
+   (make
+      (until (eof)
+         (do 5
+            (link (read)) )
+         (line) ) ) )
+
+(in "data/4-test.txt"
+   (println (c4-header))
+   (line)
+   (println (c4-rows))
+)
 
 (msg 'ok)
 (bye)

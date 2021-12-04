@@ -136,20 +136,29 @@
 (de c4-header ()
    (make
       (until (eol)
-         (link (read))
-         (char) ) ) )
+         (link (read)) ) ) )
 (de c4-rows ()
    (make
       (until (eof)
          (do 5
             (link (read)) )
          (line) ) ) )
-
+(de c4-grids ()
+   (make
+      (until (eof)
+         (link
+            (make
+               (do 5
+                  (link
+                     (make
+                        (do 5
+                           (link (read)) ) ) ) )
+               (line) ) ) ) ) )
 (in "data/4-test.txt"
    (println (c4-header))
-   (line)
-   (println (c4-rows))
+   (setq Lst (c4-grids))
 )
+(println (cadr Lst))
 
 (msg 'ok)
 (bye)

@@ -160,19 +160,25 @@
          (prinl) )
       (prinl) ) )
 (de c4-set (N)
+   (println 'set N)
    (for G C4-Grids
       (for L G
          (for This L
             (when (= N (val This))
                (put This 'F T) ) ) ) ) )
+(de c4-find (Grid)
+   (println Grid)
+)
+
 (in "data/4-test.txt"
    (setq C4-Moves (c4-header))
    (setq C4-Grids (c4-grids))
    (do 12
       (c4-set (++ C4-Moves))
-      (c4-print)
+      # (T (setq @@ (c4-check)) (println '@@ @@))
    )
-
+   (c4-find (car C4-Grids))
+   (c4-print)
 )
 
 

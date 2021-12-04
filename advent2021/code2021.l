@@ -149,23 +149,31 @@
                            (link (box (read))) ) ) ) )
                (line) ) ) ) ) )
 (de c4-print ()
+   (msg 'NEXT)
    (for G C4-Grids
       (for L G
          (for This L
-            (prin (val This) " ")
-         )
-         (prinl)
-      )
-      (prinl)
-   )
-)
-(in "data/411.txt"
-   (println (c4-header))
+            (let Found (: F)
+               (if Found
+                  (prin "\(" (val This) "\) ")
+                  (prin (val This) " ") ) ) )
+         (prinl) )
+      (prinl) ) )
+(de c4-set (N)
+   (for G C4-Grids
+      (for L G
+         (for This L
+            (when (= N (val This))
+               (put This 'F T) ) ) ) ) )
+(in "data/4-test.txt"
+   (setq C4-Moves (c4-header))
    (setq C4-Grids (c4-grids))
-   (c4-print)
+   (do 12
+      (c4-set (++ C4-Moves))
+      (c4-print)
+   )
+
 )
-
-
 
 
 

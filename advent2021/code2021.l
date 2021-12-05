@@ -145,7 +145,7 @@
                         (do 5
                            (link (box (read))) ) ) ) )
                (line) ) ) ) ) )
-(de c4-print ()
+(de c4-printall ()
    (msg 'NEXT)
    (for G C4-Grids
       (for L G
@@ -156,8 +156,16 @@
                   (prin (val This) " ") ) ) )
          (prinl) )
       (prinl) ) )
+(de c4-print1 (Grid)
+   (for Lst Grid
+      (for This Lst
+         (let Found (: F)
+            (if Found
+               (prin "\(" (val This) "\) ")
+               (prin (val This) " ") ) ) )
+         (prinl) ) )
 (de c4-set (N)
-   (println 'set N)
+   # (println 'set N)
    (for G C4-Grids
       (for L G
          (for This L
@@ -176,13 +184,12 @@
 (in "data/4-test.txt"
    (setq C4-Moves (c4-header))
    (setq C4-Grids (c4-grids))
-   (do
-      (wait 500)
+   (loop
       (c4-set (++ C4-Moves))
       (T (setq @@ (c4-find)))
    )
-   (println 'find @@)
-   (c4-print)
+   (c4-print1 @@)
+   # (c4-printall)
 )
 
 

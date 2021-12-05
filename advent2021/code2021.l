@@ -164,8 +164,13 @@
                (prin "\(" (val This) "\) ")
                (prin (val This) " ") ) ) )
          (prinl) ) )
+(de c4-sum (Grid)
+   (let S 0
+      (for Lst Grid
+         (for This Lst
+            (or (: F) (inc 'S (val This))) ) )
+      S ) )
 (de c4-set (N)
-   # (println 'set N)
    (for G C4-Grids
       (for L G
          (for This L
@@ -175,22 +180,22 @@
    (find
       '((Grid)
          (find
-            '((Lst)
-               (fully '((This) (: F)) Lst) )
-            (conc
-               (copy Grid)
-               (apply mapcar Grid list) ) ) )
+            '((Lst) (fully '((This) (: F)) Lst))
+            (conc (copy Grid) (apply mapcar Grid list))) )
       C4-Grids ) )
-(in "data/4-test.txt"
-   (setq C4-Moves (c4-header))
-   (setq C4-Grids (c4-grids))
-   (loop
-      (c4-set (++ C4-Moves))
-      (T (setq @@ (c4-find)))
-   )
-   (c4-print1 @@)
-   # (c4-printall)
-)
+(de c4-1 (F)
+   (in F
+      (let (C4-Moves (c4-header)  C4-Grids (c4-grids))
+         (loop
+            (c4-set (setq A (++ C4-Moves)))
+            (T (c4-find)) )
+         (* A (c4-sum @)) ) ) )
+(test
+   4512
+   (c4-1 "data/4-test.txt") )
+(test
+   89001
+   (c4-1 "data/4.txt") )
 
 
 

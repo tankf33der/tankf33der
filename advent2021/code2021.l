@@ -163,22 +163,25 @@
          (for This L
             (when (= N (val This))
                (put This 'F T) ) ) ) ) )
-(de c4-find (Grid)
-   # (println 'Grid Grid)
+(de c4-find ()
    (find
-      '((Lst)
-         (fully '((This) (: F)) Lst) )
-      (conc
-         (copy Grid)
-         (apply mapcar Grid list) ) ) )
+      '((Grid)
+         (find
+            '((Lst)
+               (fully '((This) (: F)) Lst) )
+            (conc
+               (copy Grid)
+               (apply mapcar Grid list) ) ) )
+      C4-Grids ) )
 (in "data/4-test.txt"
    (setq C4-Moves (c4-header))
    (setq C4-Grids (c4-grids))
-   (do 12
+   (do
+      (wait 500)
       (c4-set (++ C4-Moves))
-      # (T (setq @@ (c4-check)) (println '@@ @@))
+      (T (setq @@ (c4-find)))
    )
-   (println 'find (c4-find (last C4-Grids)))
+   (println 'find @@)
    (c4-print)
 )
 

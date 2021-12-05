@@ -167,7 +167,8 @@
             (when (= N (val This))
                (put This 'F T) ) ) ) ) )
 (de c4-find (Grid)
-   (println Grid)
+   (println 'Grid Grid)
+   (println (get Grid 5 1))
 )
 
 (in "data/4-test.txt"

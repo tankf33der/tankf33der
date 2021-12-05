@@ -1,6 +1,3 @@
-(load "@lib/simul.l")
-(symbols 'simul 'pico)
-
 # --- Day 1: Sonar Sweep ---
 (de c1-read (F)
    (make
@@ -167,10 +164,13 @@
             (when (= N (val This))
                (put This 'F T) ) ) ) ) )
 (de c4-find (Grid)
-   (println 'Grid Grid)
-   (println (get Grid 5 1))
-)
-
+   # (println 'Grid Grid)
+   (find
+      '((Lst)
+         (fully '((This) (: F)) Lst) )
+      (conc
+         (copy Grid)
+         (apply mapcar Grid list) ) ) )
 (in "data/4-test.txt"
    (setq C4-Moves (c4-header))
    (setq C4-Grids (c4-grids))
@@ -178,7 +178,7 @@
       (c4-set (++ C4-Moves))
       # (T (setq @@ (c4-check)) (println '@@ @@))
    )
-   (c4-find (car C4-Grids))
+   (println 'find (c4-find (last C4-Grids)))
    (c4-print)
 )
 

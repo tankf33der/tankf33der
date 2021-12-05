@@ -175,9 +175,7 @@
       (for L G
          (for This L
             (when (= N (val This))
-               (put This 'F T)
-            )
-) ) ) )
+               (put This 'F T) ) ) ) ) )
 (de c4-find ()
    (find
       '((Grid)
@@ -199,13 +197,6 @@
    89001
    (c4-1 "data/4.txt") )
 
-(de c4-count ()
-   (cnt
-      '((Grid)
-         (find
-            '((Lst) (fully '((This) (: F)) Lst))
-            (conc (copy Grid) (apply mapcar Grid list))) )
-      C4-Grids ) )
 (de c4-filter ()
    (filter
       '((Grid)
@@ -213,25 +204,20 @@
             '((Lst) (fully '((This) (: F)) Lst))
             (conc (copy Grid) (apply mapcar Grid list))) )
       C4-Grids ) )
+
 (de c4-2 (F)
    (in F
       (let
          (C4-Moves (c4-header)
-            C4-Grids (c4-grids)
-            Count (length C4-Grids)
-         )
-         (println 'Count Count)
-         (loop
-            # (wait 1000)
+            C4-Grids (c4-grids) )
+         (do 15
+            (wait 500)
             (c4-set (setq A (++ C4-Moves)))
-            #(setq B (c4-filter))
-            (println 'A A)
-            (println 'B C4-Global)
-            (T (= 3 (c4-count)))
-            # (c4-printall)
+            (println 'A A (setq B (c4-filter)))
+            (println (length B))
+
+
          )
-         (println 'A A)
-         (println (c4-print1 C4-Global))
       )
    )
 )

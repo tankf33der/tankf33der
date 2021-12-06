@@ -163,7 +163,8 @@
             (if Found
                (prin "\(" (val This) "\) ")
                (prin (val This) " ") ) ) )
-         (prinl) ) )
+         (prinl) )
+   (prinl) )
 (de c4-sum (Grid)
    (let S 0
       (for Lst Grid
@@ -197,31 +198,7 @@
    89001
    (c4-1 "data/4.txt") )
 
-(de c4-filter ()
-   (filter
-      '((Grid)
-         (find
-            '((Lst) (fully '((This) (: F)) Lst))
-            (conc (copy Grid) (apply mapcar Grid list))) )
-      C4-Grids ) )
-
-(de c4-2 (F)
-   (in F
-      (let
-         (C4-Moves (c4-header)
-            C4-Grids (c4-grids) )
-         (do 15
-            (wait 500)
-            (c4-set (setq A (++ C4-Moves)))
-            (println 'A A (setq B (c4-filter)))
-            (println (length B))
-
-
-         )
-      )
-   )
-)
-(c4-2 "data/4-test.txt")
+# (c4-2 "data/4-test.txt")
 
 
 

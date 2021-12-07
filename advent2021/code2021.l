@@ -176,7 +176,9 @@
       (for L G
          (for This L
             (when (= N (val This))
-               (put This 'F T) ) ) ) ) )
+               (put This 'F T)
+               (setq C4-Last G)
+            ) ) ) ) )
 (de c4-find ()
    (find
       '((Grid)
@@ -197,10 +199,6 @@
 (test
    89001
    (c4-1 "data/4.txt") )
-
-# (c4-2 "data/4-test.txt")
-
-
 
 (msg 'ok)
 (bye)

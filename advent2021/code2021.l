@@ -176,8 +176,7 @@
       (for L G
          (for This L
             (when (= N (val This))
-               (put This 'F T)
-            ) ) ) ) )
+               (put This 'F T) ) ) ) ) )
 (de c4-find ()
    (find
       '((Grid)

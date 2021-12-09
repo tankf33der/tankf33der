@@ -177,7 +177,6 @@
          (for This L
             (when (= N (val This))
                (put This 'F T)
-               (setq C4-Last G)
             ) ) ) ) )
 (de c4-find ()
    (find

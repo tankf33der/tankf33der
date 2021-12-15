@@ -76,6 +76,7 @@
    (in F
       (make
          (while (line)
+
             (link @) ) ) ) )
 (de c3-worker (Lst)
    (let R NIL
@@ -184,6 +185,13 @@
             '((Lst) (fully '((This) (: F)) Lst))
             (conc (copy Grid) (apply mapcar Grid list))) )
       C4-Grids ) )
+(de c4-index ()
+   (for (I . Grid) C4-Grids
+      (T
+         (find
+            '((Lst) (fully '((This) (: F)) Lst))
+            (conc (copy Grid) (apply mapcar Grid list)))
+         I ) ) )
 (de c4-1 (F)
    (in F
       (let (C4-Moves (c4-header)  C4-Grids (c4-grids))

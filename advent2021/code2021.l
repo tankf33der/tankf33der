@@ -209,7 +209,7 @@
 (de c4-2 (F)
    (in F
       (let (C4-Moves (c4-header)  C4-Grids (c4-grids))
-         (do 12
+         (do 15
             (c4-set (setq A (++ C4-Moves)))
             (println 'A A)
             (when (c4-index)

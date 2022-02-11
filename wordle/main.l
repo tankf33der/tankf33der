@@ -5,6 +5,15 @@
    (prin "^[[30;47m" A "^[[0m") )
 (de yellow (A)
    (prin "^[[30;103m" A "^[[0m") )
+(de display (Lst G)
+   (mapc
+      '((A B)
+         (case A
+            (1 (gray B))
+            (2 (yellow B))
+            (3 (green B)) ) )
+      Lst
+      G ) )
 (de compare (W G)
    (make
       (for (I . X) G
@@ -38,6 +47,7 @@
 (gray 'gray)
 (yellow 'yellow)
 (prinl)
+(display (3 1 2 3 3) (chop "rebus"))
 
 
 (msg 'ok)

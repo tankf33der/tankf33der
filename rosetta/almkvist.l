@@ -12,7 +12,10 @@
       (/ (* A B) C) ) )
 
 (scl 70)
-(println (/ 1.0 123456))
+(println (/ 1.0 12345678901234567890))
+
+(println (/ 1.0 (almkvist 70)))
+
 
 (msg 'ok)
 (bye)

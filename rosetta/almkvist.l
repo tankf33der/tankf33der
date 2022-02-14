@@ -1,10 +1,9 @@
 # https://www.rosettacode.org/wiki/Almkvist-Giullera_formula_for_pi
 (scl 70)
 (de fact (N)
-   (cache '(NIL) N
-      (if (=0 N)
-         1
-         (* N (fact (dec N))) ) ) )
+   (if (=0 N)
+      1
+      (* N (fact (dec N))) ) )
 (de almkvist (N)
    (let
       (A (* 32 (fact (* 6 N)))
@@ -16,7 +15,7 @@
       1.0
       (almkvist N)
       (** 10 (+ 3 (* 6 N))) ) )
- (let (S 0  N -1)
+(let (S 0  N -1)
    (do 10
       (println (inc 'N) (almkvist N)) )
    (prinl)

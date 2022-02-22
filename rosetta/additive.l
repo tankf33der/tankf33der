@@ -12,11 +12,10 @@
 (de additive (N)
    (and
       (prime? N)
-      (prime? (sum prog (mapcar format (chop N)))) ) )
-(let (N 0  C 0)
-   (loop
-      (T (> N 500))
-      (when (additive (inc 'N))
+      (prime? (sum format (chop N))) ) )
+(let C 0
+   (for (N 0 (> 500 N) (inc N))
+      (when (additive N)
          (printsp N)
          (inc 'C) ) )
    (prinl)

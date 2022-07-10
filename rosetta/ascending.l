@@ -12,7 +12,7 @@
       L (1 2 2 . (4 2 4 2 4 6 2 6 .))
       Lst
       (make
-         (while (> 2345678 D)
+         (while (> 23456789 D)
             (and
                (prime? D)
                (apply < (chop D))

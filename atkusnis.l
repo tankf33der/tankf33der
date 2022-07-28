@@ -1,4 +1,4 @@
-(gc 512)
+(gc 64)
 (load "@lib/simul.l")
 
 (let D NIL

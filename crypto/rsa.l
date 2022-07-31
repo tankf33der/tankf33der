@@ -1,16 +1,16 @@
-# 24nov16abu
-# (c) Software Lab. Alexander Burger
+# 25may22 Software Lab. Alexander Burger
 
-# *InND
+(symbols 'rsa 'pico)
+
+(local) (longRand **Mod prime? prime rsaKey encrypt decrypt)
+(private) _prim?
 
 # Generate long random number
 (de longRand (N)
-   (use (R D)
-      (while (=0 (setq R (abs (rand)))))
-      (until (> R N)
-         (unless (=0 (setq D (abs (rand))))
-            (setq R (* R D)) ) )
-      (% R N) ) )
+   (let B 1
+      (for (M N  (n0 (setq M (>> 8 M))))
+         (inc 'B) )
+      (% (in "/dev/urandom" (rd B)) N) ) )
 
 # X power Y modulus N
 (de **Mod (X Y N)
@@ -46,12 +46,12 @@
       (loop
          (T
             (or
-               (and (=0 J) (= 1 Y))
+               (and (=0 J) (=1 Y))
                (= Y (dec N)) )
             T )
          (T
             (or
-               (and (> J 0) (= 1 Y))
+               (and (> J 0) (=1 Y))
                (<= K (inc 'J)) )
             NIL )
          (setq Y (% (* Y Y) N)) ) ) )
@@ -102,8 +102,3 @@
                (setq N (>> 16 N)) )
             Res ) )
       Lst ) )
-
-# Init crypt
-(de rsa (N)
-   (seed (in "/dev/urandom" (rd 20)))
-   (setq *InND (rsaKey N)) )

@@ -1,4 +1,3 @@
-
 (de disarium (N)
    (let S 0
       (for (I . N) (mapcar format (chop N))
@@ -10,6 +9,7 @@
          (disarium N)
          (printsp N)
          (inc 'C) )
-      (inc 'N) ) )
+      (inc 'N) )
+   (prinl) )
 (msg 'ok)
 (bye)

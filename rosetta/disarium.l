@@ -1,3 +1,4 @@
+
 (de disarium (N)
    (let S 0
       (for (I . N) (mapcar format (chop N))

@@ -1,7 +1,7 @@
-(seed (in "/dev/urandom" (rd 8)))
-(de rand8 NIL
+(de rand4 NIL
    (make
-      (do 8
+      (do 4
          (link (rand 0 255)) ) ) )
 (loop
-   (apply wr (rand8)) )
+   (apply wr (rand4)) )
+

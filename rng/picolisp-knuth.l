@@ -1,4 +1,4 @@
+(seed (in "/dev/urandom" (rd 8)))
 (out NIL
    (loop
-      (apply wr (rand 0 255)) ) )
-
+      (wr (rand 0 255)) ) )

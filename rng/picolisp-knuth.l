@@ -1,3 +1,7 @@
 (seed (time))
+(de rand8 NIL
+   (make
+      (do 8
+         (link (rand 0 255)) ) ) )
 (loop
-   (wr (rand 0 255)) )
+   (apply wr (rand8)) )

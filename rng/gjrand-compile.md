@@ -8,4 +8,10 @@ cd ../testunif/src
 ./compile
 cd ..
 vim README.txt
+
+1.
+pil ~/tankf33der/rng/dev-random.l | ./mcp --tiny
+
+2.
+./mcp --tiny < /dev/random
 ```

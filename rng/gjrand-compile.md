@@ -6,4 +6,6 @@ cd ../palladiumbell
 ./compile
 cd ../testunif/src
 ./compile
+cd ..
+vim README.txt
 ```

@@ -1,0 +1,14 @@
+key =
+tab	=
+"127.0.0.1" = "value"
+'key2' = "value"
+'quoted "value"' = "value"
+"" = "blank"
+'' = 'blank'
+physical.color = "orange"
+physical.shape = "round"
+site."google.com" = true
+fruit.name = "banana"     # this is best practice
+fruit. color = "yellow"    # same as fruit.color
+fruit . flavor = "banana"   # same as fruit.flavor
+fruit.apple.smooth = true

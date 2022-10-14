@@ -21,7 +21,9 @@
          )
       )
       (queue 'R (pack (reverse N)))
-      R
+      (if (cdr R)
+         R
+         (car R) )
    )
 )
 

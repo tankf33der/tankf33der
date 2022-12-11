@@ -111,8 +111,7 @@
 (de c3-select (Fun Lst Select)
    (if (= (cdar Lst) (cdadr Lst))
       Select
-      (car (Fun cdr Lst)) )
-)
+      (car (Fun cdr Lst)) ) )
 (de c3-glue (File Fun Select)
    (let Lst (c3-read File)
       (for I (length (car Lst))
@@ -205,27 +204,6 @@
 (test
    89001
    (c4-1 "data/4.txt") )
-
-(de c4-2 (F)
-   (in F
-      (let (C4-Moves (c4-header)  C4-Grids (c4-grids))
-         (do 15
-            (c4-set (setq A (++ C4-Moves)))
-            (println 'A A)
-            (when (c4-index)
-               (println 'index @)
-               (setq C4-Grids (remove @ C4-Grids))
-            )
-            # (c4-printall)
-         )
-         (println 'LAST)
-         (println 'Moves C4-Moves)
-         (c4-printall)
-      )
-   )
-)
-(c4-2 "data/4-test.txt")
-# (c4-2 "data/4.txt")
 
 (msg 'ok)
 (bye)

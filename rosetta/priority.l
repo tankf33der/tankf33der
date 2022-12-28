@@ -1,23 +1,25 @@
 # https://rosettacode.org/wiki/Priority_queue
 (off PQ)
-
-(setq PQ '((1 (mike P))))
-
 (de insertPQ (Q Lst)
    (let C 1
-   (for L (val Q)
-      (T (> (car L) (car Lst)) I) )
-   (set PQ (insert 2 (val Q) Lst))
-)
-
-
-
+      (set
+         Q
+         (insert
+            (or
+               (for L (val Q)
+                  (T (> (car L) (car Lst)) C)
+                  (inc 'C) )
+               C )
+            PQ
+            Lst ) ) ) )
 (insertPQ 'PQ '(3 (Clear drains)))
+(insertPQ 'PQ '(4 (Feed cat)))
+(insertPQ 'PQ '(5 (Make tea)))
+(insertPQ 'PQ '(1 (Solve RC tasks)))
+(insertPQ 'PQ '(2 (Tax return)))
 
-# (println PQ)
-# (setq PQ (insert 2 PQ 2))
-(println PQ)
-
+(while PQ
+   (println (cadr (++ PQ))) )
 
 (msg 'ok)
 (bye)

@@ -1,3 +1,4 @@
+
 # https://github.com/vlang/v/issues/302
 (scl 16)
 (let (X 1.0  Pi 1.0)

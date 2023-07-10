@@ -41,7 +41,9 @@
             (=: M (mnhtn This E)) ) )
       (disp Grid 0
          '((This) (if (: V) (pack " " @ " ") "   ")) )
+      (with S
 
+      )
 
    ) # let
 )

@@ -24,9 +24,6 @@
          (apply mapcar (reverse Lst) list) )
       (disp Grid 0
          '((This) (if (: V) (pack " " @ " ") "   ")) )
-   (for G Grid
-      (println 'G G) )
-
    (with 'a1
       (println (north This)))
 

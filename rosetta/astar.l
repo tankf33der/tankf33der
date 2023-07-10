@@ -1,6 +1,10 @@
 # https://rosettacode.org/wiki/A*_search_algorithm
 (load "@lib/simul.l")
 (symbols 'pico 'simul)
+(de mnhtn (A B)
+   (+
+      (abs (- (; A X) (; B X)))
+      (abs (- (; A Y) (; B Y))) ) )
 (de astar (Lst)
    (let
       (Lst (mapcar chop Lst)
@@ -29,11 +33,7 @@
          (apply mapcar (reverse Lst) list) )
       (disp Grid 0
          '((This) (if (: V) (pack " " @ " ") "   ")) )
-
-      (show 'a1)
-      (show 'c2)
    )
-
 )
 
 (astar

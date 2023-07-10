@@ -11,6 +11,25 @@
       (Lst (mapcar chop Lst)
          Grid (grid (length (car Lst)) (length Lst))
       )
+      (mapc
+         '((G L)
+            (mapc
+               '((This Val)
+                  (println This Val)
+                  (cond
+                     ((= "#" Val)
+                        (with (: 0 1 1) (con (: 0 1)))    # Cut off west
+                        (with (: 0 1 -1) (set (: 0 1)))   # east
+                        (with (: 0 -1 1) (con (: 0 -1)))  # south
+                        (with (: 0 -1 -1) (set (: 0 -1))) # north
+                        (set This) )
+                     (T (=: val Val)) )
+               )
+               G L ) )
+         Grid
+         (apply mapcar (reverse Lst) list) )
+      (disp Grid 0
+         '((This) (if (: val) (pack " " @ " ") "   ")) )
    )
 )
 

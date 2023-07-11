@@ -43,19 +43,13 @@
          '((This) (if (: Val) (pack " " @ " ") "   ")) )
       (with Curr
          (=: Visit T)
+         (show Curr)
          (println
             (filter
                '((Dir)
-                  (println Lst 'car (car Lst) 'cdr (cdr Lst))
                   (with ((car Dir) This)
-                     (println 'This This)
+                     (not (: Visit))
                   )
-                  # (let? This ((car Lst) Curr)
-                     # (println 'inside This)
-                     # (and
-                        # (not (: Visit)) )
-                  # )
-
                )
                (quote
                   (north . 1)
@@ -63,8 +57,12 @@
                   (east . 1)
                   (west . 1)
                   (((X) (south (east X))) . 2)
+                  (((X) (south (west X))) . 2)
+                  (((X) (north (east X))) . 2)
+                  (((X) (north (west X))) . 2)
                )
          )
+      )
       )
 
    ) # let
@@ -72,7 +70,7 @@
 
 (astar
    '("S  "
-     "   "
+     " # "
      "  E" ) )
 
 (msg 'ok)

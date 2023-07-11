@@ -59,19 +59,19 @@
                            (not (: Visit))
                            # (println 'This This (cdr Lst) Curr (get Curr 'G))
                            (=: G (+ (cdr Lst) (get Curr 'G)))
-                           (show This)
+                           # (show This)
                         )
                      )
                   )
                   (quote
-                     (north . 1)
-                     (south . 1)
-                     (east . 1)
-                     (west . 1)
-                     (((X) (south (east X))) . 2)
-                     (((X) (south (west X))) . 2)
-                     (((X) (north (east X))) . 2)
-                     (((X) (north (west X))) . 2) ) ) ) )
+                     (north . 10)
+                     (south . 10)
+                     (east . 10)
+                     (west . 10)
+                     (((X) (south (east X))) . 14)
+                     (((X) (south (west X))) . 14)
+                     (((X) (north (east X))) . 14)
+                     (((X) (north (west X))) . 14) ) ) ) )
             (msg 'loop)
             (setq Curr ((car S) Curr))
             (println Curr End (== Curr End))
@@ -83,8 +83,9 @@
 
 (astar
    '("S  "
+     " #E"
      " # "
-     "  E" ) )
+     "   " ) )
 
 (msg 'ok)
 (bye)

@@ -2,9 +2,11 @@
 (load "@lib/simul.l")
 (symbols 'pico 'simul)
 (de mnhtn (A B)
-   (+
-      (abs (- (; A X) (; B X)))
-      (abs (- (; A Y) (; B Y))) ) )
+   (sqrt
+      (+
+         (** (- (; B X) (; A X)) 2)
+         (** (- (; B Y) (; A Y)) 2) ) ) )
+(pp 'mnhtn)
 (de astar (Lst)
    (let
       (Lst (mapcar chop Lst)
@@ -84,7 +86,6 @@
 (astar
    '("S  "
      " #E"
-     " # "
      "   " ) )
 
 (msg 'ok)

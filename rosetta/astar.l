@@ -31,6 +31,7 @@
                         (T (=: Val V)) )
                      (=: X X)
                      (=: Y Y)
+                     (=: G 0)
                      (inc 'Y) )
                   G L )
                (inc 'X) ) )
@@ -38,35 +39,47 @@
          (apply mapcar (reverse Lst) list) )
       (for G Grid
          (for This G
-            (=: Mnhtn (mnhtn This E)) ) )
+            (=: H (mnhtn This End)) ) )
       (disp Grid 0
          '((This) (if (: Val) (pack " " @ " ") "   ")) )
-      (with Curr
-         (=: Visit T)
-         (show Curr)
-         (println
-            (filter
-               '((Dir)
-                  (with ((car Dir) This)
-                     (not (: Visit))
+      (until (== Curr End)
+         (wait 3000)
+         (with Curr
+            (=: Visit T)
+            (show Curr)
+            (setq S
+               (mini
+                  '((Lst)
+                     (with ((car Lst) This)
+                        (+ (: G) (: H)) ) )
+               (filter
+                  '((Lst)
+                     (with ((car Lst) This)
+                        (and
+                           (not (: Visit))
+                           # (println 'This This (cdr Lst) Curr (get Curr 'G))
+                           (=: G (+ (cdr Lst) (get Curr 'G)))
+                           (show This)
+                        )
+                     )
                   )
-               )
-               (quote
-                  (north . 1)
-                  (south . 1)
-                  (east . 1)
-                  (west . 1)
-                  (((X) (south (east X))) . 2)
-                  (((X) (south (west X))) . 2)
-                  (((X) (north (east X))) . 2)
-                  (((X) (north (west X))) . 2)
-               )
+                  (quote
+                     (north . 1)
+                     (south . 1)
+                     (east . 1)
+                     (west . 1)
+                     (((X) (south (east X))) . 2)
+                     (((X) (south (west X))) . 2)
+                     (((X) (north (east X))) . 2)
+                     (((X) (north (west X))) . 2) ) ) ) )
+            (msg 'loop)
+            (setq Curr ((car S) Curr))
+            (println Curr End (== Curr End))
          )
       )
-      )
+   )
+) # let
 
-   ) # let
-)
 
 (astar
    '("S  "

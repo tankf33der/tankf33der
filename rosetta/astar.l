@@ -10,8 +10,8 @@
       (Lst (mapcar chop Lst)
          Grid (grid (length (car Lst)) (length Lst))
          X 1
-         S NIL
-         E NIL
+         Curr NIL
+         End NIL
       )
       (mapc
          '((G L)
@@ -19,8 +19,8 @@
                (mapc
                   '((This V)
                      (cond
-                        ((= "S" V) (setq S This) (=: V V))
-                        ((= "E" V) (setq E This) (=: V V)) )
+                        ((= "S" V) (setq Curr This) (=: Val V))
+                        ((= "E" V) (setq End This) (=: Val V)) )
                      (cond
                         ((= "#" V)
                            (with (: 0 1 1) (con (: 0 1)))    # Cut off west
@@ -28,7 +28,7 @@
                            (with (: 0 -1 1) (con (: 0 -1)))  # south
                            (with (: 0 -1 -1) (set (: 0 -1))) # north
                            (set This) )
-                        (T (=: V V)) )
+                        (T (=: Val V)) )
                      (=: X X)
                      (=: Y Y)
                      (inc 'Y) )
@@ -38,11 +38,33 @@
          (apply mapcar (reverse Lst) list) )
       (for G Grid
          (for This G
-            (=: M (mnhtn This E)) ) )
+            (=: Mnhtn (mnhtn This E)) ) )
       (disp Grid 0
-         '((This) (if (: V) (pack " " @ " ") "   ")) )
-      (with S
+         '((This) (if (: Val) (pack " " @ " ") "   ")) )
+      (with Curr
+         (=: Visit T)
+         (println
+            (filter
+               '((Dir)
+                  (println Lst 'car (car Lst) 'cdr (cdr Lst))
+                  (with ((car Dir) This)
+                     (println 'This This)
+                  )
+                  # (let? This ((car Lst) Curr)
+                     # (println 'inside This)
+                     # (and
+                        # (not (: Visit)) )
+                  # )
 
+               )
+               (quote
+                  (north . 1)
+                  (south . 1)
+                  (east . 1)
+                  (west . 1)
+                  (((X) (south (east X))) . 2)
+               )
+         )
       )
 
    ) # let
@@ -50,7 +72,7 @@
 
 (astar
    '("S  "
-     " # "
+     "   "
      "  E" ) )
 
 (msg 'ok)

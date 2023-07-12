@@ -2,11 +2,9 @@
 (load "@lib/simul.l")
 (symbols 'pico 'simul)
 (de mnhtn (A B)
-   # Euclidean distance
-   (sqrt
-      (+
-         (** (- (; B X) (; A X)) 2)
-         (** (- (; B Y) (; A Y)) 2) ) ) )
+   (+
+      (abs (- (; A X) (; B X)))
+      (abs (- (; A Y) (; B Y))) ) )
 (de astar (Lst)
    (let
       (Lst (mapcar chop Lst)
@@ -33,7 +31,6 @@
                         (T (=: Val V)) )
                      (=: X X)
                      (=: Y Y)
-                     (=: G 0)
                      (inc 'Y) )
                   G L )
                (inc 'X) ) )

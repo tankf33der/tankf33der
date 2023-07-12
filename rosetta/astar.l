@@ -2,11 +2,11 @@
 (load "@lib/simul.l")
 (symbols 'pico 'simul)
 (de mnhtn (A B)
+   # Euclidean distance
    (sqrt
       (+
          (** (- (; B X) (; A X)) 2)
          (** (- (; B Y) (; A Y)) 2) ) ) )
-(pp 'mnhtn)
 (de astar (Lst)
    (let
       (Lst (mapcar chop Lst)

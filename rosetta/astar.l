@@ -16,6 +16,9 @@
   (for G Grid
       (for This G
          (=: H (mnhtn This End)) ) ) )
+(de make-move (A B)
+   (put A 'Val ".")
+   (put B 'Val "C") )
 (de create-grid (Grid Lst)
    (mapc
       '((G L)
@@ -23,7 +26,7 @@
             (mapc
                '((This V)
                   (cond
-                     ((= "S" V) (setq Curr This) (=: Val V))
+                     ((= "C" V) (setq Curr This) (=: Val V))
                      ((= "E" V) (setq End This) (=: Val V)) )
                   (cond
                      ((= "#" V)
@@ -51,17 +54,16 @@
       (create-grid Grid Lst)
       (create-mnhtn Grid)
       (display Grid)
-      (show 'a3)
-
+      (make-move 'a3 'a1)
+      (display Grid)
 
       (zap-grid Grid)
-      (show 'a3)
    )
 ) # let
 
 
 (astar
-   '("S.."
+   '("C.."
      ".#E"
      "..." ) )
 

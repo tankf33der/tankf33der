@@ -1,3 +1,6 @@
+# ADD NI_NUMERICHOST to src/sysdef.c
+
+
 # (host 'any 'flg) -> lst
 (de host_ (Node Flg)
    (use Lst

@@ -9,9 +9,38 @@
       (Grid (grid A A)
          Size (/ (inc A) 2)
          Center (get Grid Size Size)
+         Done NIL
       )
-      (with Center (=: V B))
-      (println 'Center Center)
+      (for G Grid
+         (for This G
+            (=: V 0) ) )
+      (with Center
+         (=: V B)
+         (for G Grid
+            (for This G
+               (when (>= (: V) 4)
+                  (=: V (- (: V) 4))
+                  (mapc
+                     '((Dir)
+                        (with (Dir This)
+                           (=: V (inc (: V)))
+                        )
+                     )
+                     '(north south west east)
+                  )
+               )
+            )
+         )
+         # (mapc
+            # '((Dir)
+               # (with (Dir This)
+                  # (println 'This Dir This)
+               # )
+            # )
+            # '(north south west east)
+         # )
+      )
+      # (println 'Center Center)
       (display Grid)
    )
 )

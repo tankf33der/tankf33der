@@ -1,6 +1,6 @@
 # https://rosettacode.org/wiki/Abelian_sandpile_model
 (load "@lib/simul.l")
-(symbols 'pico 'simul)
+(symbols 'simul 'pico)
 (de sandpile (A B)
    (let
       (Grid (grid A A)

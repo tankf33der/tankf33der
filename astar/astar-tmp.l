@@ -1,6 +1,6 @@
 # https://rosettacode.org/wiki/A*_search_algorithm
 (load "@lib/simul.l")
-(symbols 'pico 'simul)
+(symbols 'simul 'pico)
 (de mnhtn (A B)
    # Euclidean distance
    (sqrt

@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
+set -e
 
-rm -rf pil21/*
-rm -rf pil21.tgz
-wget -q http://software-lab.de/pil21.tgz
-tar zxf pil21.tgz
 cd pil21
-git add .
-git commit -aqm "." > /dev/null
-git push -q
+rm -rf -- *
+wget -q https://software-lab.de/pil21.tgz
+if [ -s "pil21.tgz" ]; then
+	tar -zxf pil21.tgz --strip-components=1
+	rm pil21.tgz
+
+	git add .
+	git commit -aqm "." > /dev/null
+	git push -q
+fi

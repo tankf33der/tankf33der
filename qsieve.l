@@ -1,14 +1,17 @@
 (de qsieve (F)
    (make
       (in F
-         (while (setq @@ (read "_"))
-            (link @@)
-            (ifn (= "\^" (peek))
-               (read "_")
-               (read "_")
-               (do (dec (read "_"))
-                  (link @@) )
-               (read "_") ) ) ) ) )
-(println (qsieve "qsieve.txt"))
+         (while (read "_")
+            (let R @
+               (link R)
+               (ifn (= "\^" (peek))
+                  (read "_")
+                  (read "_")
+                  (do (dec (read "_"))
+                     (link R) )
+                  (read "_") ) ) ) ) ) )
+(test
+   (2 2 3 3 3 1234 123456)
+   (qsieve "qsieve.txt") )
 (msg 'ok)
 (bye)

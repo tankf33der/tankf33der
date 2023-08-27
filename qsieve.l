@@ -4,12 +4,11 @@
          (while (read "_")
             (let R @
                (link R)
-               (ifn (= "\^" (peek))
-                  (read "_")
+               (when (= "\^" (peek))
                   (read "_")
                   (do (dec (read "_"))
-                     (link R) )
-                  (read "_") ) ) ) ) ) )
+                     (link R) ) )
+                  (read "_") ) ) ) ) )
 (test
    (2 2 3 3 3 1234 123456)
    (qsieve "qsieve.txt") )

@@ -3,7 +3,7 @@
 
 # (println "ulimit -s ulimited and GBs of RAM")
 
-(stack 8)
+(stack 3)
 (for N 1000
    (co (intern (pack 'ring N))
       (let (N N  Send (intern (pack 'ring (if (= 1000 N) 1 (inc N)))))

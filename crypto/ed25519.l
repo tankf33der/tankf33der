@@ -16,7 +16,7 @@
                (link (swap 'E (/ E 2)))
                (gt0 E) ) ) ) ) )
 (de expmod (B E M)
-   (let R 1  
+   (let R 1
       (for I (steps E)
          (and
             (setq R (modulo (* R R) M))
@@ -26,7 +26,7 @@
 (de inv (X)
    (expmod X (- *Q 2) *Q) )
 (de xrecover (Y)
-   (let 
+   (let
       (YY (* Y Y)
          XX (* (dec YY) (inv (inc (* *D YY))))
          X (expmod XX (/ (+ *Q 3) 8) *Q) )
@@ -49,7 +49,7 @@
    (cons
       (% (xrecover *By) *Q)
       (% *By *Q) ) )
- 
+
 (de edwards (P Q)
    (let
       (X1 (car P)
@@ -99,12 +99,12 @@
          (link
             (sum
                '((L) (>> (pop '*S) L))
-               (cut 8 'Lst) ) ) ) ) ) 
+               (cut 8 'Lst) ) ) ) ) )
 (de encodeint (Y)
    (ints (bits Y *B)) )
 (de encodepoint (P)
    (ints
-      (append 
+      (append
          (bits (cdr P) (dec *B))
          (cons (or (bit? 1 (car P)) 0)) ) ) )
 (de bit (L I)
@@ -140,21 +140,23 @@
       (+
          `(** 2 (- *B 2))
          (bitsum (sha512 Lst) 3 `(- *B 2)) )
+      (println 'A A)
       (encodepoint (scalarmult *Bxy A)) ) )
 (de signature (M SK PK)
    (let
       (H (sha512 SK)
-         A (+ `(** 2 (- *B 2)) (bitsum H 3 `(- *B 2))) 
+         A (+ `(** 2 (- *B 2)) (bitsum H 3 `(- *B 2)))
          r
          (Hint
             (append (head 32 (nth H `(inc 32))) M) )
          R (scalarmult *Bxy r)
-         S 
+         S
          (%
-            (+ 
+            (+
                r
                (* A (Hint (append (encodepoint R) PK M))) )
             *L ) )
+      (println 'H H 'A A 'r r 'R R 'S S)
       (append (encodepoint R) (encodeint S)) ) )
 (de checkvalid (S M PK)
    (or

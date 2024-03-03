@@ -1,7 +1,9 @@
 (off R)
 (in "weather_stations.csv"
-   (until (eof)
-      (let (A (prog1 (till ";" T) (char))  B (format (line T) 4))
+   (use (A B)
+      (while (setq A (till ";" T))
+         (char)
+         (setq B (format (line T) 4))
          (ifn (idx 'R A T)
             (set A (list 1 B B B))
             (let Lst (val (car @))

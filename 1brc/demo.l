@@ -13,8 +13,8 @@
                (when (> B (cadddr Lst)) (set (cdddr Lst) B))
                (inc (cddr Lst) B) ) ) ) ) )
 
-# (9 -346000 639952 379905)
-#(println (caar (idx 'R "San Rafael")))
+# weather_stations.csv - (9 -346000 639952 379905)
+# (println (caar (idx 'R "San Rafael")))
 
 (msg 'ok)
 (bye)

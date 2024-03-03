@@ -1,3 +1,4 @@
+(gc 12)
 (off R)
 (in "1m.csv"
    (use (A B)

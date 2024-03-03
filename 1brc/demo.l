@@ -1,5 +1,5 @@
 (off R)
-(in "weather_stations.csv"
+(in "1m.csv"
    (use (A B)
       (while (setq A (till ";" T))
          (char)
@@ -13,7 +13,7 @@
                (inc (cddr Lst) B) ) ) ) ) )
 
 # (9 -346000 639952 379905)
-(println (caar (idx 'R "San Rafael")))
+#(println (caar (idx 'R "San Rafael")))
 
 (msg 'ok)
 (bye)

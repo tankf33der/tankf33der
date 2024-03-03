@@ -5,10 +5,10 @@
 (when (lup R "A")
       (println 'B (get @ 2))
       (println 'D (get @ 4))
-      (set (cdr @) 123)       # B
-      (set (cdddr @) 1230)    # D
+      (set (cdr @) 123)       # set B
+      (set (cdddr @) 1230)    # set D
       (inc (caddr @) 1000)    # sum
-      (inc (cdaddr @))
+      (inc (cdaddr @))        # set count
 )
 (println 'R R)
 

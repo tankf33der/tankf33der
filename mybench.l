@@ -5,12 +5,10 @@
          (out 2
             (prinl
                "XXX:"
-               C
+               *Count
                " "
                (format (*/ (- (usec) U) 1000) 3) ) ) ) ) )
-
-(let C 1234
-   (Mybench (wait 11000))
-)
+(let *Count 1234
+   (Mybench (wait 1234)) )
 (msg 'ok)
 (bye)

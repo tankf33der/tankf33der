@@ -2,8 +2,8 @@ include -b color/darkgray
 
 set file-history false
 
-set statusline-left '%f %m %s %t %s %y,%x'
-set statusline-right ''
+set statusline-left '%f %m %s %y,%x'
+set statusline-right '%t'
 
 set expand-tab true
 set indent-width 4

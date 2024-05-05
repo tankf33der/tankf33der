@@ -1,4 +1,4 @@
-include -b color/darkgray
+#include -b color/darkgray
 
 set file-history false
 
@@ -11,7 +11,8 @@ set tab-width 4
 set ws-error trailing
 
 alias runme 'eval $DTE_HOME/interpret $FILETYPE'
-bind C-r 'save; runme'
+alias cs 'run clear'
+bind C-r 'save; cs; runme;'
 bind M-l 'run -p curl -F f=@$FILE pb1n.de'
 bind C-a 'bof; select; eof'
 bind C-p 'match-bracket'

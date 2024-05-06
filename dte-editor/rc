@@ -18,9 +18,10 @@ bind C-up 'bof'
 bind C-down 'eof'
 bind S-up 'up -l'
 bind S-down 'down -l'
-bind M-/ 'bol; insert #'
-#bind 'M-;' 'replace "^[ \t]+#" '''
-bind 'M-;' 'bol; right; erase'
+bind M-/ 'bookmark; bol; insert #; bookmark -r'
+bind 'M-;' 'bookmark; bol; right; erase; bookmark -r'
+bind C-d 'copy; paste'
+bind M-w 'close'
 
 ft lisp l
 option lisp expand-tab true

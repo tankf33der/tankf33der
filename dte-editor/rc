@@ -1,5 +1,3 @@
-#include -b color/darkgray
-
 set file-history false
 
 set statusline-left '%f %m %s %y,%x'
@@ -18,6 +16,11 @@ bind C-a 'bof; select; eof'
 bind C-p 'match-bracket'
 bind C-up 'bof'
 bind C-down 'eof'
+bind S-up 'up -l'
+bind S-down 'down -l'
+bind M-/ 'bol; insert #'
+#bind 'M-;' 'replace "^[ \t]+#" '''
+bind 'M-;' 'bol; right; erase'
 
 ft lisp l
 option lisp expand-tab true

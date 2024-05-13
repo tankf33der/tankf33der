@@ -23,7 +23,7 @@ bind 'M-;' 'bookmark; bol; delete; bookmark -r'
 bind C-d 'copy; paste'
 bind M-w 'close'
 
-ft lisp l
-option lisp expand-tab true
-option lisp indent-width 3
-option lisp tab-width 3
+ft picolisp l
+option picolisp expand-tab true
+option picolisp indent-width 3
+option picolisp tab-width 3

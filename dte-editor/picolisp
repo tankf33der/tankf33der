@@ -3,6 +3,8 @@ syntax picolisp
 state start code
     char # comment
     char '"' string
+    char 0-9 dec
+    char '+-' maybe-dec numeric
     eat this
 
 state comment
@@ -12,3 +14,13 @@ state comment
 state string
     char "\"" start string
     eat this
+
+state maybe-dec
+    char 0-9 dec
+    recolor code 1
+    noeat start
+
+state dec numeric
+    char 0-9. this
+    noeat start
+

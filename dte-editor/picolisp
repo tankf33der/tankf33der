@@ -1,12 +1,17 @@
 syntax picolisp
 
 state start code
+    str "#{" multi-comment
     char # comment
     char '"' string
     char 0-9 dec
     char '+-' maybe-dec numeric
     eat this
 
+state multi-comment comment
+    str "}#" start comment
+    eat this
+    
 state comment
     char "\n" start
     eat this

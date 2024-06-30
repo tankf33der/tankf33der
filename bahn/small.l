@@ -42,7 +42,7 @@
    (pause)
    (loop
       (move> This)
-      (pause 0.25) ) )
+      (pause 0.1) ) )
 
 (new '(+Locomotive) (pd 16 15 'b) 0
    (pause)

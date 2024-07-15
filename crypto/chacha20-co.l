@@ -21,11 +21,15 @@
    (loop
       (yield (+ (yield) (yield))) ) )
 (yield 'new "2+")
-(yield '100 "2+")
-(test 200 (yield '100 "2+"))
+(yield 100 "2+")
+(test 200 (yield 100 "2+"))
 (yield 'new "2+")
-(yield '1000 "2+")
-(test 2000 (yield '1000 "2+"))
+(yield 1000 "2+")
+(test 2000 (yield 1000 "2+"))
+
+(co '+
+   (loop
+      (yield (apply + (yield))) ) )
 
 
 (msg 'ok)

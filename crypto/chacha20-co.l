@@ -28,9 +28,13 @@
 (test 2000 (yield 1000 "2+"))
 
 (co '+
+   (yield)
    (loop
       (yield (apply + (yield))) ) )
-
+(de plus (Lst)
+   (co '+ T)
+   (yield Lst '+) )
+(test 3 (plus (1 2)))
 
 (msg 'ok)
 (bye)

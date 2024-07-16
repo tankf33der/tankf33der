@@ -45,19 +45,31 @@
 
 (co 'a
    (yield)
-   (loop
-      (let A 0
-         (if (=T (yield))
+   (let A 0
+      (loop
+         (if (num? (yield))
+            (yield (setq A @))
             (yield A)
-            (setq A (yield))
-            (println 'A A)
          )
       )
    )
 )
+# GET
 (co 'a T)
-(println (yield 123 'a))
-(println (yield 123 'a))
+(println (yield NIL 'a))
+# SET
+(co 'a T)
+(yield 123 'a)
+# GET
+(co 'a T)
+(println (yield NIL 'a))
+# SET
+(co 'a T)
+(yield -123 'a)
+# GET
+(co 'a T)
+(println (yield NIL 'a))
+
 (println (stack))
 
 

@@ -150,10 +150,26 @@
 (test 3599171602 (rol32 1234567 16))
 (test 3599171602 (rol32- 1234567 16))
 
+#(make
+#   (do 16
+#      (link
+#         (apply
+#            |
+#            (mapcar >> (-24 -16 -8 0) (cut 4 'Lst)) ) ) ) )
+
+(conc
+   (mapcar char (chop "expand 32-byte k"))
+   (range 1 32)
+   (range 1 16) )
+
+
+
+
 (println (stack))
 # stop world
 (for L (stack)
    (when (nT (car L)) (co (car L))) )
+(println (stack))
 
 (msg 'ok)
 (bye)

@@ -157,10 +157,22 @@
 #            |
 #            (mapcar >> (-24 -16 -8 0) (cut 4 'Lst)) ) ) ) )
 
-(conc
-   (mapcar char (chop "expand 32-byte k"))
-   (range 1 32)
-   (range 1 16) )
+(let (Lst
+        (conc
+            (mapcar char (chop "expand 32-byte k"))
+            (range 1 32)
+            (range 1 16) )
+        Data NIL
+     )
+     (setq Data
+        (make
+           (do 16
+              (link
+              (apply
+                 |
+                 (mapcar >> (0 -8 -16 -24) (cut 4 'Lst)) ) ) ) ) )
+     (println (length Data) Data)
+)
 
 
 

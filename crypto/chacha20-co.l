@@ -42,33 +42,28 @@
       (yield Lst '+) ) )
 (test 6 (plus2 (1 2 3)))
 
-
 (co 'a
    (yield)
    (let A 0
       (loop
          (if (num? (yield))
             (yield (setq A @))
-            (yield A)
-         )
-      )
-   )
-)
+            (yield A) ) ) ) )
 # GET
 (co 'a T)
-(println (yield NIL 'a))
+(test 0 (yield NIL 'a))
 # SET
 (co 'a T)
-(yield 123 'a)
+(test 123 (yield 123 'a))
 # GET
 (co 'a T)
-(println (yield NIL 'a))
+(test 123 (yield NIL 'a))
 # SET
 (co 'a T)
 (yield -123 'a)
 # GET
 (co 'a T)
-(println (yield NIL 'a))
+(test -123 (yield NIL 'a))
 
 (println (stack))
 

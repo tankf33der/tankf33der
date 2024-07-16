@@ -66,11 +66,13 @@
 (test -123 (yield NIL 'a))
 
 (de set_ (Var Val)
-   (co Var T)
-   (yield Val Var) )
+   (co 'set_
+      (co Var T)
+      (yield Val Var) ) )
 (de get_ (Var)
-   (co 'a T)
-   (yield NIL Var) )
+   (co 'get_
+      (co 'a T)
+      (yield NIL Var) ) )
 
 (set_ 'a 10)
 (test 10 (get_ 'a))
@@ -92,8 +94,9 @@
    (loop
       (yield (& (yield) `(hex "FFFFFFFF"))) ) )
 (de mod32- (N)
-   (co "mod32" T)
-   (yield N "mod32") )
+   (co 'mod32-
+      (co "mod32" T)
+      (yield N "mod32") ) )
 (test 1234 (mod32- 1234))
 (test 3755744309  (mod32- 12345678901))
 
@@ -102,9 +105,10 @@
    (loop
       (yield (>> (yield) (yield))) ) )
 (de shift- (C N)
-   (co "shift" T)
-   (yield C "shift")
-   (yield N "shift") )
+   (co 'shift-
+      (co "shift" T)
+      (yield C "shift")
+      (yield N "shift") ) )
 (test
    (>> -4 123456)
    (shift- -4 123456) )
@@ -117,9 +121,10 @@
    (loop
       (yield (- (yield) (yield))) ) )
 (de minus- (A B)
-   (co "minus" T)
-   (yield A "minus")
-   (yield B "minus") )
+   (co 'minus-
+      (co "minus" T)
+      (yield A "minus")
+      (yield B "minus") ) )
 (test
    (- 12345 5)
    (minus- 12345 5) )
@@ -129,17 +134,21 @@
    (loop
       (yield (| (yield) (yield))) ) )
 (de or- (A B)
-   (co "or" T)
-   (yield A "or")
-   (yield B "or") )
+   (co 'or-
+      (co "or" T)
+      (yield A "or")
+      (yield B "or") ) )
 (test
    (| 12345 54321)
    (or- 12345 54321) )
 
-
-
-
-
+(de rol32- (X C)
+   (co 'rol32-
+      (or-
+         (mod32- (shift- (- C) X))
+         (shift- (minus- 32 C) X) ) ) )
+(test 3599171602 (rol32 1234567 16))
+(test 3599171602 (rol32- 1234567 16))
 
 (println (stack))
 # stop world

@@ -37,16 +37,28 @@
 (test 3 (plus (1 2)))
 
 (de plus2 (Lst)
-   (co 'plus
-      (println 'callFrom (co) (cddr Lst))
+   (co 'plus2
+      (co '+ T)
+      (yield Lst '+) ) )
+(test 6 (plus2 (1 2 3)))
+
+
+(co 'a
+   (yield)
+   (loop
+      (let A 0
+         (if (=T (yield))
+            (yield A)
+            (setq A (yield))
+            (println 'A A)
+         )
+      )
    )
 )
-(plus2 (1 2 3))
-
-
-
-
-
+(co 'a T)
+(println (yield 123 'a))
+(println (yield 123 'a))
+(println (stack))
 
 
 (msg 'ok)

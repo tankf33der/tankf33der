@@ -77,6 +77,15 @@
 (set_ 'a (+ 100 (get_ 'a)))
 (test 110 (get_ 'a))
 
+(println (get_ 'a))
+(println (get_ 'a))
+(println (set_ 'a 123))
+(println (get_ 'a))
+(println (get_ 'a))
+
+
+
+
 
 
 # stop world

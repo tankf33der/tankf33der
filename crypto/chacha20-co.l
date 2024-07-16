@@ -36,5 +36,18 @@
    (yield Lst '+) )
 (test 3 (plus (1 2)))
 
+(de plus2 (Lst)
+   (co 'plus
+      (println 'callFrom (co) (cddr Lst))
+   )
+)
+(plus2 (1 2 3))
+
+
+
+
+
+
+
 (msg 'ok)
 (bye)

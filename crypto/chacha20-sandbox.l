@@ -77,19 +77,32 @@
 (set_ 'a (+ 100 (get_ 'a)))
 (test 110 (get_ 'a))
 
-(println (get_ 'a))
-(println (get_ 'a))
-(println (set_ 'a 123))
-(println (get_ 'a))
-(println (get_ 'a))
-
-(set_ 'a 777)
-(set_ 'a (get_ 'a))
-(println (get_ 'a))
 
 
+(de mod32 (N)
+   (& N `(hex "FFFFFFFF")) )
+(test 3755744309 (mod32 12345678901))
+
+(co "mod32"
+   (yield)
+   (loop
+      (yield (& (yield) `(hex "FFFFFFFF"))) ) )
+(de mod32- (N)
+   (co "mod32" T)
+   (yield N "mod32") )
+(test 1234 (mod32- 1234))
+(test 3755744309  (mod32- 12345678901))
 
 
+
+
+
+
+
+
+
+
+(println (stack))
 # stop world
 (for L (stack)
    (when (nT (car L)) (co (car L))) )

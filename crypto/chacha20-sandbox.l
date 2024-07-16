@@ -83,7 +83,9 @@
 (println (get_ 'a))
 (println (get_ 'a))
 
-
+(set_ 'a 777)
+(set_ 'a (get_ 'a))
+(println (get_ 'a))
 
 
 

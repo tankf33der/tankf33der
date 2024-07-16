@@ -79,8 +79,12 @@
 
 
 
+
 (de mod32 (N)
    (& N `(hex "FFFFFFFF")) )
+(de rol32 (X C)
+   (| (mod32 (>> (- C) X)) (>> (- 32 C) X)) )
+
 (test 3755744309 (mod32 12345678901))
 
 (co "mod32"
@@ -93,9 +97,44 @@
 (test 1234 (mod32- 1234))
 (test 3755744309  (mod32- 12345678901))
 
+(co "shift"
+   (yield)
+   (loop
+      (yield (>> (yield) (yield))) ) )
+(de shift- (C N)
+   (co "shift" T)
+   (yield C "shift")
+   (yield N "shift") )
+(test
+   (>> -4 123456)
+   (shift- -4 123456) )
+(test
+   (>> 4 123456)
+   (shift- 4 123456) )
 
+(co "minus"
+   (yield)
+   (loop
+      (yield (- (yield) (yield))) ) )
+(de minus- (A B)
+   (co "minus" T)
+   (yield A "minus")
+   (yield B "minus") )
+(test
+   (- 12345 5)
+   (minus- 12345 5) )
 
-
+(co "or"
+   (yield)
+   (loop
+      (yield (| (yield) (yield))) ) )
+(de or- (A B)
+   (co "or" T)
+   (yield A "or")
+   (yield B "or") )
+(test
+   (| 12345 54321)
+   (or- 12345 54321) )
 
 
 

@@ -65,8 +65,23 @@
 (co 'a T)
 (test -123 (yield NIL 'a))
 
-(println (stack))
+(de set_ (Var Val)
+   (co Var T)
+   (yield Val Var) )
+(de get_ (Var)
+   (co 'a T)
+   (yield NIL Var) )
 
+(set_ 'a 10)
+(test 10 (get_ 'a))
+(set_ 'a (+ 100 (get_ 'a)))
+(test 110 (get_ 'a))
+
+
+
+# stop world
+(for L (stack)
+   (when (nT (car L)) (co (car L))) )
 
 (msg 'ok)
 (bye)

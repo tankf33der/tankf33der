@@ -150,13 +150,6 @@
 (test 3599171602 (rol32 1234567 16))
 (test 3599171602 (rol32- 1234567 16))
 
-#(make
-#   (do 16
-#      (link
-#         (apply
-#            |
-#            (mapcar >> (-24 -16 -8 0) (cut 4 'Lst)) ) ) ) )
-
 (let (Lst
         (conc
             (mapcar char (chop "expand 32-byte k"))

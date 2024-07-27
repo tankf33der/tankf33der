@@ -2,7 +2,7 @@
 case "$1" in
 python) cmd=python3 ;;
 lua) cmd=lua ;;
-lisp) cmd=pil ;;
+picolisp) cmd=pil ;;
 ruby) cmd="ruby --jit" ;;
 *) echo "run -p echo 'Error: unknown interpretter \"$1\"'" && exit ;;
 esac

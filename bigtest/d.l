@@ -1,11 +1,11 @@
 ## dmd -O -release bigint.d
 (seed (in "/dev/urandom" (rd 8)))
-(load "rnd-prime.l")
+#(load "rnd-prime.l")
 (de rnd- NIL
    (let B
       (format
          (make
-            (do (rand 102 204)
+            (do (rand 300000 1000000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -26,8 +26,8 @@
 (pipe
    (out '("./bigint")
       (do 1000
-         (setq N1 (rnd))
-         (while (=0 (setq N2 (rnd))))
+         (setq N1 (rnd-))
+         (while (=0 (setq N2 (rnd-))))
          (setq N3 (rand 64 2048))
          (prinl N1)
          (prinl N2)

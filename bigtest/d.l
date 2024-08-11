@@ -1,11 +1,12 @@
+(gc 128)
 ## dmd -O -release bigint.d
-(seed (in "/dev/urandom" (rd 8)))
+#(seed (in "/dev/urandom" (rd 8)))
 #(load "rnd-prime.l")
 (de rnd- NIL
    (let B
       (format
          (make
-            (do (rand 300000 1000000)
+            (do (rand 3000000 10000000)
                (link (rand 0 9)) ) ) )
       (if (rand T) B (- B)) ) )
 (de test1 (S N1)
@@ -25,10 +26,10 @@
          (bye) ) ) )
 (pipe
    (out '("./bigint")
-      (do 1000
+      (do 10
          (setq N1 (rnd-))
          (while (=0 (setq N2 (rnd-))))
-         (setq N3 (rand 64 2048))
+         (setq N3 (rand 640 20480))
          (prinl N1)
          (prinl N2)
          (prinl N3)
@@ -52,7 +53,7 @@
          (prinl (abs N1) " >> " N3)
          (at (0 . 1000) (wait 50)) ) )
    (do 10
-      (do 100
+      (do 1
          (setq
             N1 (read)
             N2 (read)
